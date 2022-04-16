@@ -26,6 +26,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
 import com.ts.hmxy.util.JingJieHelper;
+import com.ts.hmxy.world.item.HmxyItems;
+import com.ts.hmxy.world.item.level.block.HmxyBlocks;
 import com.ts.hmxy.world.level.levelgen.feature.ConfiguredStructures;
 import com.ts.hmxy.world.level.levelgen.structure.Structures;
 
@@ -40,6 +42,9 @@ public class HmxyMod {
 
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		Structures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+		HmxyItems.ITEMS.register(modEventBus);
+		HmxyBlocks.BLOCKS.register(modEventBus);
+		
 		modEventBus.addListener(this::setup);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
@@ -70,7 +75,8 @@ public class HmxyMod {
 	    }
 	 
 	 private static Method GETCODEC_METHOD;
-	    public void addDimensionalSpacing(final WorldEvent.Load event) {
+	    @SuppressWarnings("resource")
+		public void addDimensionalSpacing(final WorldEvent.Load event) {
 	        if(event.getWorld() instanceof ServerLevel){
 	            ServerLevel serverWorld = (ServerLevel)event.getWorld();
 

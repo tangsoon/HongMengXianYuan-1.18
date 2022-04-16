@@ -17,7 +17,7 @@ public class Tabs {
 	/**矿石*/
 	public static final CreativeModeTab ORE = create("ore",()->new ItemStack(HmxyItems.REIKI_STONE_ORE.get()));
 	
-	private static int index=0;
+	private static int index=CreativeModeTab.TABS.length;
 	
 	private static CreativeModeTab create(String name,Supplier<ItemStack> supplier) {
 		return new CreativeModeTab(index++, name) {

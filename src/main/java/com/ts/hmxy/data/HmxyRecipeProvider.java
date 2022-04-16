@@ -19,3 +19,5 @@ public class HmxyRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(Items.LEATHER, 1).define('R', Items.ROTTEN_FLESH).define('S', Items.SLIME_BALL)
 				.pattern("RSR").pattern("SRS").pattern("RSR").unlockedBy("has_rotten_flesh", has(Blocks.RAIL))
 				.save(consumer);
+	}		
+}

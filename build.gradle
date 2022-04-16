@@ -59,7 +59,7 @@ minecraft {
             arg "-mixin.config=" + mod_id + ".mixins.json"
 
             mods {
-                hexy {
+                hmxy {
                     source sourceSets.main
                 }
             }

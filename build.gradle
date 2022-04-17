@@ -20,10 +20,12 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
+//version = property("mc_version")+"-"+property("mod_version")
+//group = property("mod_group")
+//archivesBaseName = property("mod_name") + "_" + property("version_name")
 version = property("mc_version")+"-"+property("mod_version")
 group = property("mod_group")
 archivesBaseName = property("mod_name") + "_" + property("version_name")
-
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 

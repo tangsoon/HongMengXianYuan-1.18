@@ -15,7 +15,7 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
-
+//copy from https://forge.gemwire.uk/wiki/Datageneration/Loot_Tables and do a little change.
 public abstract class AbstractLootTableProvider<T extends Supplier<ResourceLocation>> extends LootTableProvider {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	protected final Map<T, LootTable.Builder> lootTables = new HashMap<>();

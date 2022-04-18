@@ -3,13 +3,11 @@ package com.ts.hmxy.world.level.levelgen.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.ts.hmxy.HmxyMod;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
@@ -29,17 +27,19 @@ import net.minecraft.world.level.levelgen.structure.NoiseAffectingStructureStart
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
-
 import java.util.List;
 
-public class RunDownHouseStructureFeature extends StructureFeature<NoneFeatureConfiguration> {
-	public RunDownHouseStructureFeature(Codec<NoneFeatureConfiguration> codec) {
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+
+public class ParkStructure extends StructureFeature<NoneFeatureConfiguration> {
+	public ParkStructure(Codec<NoneFeatureConfiguration> codec) {
 		super(codec);
 	}
 
 	@Override
 	public StructureStartFactory<NoneFeatureConfiguration> getStartFactory() {
-		return RunDownHouseStructureFeature.Start::new;
+		return ParkStructure.Start::new;
 	}
 
 	@Override
@@ -47,18 +47,14 @@ public class RunDownHouseStructureFeature extends StructureFeature<NoneFeatureCo
 		return GenerationStep.Decoration.SURFACE_STRUCTURES;
 	}
 
-	private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_MONSTERS = ImmutableList.of(
-			new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 100, 4, 9),
-			new MobSpawnSettings.SpawnerData(EntityType.VINDICATOR, 100, 4, 9));
+	private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_MONSTERS = ImmutableList.of();
 
 	@Override
 	public List<MobSpawnSettings.SpawnerData> getDefaultSpawnList() {
 		return STRUCTURE_MONSTERS;
 	}
 
-	private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_CREATURES = ImmutableList.of(
-			new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 30, 10, 15),
-			new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 100, 1, 2));
+	private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_CREATURES = ImmutableList.of();
 
 	@Override
 	public List<MobSpawnSettings.SpawnerData> getDefaultCreatureSpawnList() {
@@ -77,10 +73,6 @@ public class RunDownHouseStructureFeature extends StructureFeature<NoneFeatureCo
 		return topBlock.getFluidState().isEmpty();
 	}
 
-	/**
-	 * Handles calling up the structure's pieces class and height that structure
-	 * will spawn at.
-	 */
 	public static class Start extends NoiseAffectingStructureStart<NoneFeatureConfiguration> {
 		public Start(StructureFeature<NoneFeatureConfiguration> structureIn, ChunkPos chunkPos, int referenceIn,
 				long seedIn) {
@@ -94,10 +86,10 @@ public class RunDownHouseStructureFeature extends StructureFeature<NoneFeatureCo
 			BlockPos structureBlockPos = new BlockPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ());
 			JigsawPlacement.addPieces(dynamicRegistryAccess,
 					new JigsawConfiguration(() -> dynamicRegistryAccess.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-							.get(new ResourceLocation(HmxyMod.MOD_ID, "run_down_house/start_pool")), 10),
+							.get(new ResourceLocation(HmxyMod.MOD_ID, "park/center_root")), 100),
 					PoolElementStructurePiece::new, chunkGenerator, structureManager, structureBlockPos, this,
 					this.random, false, true, heightLimitView);
-			this.pieces.forEach(piece -> piece.move(0, 1, 0));
+			this.pieces.forEach(piece -> piece.move(0, 2, 0));
 			Vec3i structureCenter = this.pieces.get(0).getBoundingBox().getCenter();
 			int xOffset = structureBlockPos.getX() - structureCenter.getX();
 			int zOffset = structureBlockPos.getZ() - structureCenter.getZ();
@@ -105,6 +97,7 @@ public class RunDownHouseStructureFeature extends StructureFeature<NoneFeatureCo
 				structurePiece.move(xOffset, 0, zOffset);
 			}
 			this.getBoundingBox();
+			LogManager.getLogger().log(Level.DEBUG, "园林在" + this.pieces.get(0).getBoundingBox().getCenter());
 		}
 	}
 }

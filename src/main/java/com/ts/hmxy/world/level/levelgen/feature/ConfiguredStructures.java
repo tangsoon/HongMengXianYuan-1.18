@@ -10,10 +10,10 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class ConfiguredStructures {
-    public static ConfiguredStructureFeature<?, ?> CONFIGURED_RUN_DOWN_HOUSE = Structures.RUN_DOWN_HOUSE.get().configured(NoneFeatureConfiguration.INSTANCE);
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_PARK = Structures.PARK.get().configured(NoneFeatureConfiguration.INSTANCE);
 
     public static void registerConfiguredStructures() {
         Registry<ConfiguredStructureFeature<?, ?>> registry = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE;
-        Registry.register(registry, new ResourceLocation(HmxyMod.MOD_ID, "configured_run_down_house"), CONFIGURED_RUN_DOWN_HOUSE);
+        Registry.register(registry, new ResourceLocation(HmxyMod.MOD_ID, "configured_park"), CONFIGURED_PARK);
     }
 }

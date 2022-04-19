@@ -25,7 +25,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
-
 import by.ts.hmxy.util.JingJieHelper;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
@@ -38,6 +37,7 @@ public class HmxyMod {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "hmxy";
 
+	
 	public HmxyMod() {
 		MinecraftForge.EVENT_BUS.register(this);
 

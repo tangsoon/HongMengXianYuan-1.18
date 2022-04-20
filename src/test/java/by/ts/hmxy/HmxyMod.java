@@ -31,7 +31,7 @@ import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import by.ts.hmxy.world.level.levelgen.feature.ConfiguredStructures;
 import by.ts.hmxy.world.level.levelgen.structure.Structures;
 
-@Mod("hmxy")
+//@Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -40,7 +40,7 @@ public class HmxyMod {
 	
 	public HmxyMod() {
 		MinecraftForge.EVENT_BUS.register(this);
-
+		System.out.println("啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦："+this.getClass().getClassLoader().toString());
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		Structures.STRUCTURES.register(modEventBus);
 		HmxyItems.ITEMS.register(modEventBus);

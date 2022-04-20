@@ -7,6 +7,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber
 public class HmxyModTest {
 	public HmxyModTest() {
-		
+		System.out.println("啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦："+this.getClass().getClassLoader().toString());
 	}
 }

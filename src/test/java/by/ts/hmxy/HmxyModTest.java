@@ -1,12 +1,15 @@
 package by.ts.hmxy;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import by.ts.hmxy.world.item.HmxyItemsTest;
+import by.ts.hmxy.world.item.level.block.HmxyBlocksTest;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-//@Mod("hmxy")
-@EventBusSubscriber
+/**在测试文件夹中覆盖这个类，用于测试*/
 public class HmxyModTest {
 	public HmxyModTest() {
-	System.out.print(false);	
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		HmxyItemsTest.ITEMS.register(modEventBus);
+		HmxyBlocksTest.BLOCKS.register(modEventBus);
 	}
 }

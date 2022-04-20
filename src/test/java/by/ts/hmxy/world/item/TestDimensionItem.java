@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 
 public class TestDimensionItem extends Item {
 	public TestDimensionItem() {
-		super(new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).durability(64));
+		super(new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).tab(Tabs.SUNDRY).durability(64));
 	}
 
 	@Override
@@ -26,9 +26,6 @@ public class TestDimensionItem extends Item {
 		if (!entity.mayUseItemAt(pos, context.getClickedFace(), itemstack)) {
 			return InteractionResult.FAIL;
 		} else {
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
 			boolean success = false;
 			if (world.isEmptyBlock(pos) && true) {
 				TestDimensionPortalBlock.portalSpawn(world, pos);

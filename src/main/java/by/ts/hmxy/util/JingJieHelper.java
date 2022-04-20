@@ -14,6 +14,7 @@ import by.ts.hmxy.HmxyMod;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,8 +39,16 @@ public class JingJieHelper {
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
 		if(event.getEntity() instanceof Player) {
 			Player player=(Player) event.getEntity();
-			player.getEntityData().define(ZHEN_YUAN, Integer.valueOf(0));
-			player.getEntityData().define(XIAO_JING_JIE, Integer.valueOf(0));
+			JingJieHelper.registerDataIfNull(player,ZHEN_YUAN, Integer.valueOf(0));
+			JingJieHelper.registerDataIfNull(player, XIAO_JING_JIE,Integer.valueOf(0));
+		}
+	}
+	
+	public static <T> void registerDataIfNull(LivingEntity living,EntityDataAccessor<T> dataAcce,T defaultValue) {
+		if(!living.getEntityData().getAll().stream().anyMatch(dataItem->{
+			return dataItem.getAccessor()==dataAcce;
+		})) {
+			living.getEntityData().define(dataAcce, defaultValue);
 		}
 	}
 	

@@ -52,19 +52,19 @@ public class HmxyMod {
 		modEventBus.addListener(this::setup);
 
 		new Thread(()->{
-			InputStreamReader in=new InputStreamReader(ClassLoader.getSystemResourceAsStream("data/hmxy/bug退散.txt"));
+			InputStreamReader in=new InputStreamReader(ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt"));
 			char[] cs=new char[64];
-			int len=0;
 			try {
-				while((len=in.read(cs))!=-1) {
+				while((in.read(cs))!=-1) {
 					System.out.print(cs);
 				}
-				
+				System.out.println();
 				in.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}).run();
+		new HmxyModTest();
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

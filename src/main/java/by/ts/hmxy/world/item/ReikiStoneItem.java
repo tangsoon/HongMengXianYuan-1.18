@@ -14,11 +14,6 @@ public class ReikiStoneItem extends Item implements IReiki {
 		super(pProperties);
 		this.reiki = reiki;
 		this.grade = grade;
-<<<<<<< HEAD
-		//这是测试2的注释
-=======
-		//这是测试1的注释。
->>>>>>> test1
 	}
 
 	@Override

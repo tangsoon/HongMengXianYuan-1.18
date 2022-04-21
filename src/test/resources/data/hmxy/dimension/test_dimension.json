@@ -38,10 +38,20 @@
         {
           "biome": "plains",
           "parameters": {
-            "temperature": 0,
-            "humidity": 0,
-            "altitude": 0,
-            "weirdness": 0,
+            "temperature": 1,
+            "humidity": -1,
+            "altitude": 0.75,
+            "weirdness": -1.5,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "hmxy:test_biome",
+          "parameters": {
+            "temperature": -1,
+            "humidity": 1,
+            "altitude": -0.75,
+            "weirdness": 1.5,
             "offset": 0
           }
         }

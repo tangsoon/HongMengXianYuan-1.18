@@ -346,7 +346,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
    protected void forceDifficulty() {
    }
 
-   protected void createLevels(ChunkProgressListener p_129816_) {
+   protected void createLevels(ChunkProgressListener p_129816_) {  
       ServerLevelData serverleveldata = this.worldData.overworldData();
       WorldGenSettings worldgensettings = this.worldData.worldGenSettings();
       boolean flag = worldgensettings.isDebug();
@@ -365,6 +365,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
          chunkgenerator = levelstem.generator();
       }
 
+      //start: 添加主世界. 
       ServerLevel serverlevel = new ServerLevel(this, this.executor, this.storageSource, serverleveldata, Level.OVERWORLD, dimensiontype, p_129816_, chunkgenerator, flag, j, list, true);
       this.levels.put(Level.OVERWORLD, serverlevel);
       DimensionDataStorage dimensiondatastorage = serverlevel.getDataStorage();
@@ -373,6 +374,8 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
       WorldBorder worldborder = serverlevel.getWorldBorder();
       worldborder.applySettings(serverleveldata.getWorldBorder());
       net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.world.WorldEvent.Load(levels.get(Level.OVERWORLD)));
+      //end: 添加主世界.
+      
       if (!serverleveldata.isInitialized()) {
          try {
             setInitialSpawn(serverlevel, serverleveldata, worldgensettings.generateBonusChest(), flag);
@@ -398,7 +401,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
       if (this.worldData.getCustomBossEvents() != null) {
          this.getCustomBossEvents().load(this.worldData.getCustomBossEvents());
       }
-
+      //start: 添加其它维度的世界。
       for(Entry<ResourceKey<LevelStem>, LevelStem> entry : mappedregistry.entrySet()) {
          ResourceKey<LevelStem> resourcekey = entry.getKey();
          if (resourcekey != LevelStem.OVERWORLD) {
@@ -412,7 +415,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
             net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.world.WorldEvent.Load(levels.get(resourcekey)));
          }
       }
-
+      //end: 添加其它维度的世界。
    }
 
    private static void setInitialSpawn(ServerLevel p_177897_, ServerLevelData p_177898_, boolean p_177899_, boolean p_177900_) {

@@ -63,6 +63,11 @@ import net.minecraft.world.level.storage.WorldData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 这个类只在服务器启动。
+ * @author tangsoon
+ *
+ */
 public class DedicatedServer extends MinecraftServer implements ServerInterface {
    static final Logger LOGGER = LogManager.getLogger();
    private static final int CONVERSION_RETRY_DELAY_MS = 5000;

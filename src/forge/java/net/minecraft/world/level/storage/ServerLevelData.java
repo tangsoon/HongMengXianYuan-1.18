@@ -9,6 +9,11 @@ import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.timers.TimerQueue;
 
+/**
+ * 存放一个level的状态信息，比如是否打雷下雨等。
+ * @author tangsoon
+ *
+ */
 public interface ServerLevelData extends WritableLevelData {
    /**
     * Get current world name

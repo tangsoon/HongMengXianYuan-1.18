@@ -21,6 +21,11 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
+/**
+ * 存放维度类型和该类维度的区块生成器，在某个时刻调用创建维度。
+ * @author tangsoon
+ *
+ */
 public final class LevelStem {
    public static final Codec<LevelStem> CODEC = RecordCodecBuilder.create((p_63986_) -> {
       return p_63986_.group(DimensionType.CODEC.fieldOf("type").flatXmap(ExtraCodecs.nonNullSupplierCheck(), ExtraCodecs.nonNullSupplierCheck()).forGetter(LevelStem::typeSupplier), ChunkGenerator.CODEC.fieldOf("generator").forGetter(LevelStem::generator)).apply(p_63986_, p_63986_.stable(LevelStem::new));

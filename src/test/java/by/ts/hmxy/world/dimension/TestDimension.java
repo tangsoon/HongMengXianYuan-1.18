@@ -32,7 +32,11 @@ public class TestDimension {
 			replaceableBlocks.add(ForgeRegistries.BIOMES.getValue(new ResourceLocation("plains")).getGenerationSettings().getSurfaceBuilder().get()
 					.config().getTopMaterial().getBlock());
 			replaceableBlocks.add(ForgeRegistries.BIOMES.getValue(new ResourceLocation("plains")).getGenerationSettings().getSurfaceBuilder().get()
-					.config().getUnderMaterial().getBlock());
+					.config().getUnderMaterial().getBlock());			
+			replaceableBlocks.add(ForgeRegistries.BIOMES.getValue(new ResourceLocation("hmxy:test_biome")).getGenerationSettings().getSurfaceBuilder()
+					.get().config().getTopMaterial().getBlock());
+			replaceableBlocks.add(ForgeRegistries.BIOMES.getValue(new ResourceLocation("hmxy:test_biome")).getGenerationSettings().getSurfaceBuilder()
+					.get().config().getUnderMaterial().getBlock());
 			event.enqueueWork(() -> {
 				WorldCarver.CAVE.replaceableBlocks = new ImmutableSet.Builder<Block>().addAll(WorldCarver.CAVE.replaceableBlocks)
 						.addAll(replaceableBlocks).build();

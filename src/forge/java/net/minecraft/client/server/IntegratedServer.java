@@ -35,6 +35,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 这个类是物理客户端的逻辑服务器。
+ * @author tangsoon
+ *
+ */
 @OnlyIn(Dist.CLIENT)
 public class IntegratedServer extends MinecraftServer {
    public static final int CLIENT_VIEW_DISTANCE_OFFSET = -1;
@@ -56,7 +61,7 @@ public class IntegratedServer extends MinecraftServer {
    }
 
    /**
-    * Initialises the server and starts it.
+    * Initialises the server and starts it. 初始化服务器并启动,这个方法会在进入某个存档后执行。
     */
    public boolean initServer() {
       LOGGER.info("Starting integrated minecraft server version {}", (Object)SharedConstants.getCurrentVersion().getName());

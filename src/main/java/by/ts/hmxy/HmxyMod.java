@@ -21,6 +21,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +65,16 @@ public class HmxyMod {
 				e.printStackTrace();
 			}
 		}).run();
-		new HmxyModTest();
+		
+		Class<?> testModClass;
+		String testModName="by.ts.hmxy.HmxyModTest";
+		try {
+			testModClass=Class.forName(testModName);
+			testModClass.getConstructor().newInstance();
+			LOGGER.info("启用测试类: "+testModName);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			LOGGER.info("未启用测试类: "+testModName);
+		}
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {

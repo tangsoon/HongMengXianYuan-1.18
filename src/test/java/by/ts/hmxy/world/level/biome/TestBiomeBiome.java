@@ -87,6 +87,7 @@ public class TestBiomeBiome {
 				.generationSettings(biomeGenerationSettings.build()).build();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void init() {
 		Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER,
 				new ResourceLocation(HmxyMod.MOD_ID, "test_biome"), SURFACE_BUILDER);

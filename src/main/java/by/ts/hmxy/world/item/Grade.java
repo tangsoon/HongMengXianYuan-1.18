@@ -21,7 +21,11 @@ public final class Grade {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public String getLocalName() {
+	public String getTransferedName() {
 		return ForgeI18n.getPattern(name);
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }

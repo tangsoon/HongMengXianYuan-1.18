@@ -2,6 +2,7 @@ package by.ts.hmxy.world.item;
 
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.world.item.level.block.TheMortalPortalBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -28,6 +29,9 @@ public class HmxyItems {
 	
 	/**往生石*/
 	public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
+	/**凡界传送门*/
+	public static final RegistryObject<Item> THE_MOTAL_PORTAL = ITEMS.register("the_mortal_portal",
+			() -> new BlockItem(HmxyBlocks.THE_MORTAL_PORTAL.get(),new Properties().tab(Tabs.SUNDRY)));
 	
 	
 }

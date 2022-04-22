@@ -13,7 +13,7 @@ import net.minecraft.core.BlockPos;
 
 public class TheMortalItem extends Item {
 	public TheMortalItem() {
-		super(new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).durability(64));
+		super(new Item.Properties().tab(Tabs.SUNDRY).durability(64));
 	}
 
 	@Override

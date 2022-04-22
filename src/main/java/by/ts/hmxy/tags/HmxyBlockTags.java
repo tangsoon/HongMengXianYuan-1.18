@@ -4,7 +4,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.tags.StaticTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.common.Mod;
 
 public class HmxyBlockTags {
 	public static Tag.Named<Block> bind(String pName) {

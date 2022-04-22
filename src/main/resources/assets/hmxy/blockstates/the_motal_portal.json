@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "hmxy:block/the_mortal_portal_ew"
+    },
+    "axis=x": {
+      "model": "hmxy:block/the_mortal_portal_ns"
+    }
+  }
+}

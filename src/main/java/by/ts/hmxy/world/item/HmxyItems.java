@@ -27,7 +27,7 @@ public class HmxyItems {
 	public static final RegistryObject<Item> REIKI_STONE_ORE=ITEMS.register("reiki_stone_ore", ()->new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)));
 	
 	/**往生石*/
-	public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("the_mortal", ()->new TheMortalItem());
+	public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
 	
 	
 }

@@ -26,7 +26,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
     	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");
     	this.add(HmxyItems.TOP_GRADE_REIKI_STONE.get(), "极品灵石");
-    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
+//    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
     	this.add(ElixirItem.GradeEnum.TIAN.grade, "天");
     	this.add(ElixirItem.GradeEnum.DI.grade, "地");
     	this.add(ElixirItem.GradeEnum.XUAN.grade, "玄");
@@ -40,7 +40,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
     	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
     	this.add(HmxyBlocks.REIKI_STONE_ORE.get(), "灵石矿");
-    	this.add(HmxyBlocks.THE_MORTAL_PORTAL.get(), "凡界传送门");
+    	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
     }
     
     public void add(Grade grade, String name) {

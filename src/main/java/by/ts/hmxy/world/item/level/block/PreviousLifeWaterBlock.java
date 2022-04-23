@@ -3,11 +3,10 @@ package by.ts.hmxy.world.item.level.block;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.Entity;
@@ -20,14 +19,13 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.BlockPos;
 import java.util.Random;
 import by.ts.hmxy.world.dimension.TheMortalTeleporter;
+import by.ts.hmxy.world.item.level.material.HmxyFluids;
 
-
-public class TheMortalPortalBlock extends LiquidBlock {
-	public TheMortalPortalBlock() {
-		super(() -> {
-			return Fluids.LAVA;
-		}, BlockBehaviour.Properties.of(Material.WATER).noCollission().randomTicks().strength(-1.0F)
-				.sound(SoundType.GLASS).lightLevel(s -> 15).noDrops());
+public class PreviousLifeWaterBlock extends LiquidBlock {
+	public PreviousLifeWaterBlock() {
+		super(()->(FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER.get(),
+				BlockBehaviour.Properties.of(Material.WATER).strength(100f).hasPostProcess((bs, br, bp) -> true)
+						.emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 15));
 	}
 
 	@Override
@@ -38,12 +36,6 @@ public class TheMortalPortalBlock extends LiquidBlock {
 	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
 	}
 
-	public static void portalSpawn(Level world, BlockPos pos) {
-//		Optional<TheMortalPortalShape> optional = TheMortalPortalShape.findEmptyPortalShape(world, pos, Direction.Axis.X);
-//		if (optional.isPresent()) {
-//			optional.get().createPortalBlocks();
-//		}
-	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
@@ -91,7 +83,7 @@ public class TheMortalPortalBlock extends LiquidBlock {
 	}
 
 	private void teleportToDimension(Entity entity, BlockPos pos, ResourceKey<Level> destinationType) {
-		entity.changeDimension(entity.getServer().getLevel(destinationType),
-				new TheMortalTeleporter(entity.getServer().getLevel(destinationType), pos));
+		entity.changeDimension(entity.getServer().getLevel(destinationType), new TheMortalTeleporter());
 	}
+
 }

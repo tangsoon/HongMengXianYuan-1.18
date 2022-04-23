@@ -31,6 +31,7 @@ import com.mojang.serialization.Codec;
 import by.ts.hmxy.util.JingJieHelper;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.world.item.level.material.HmxyFluids;
 import by.ts.hmxy.world.level.levelgen.feature.ConfiguredStructures;
 import by.ts.hmxy.world.level.levelgen.structure.Structures;
 
@@ -50,6 +51,7 @@ public class HmxyMod {
 		Structures.STRUCTURES.register(modEventBus);
 		HmxyItems.ITEMS.register(modEventBus);
 		HmxyBlocks.BLOCKS.register(modEventBus);
+		HmxyFluids.FLUIDS.register(modEventBus);
 		modEventBus.addListener(this::setup);
 
 		new Thread(()->{

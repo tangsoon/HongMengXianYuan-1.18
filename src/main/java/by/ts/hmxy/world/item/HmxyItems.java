@@ -2,9 +2,13 @@ package by.ts.hmxy.world.item;
 
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.world.item.level.material.HmxyFluids;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,10 +31,12 @@ public class HmxyItems {
 	public static final RegistryObject<Item> REIKI_STONE_ORE=ITEMS.register("reiki_stone_ore", ()->new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)));
 	
 	/**往生石*/
-	public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
+	//public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
 	/**凡界传送门*/
-	public static final RegistryObject<Item> THE_MOTAL_PORTAL = ITEMS.register("the_mortal_portal",
-			() -> new BlockItem(HmxyBlocks.THE_MORTAL_PORTAL.get(),new Properties().tab(Tabs.SUNDRY)));
-	
-	
+	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = ITEMS.register("previous_life_water",
+			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(),new Properties().tab(Tabs.SUNDRY)));
+	/**桶装往生泉*/
+	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET=ITEMS.register("previous_life_water_bucket", ()->{
+		return new BucketItem(()->{return HmxyFluids.PREVIOUS_LIFE_WATER.get();},new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.EPIC).tab(Tabs.SUNDRY));
+	});
 }

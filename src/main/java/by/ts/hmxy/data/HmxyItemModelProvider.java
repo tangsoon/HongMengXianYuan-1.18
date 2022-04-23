@@ -14,7 +14,7 @@ public class HmxyItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent(HmxyItems.THE_MOTAL_PORTAL.get().getRegistryName().getPath(), modLoc("block/the_mortal_portal"));
+        //withExistingParent(HmxyItems.THE_MOTAL_PORTAL.get().getRegistryName().getPath(), modLoc("block/the_mortal_portal"));
     }
 }
 

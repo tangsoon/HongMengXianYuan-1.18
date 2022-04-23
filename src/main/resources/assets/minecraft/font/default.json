@@ -1,0 +1,24 @@
+{
+	"providers": [
+		{
+			"type": "ttf",
+			"file": "minecraft:zhi_yong_write.ttf",
+			"shift": [
+				0,
+				0
+			],
+			"size": 11.0,
+			"oversample": 10.0
+		},
+		{
+			"type": "ttf",
+			"file": "minecraft:write.ttf",
+			"shift": [
+				0,
+				0
+			],
+			"size": 11.0,
+			"oversample": 10.0
+		}
+	]
+}

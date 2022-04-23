@@ -34,7 +34,8 @@ import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 import by.ts.hmxy.world.level.levelgen.feature.ConfiguredStructures;
 import by.ts.hmxy.world.level.levelgen.structure.Structures;
-
+//TODO 圆林的亭子没有对称。
+//TODO 传送门传送到目的地时应该选择较好的位置。
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {

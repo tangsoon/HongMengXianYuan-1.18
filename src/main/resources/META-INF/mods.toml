@@ -8,11 +8,13 @@ version="0.0.0.1" #mandatory
 displayName="鸿蒙仙缘" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-logoFile="examplemod.png" #optional
-credits="道友、修个仙吗？" #optional
-authors="TangSoon" #optional
+logoFile="logo.png" #optional
+credits='''感谢以下作者的奉献：
+*手书体和智勇手书英文体来自(知乎用户：Joker9)https://www.zhihu.com/question/19889152/answer/767066635 ;
+'''
+authors="指间青春" #optional
 description='''
-	这是一个修真模组。
+道友，修个仙吗？。
 '''
 [[dependencies.hmxy]] #optional
     modId="forge" #mandatory

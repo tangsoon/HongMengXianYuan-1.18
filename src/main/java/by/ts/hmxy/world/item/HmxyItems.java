@@ -2,7 +2,6 @@ package by.ts.hmxy.world.item;
 
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
-import by.ts.hmxy.world.item.level.block.TheMortalPortalBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;

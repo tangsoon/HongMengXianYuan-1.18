@@ -1,19 +1,20 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.world.item.HmxyItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class TutItemModels extends ItemModelProvider {
+public class HmxyItemModelProvider extends ItemModelProvider {
 
-    public TutItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+	public HmxyItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, HmxyMod.MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
-        //withExistingParent(Registration.MYSTERIOUS_ORE_OVERWORLD_ITEM.get().getRegistryName().getPath(), modLoc("block/mysterious_ore_overworld"));
+        withExistingParent(HmxyItems.THE_MOTAL_PORTAL.get().getRegistryName().getPath(), modLoc("block/the_mortal_portal"));
     }
 }
 

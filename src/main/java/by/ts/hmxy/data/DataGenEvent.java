@@ -18,5 +18,6 @@ public class DataGenEvent {
         //event.getGenerator().addProvider(new HmxyItemTagsProvider(event.getGenerator(), blockTagsProvider, event.getExistingFileHelper()));
         event.getGenerator().addProvider(new HmxyLootTableProvider(event.getGenerator()));
         event.getGenerator().addProvider(new HmxyLanguageProvider(event.getGenerator(),"zh_cn"));
+        event.getGenerator().addProvider(new HmxyItemModelProvider(event.getGenerator(), event.getExistingFileHelper()));
     }
 }

@@ -16,6 +16,7 @@ public class TheMortalItem extends Item {
 		super(new Item.Properties().tab(Tabs.SUNDRY).durability(64));
 	}
 
+	//TODO delete
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		Player entity = context.getPlayer();

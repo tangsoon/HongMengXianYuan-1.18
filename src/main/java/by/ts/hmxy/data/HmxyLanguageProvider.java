@@ -8,6 +8,7 @@ import by.ts.hmxy.world.item.Tabs;
 import by.ts.hmxy.world.item.food.elixir.ElixirItem;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.CreativeModeTab;
 
 public class HmxyLanguageProvider extends LanguageProvider {
 
@@ -17,7 +18,9 @@ public class HmxyLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-    	this.add("itemGroup."+Tabs.ELIXIR.getRecipeFolderName().toString(),"丹药");
+    	this.add(Tabs.ELIXIR,"丹药(鸿蒙仙缘)");
+    	this.add(Tabs.SUNDRY,"杂物(鸿蒙仙缘)");
+    	this.add(Tabs.ORE,"矿石(鸿蒙仙缘)");
     	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
     	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
@@ -42,6 +45,10 @@ public class HmxyLanguageProvider extends LanguageProvider {
     
     public void add(Grade grade, String name) {
         add(grade.getName(), name);
+    }
+    
+    public void add(CreativeModeTab tab, String name) {
+        add("itemGroup."+tab.getRecipeFolderName(), name);
     }
 }
 

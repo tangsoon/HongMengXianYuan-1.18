@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -18,27 +17,30 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import com.mojang.blaze3d.systems.RenderSystem;
+
+import by.ts.hmxy.HmxyConfig;
+
 import java.util.List;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
 @Mod.EventBusSubscriber({ Dist.CLIENT })
-public class HudOverlay {
+public class HmxyHud {
 
 	public static ResourceLocation hudLocation = new ResourceLocation("hmxy:textures/hud/hud.png");
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE) {
-			event.setCanceled(true);
+		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)&&HmxyConfig.showHmxyHud()) {
+			//event.setCanceled(true);
 			Player player = mc.player;
 
 			int gw = event.getWindow().getGuiScaledWidth();
 			int gh = event.getWindow().getGuiScaledHeight();
 			int pw = 216;// 材质的宽度
 			int ph = 41;// 材质的高度
-			int tw = 222;// 材质总宽度
+			int tw = 246;// 材质总宽度
 			int th = 50;// 材质总高度
 			int px = (gw - pw) / 2;// 渲染位置X
 			int py = gh - ph;// 渲染位置Y
@@ -51,6 +53,7 @@ public class HudOverlay {
 					GlStateManager.DestFactor.ZERO);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 			RenderSystem.setShaderTexture(0, hudLocation);
+			
 			// 物品栏
 			Gui.blit(event.getMatrixStack(), px, gh - ph, 0, 0, pw, ph, tw, th);
 			// 经验条
@@ -93,6 +96,11 @@ public class HudOverlay {
 			Gui.blit(event.getMatrixStack(), px + 210, py + 3 + airOffset, 219, airOffset, 3, 35, tw, th);
 			// 真元
 			Gui.blit(event.getMatrixStack(), px + 3, py + 3, 200, 41, 18, 8, tw, th);
+			
+			//选择框
+			int selected=player.getInventory().selected;
+			Gui.blit(event.getMatrixStack(), px + 21+20*selected, py + 11, 222, 0, 24, 24, tw, th);
+			
 			RenderSystem.depthMask(true);
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.enableDepthTest();
@@ -112,10 +120,10 @@ public class HudOverlay {
 			}
 			NonNullList<ItemStack> offhandList = player.getInventory().offhand;
 			ItemStack offHand = offhandList.get(0);
-
+			//副手物品
 			render.renderGuiItem(offHand, px + 5, py + 15);
 			render.renderGuiItemDecorations(mc.font, offHand, px + 5, py + 15);
-
+			
 		}
 	}
 }

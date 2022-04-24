@@ -8,7 +8,7 @@
 				1
 			],
 			"size": 10.0,
-			"oversample": 20.0
+			"oversample": 15.0
 		},
 		{
 			"type": "ttf",

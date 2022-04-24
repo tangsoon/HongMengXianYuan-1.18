@@ -16,7 +16,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
@@ -29,8 +28,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
-
-import by.ts.hmxy.client.hud.HmxyHud;
 import by.ts.hmxy.util.JingJieHelper;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
@@ -57,7 +54,6 @@ public class HmxyMod {
 		HmxyItems.ITEMS.register(modEventBus);
 		HmxyBlocks.BLOCKS.register(modEventBus);
 		HmxyFluids.FLUIDS.register(modEventBus);
-		HmxyHud.init();
 		modEventBus.addListener(this::setup);
 
 		new Thread(()->{

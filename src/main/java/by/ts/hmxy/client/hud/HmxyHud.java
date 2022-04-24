@@ -1,10 +1,10 @@
-
 package by.ts.hmxy.client.hud;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -32,8 +32,11 @@ public class HmxyHud {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
+
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)&&HmxyConfig.showHmxyHud()) {
-			//event.setCanceled(true);
+			if(event.getOverlay()==ForgeIngameGui.HOTBAR_ELEMENT||event.getOverlay()==ForgeIngameGui.ITEM_NAME_ELEMENT) {
+				event.setCanceled(true);	
+			}
 			Player player = mc.player;
 
 			int gw = event.getWindow().getGuiScaledWidth();
@@ -108,7 +111,7 @@ public class HmxyHud {
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 			// 境界
 			String jingjie = "境界";
-			mc.font.draw(event.getMatrixStack(), jingjie, px + 2, py + 4, 0xc69636);
+			mc.font.draw(event.getMatrixStack(), jingjie, px + 3, py + 3, 0xc69636);
 			// 物品栏
 			List<ItemStack> itemStacks = player.getInventory().items;
 			ItemRenderer render = mc.getItemRenderer();
@@ -123,7 +126,6 @@ public class HmxyHud {
 			//副手物品
 			render.renderGuiItem(offHand, px + 5, py + 15);
 			render.renderGuiItemDecorations(mc.font, offHand, px + 5, py + 15);
-			
 		}
 	}
 }

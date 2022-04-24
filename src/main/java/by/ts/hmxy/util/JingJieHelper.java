@@ -146,6 +146,8 @@ public class JingJieHelper {
         }
 	}
 	
+	
+	
 	/**根据小境界计算大境界*/
 	public static int getDaJingJieByXiao(int xiaoJingJie) {
 		if(xiaoJingJie==0) {

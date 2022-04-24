@@ -5,10 +5,10 @@
 			"file": "minecraft:zhi_yong_write.ttf",
 			"shift": [
 				0,
-				0
+				1
 			],
-			"size": 11.0,
-			"oversample": 10.0
+			"size": 10.0,
+			"oversample": 20.0
 		},
 		{
 			"type": "ttf",

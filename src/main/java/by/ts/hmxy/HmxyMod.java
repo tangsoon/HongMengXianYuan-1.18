@@ -16,6 +16,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
@@ -28,6 +29,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
+
+import by.ts.hmxy.client.hud.HmxyHud;
 import by.ts.hmxy.util.JingJieHelper;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
@@ -47,12 +50,14 @@ public class HmxyMod {
 		forgeBus.register(this);
 		forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
-
+		//forgeBus.addListener(EventPriority.HIGH, this::clientSetUp);
+		
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		Structures.STRUCTURES.register(modEventBus);
 		HmxyItems.ITEMS.register(modEventBus);
 		HmxyBlocks.BLOCKS.register(modEventBus);
 		HmxyFluids.FLUIDS.register(modEventBus);
+		HmxyHud.init();
 		modEventBus.addListener(this::setup);
 
 		new Thread(()->{
@@ -81,12 +86,16 @@ public class HmxyMod {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		JingJieHelper.initJingJies();
 		event.enqueueWork(() -> {
+			JingJieHelper.initJingJies();
 			Structures.setupStructures();
 			ConfiguredStructures.registerConfiguredStructures();
 		});
 	}
+	
+//	private void  clientSetUp(FMLClientSetupEvent event) {
+//		HudHandler.register(event);
+//	}
 
 	public void biomeModification(final BiomeLoadingEvent event) {
 		event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURED_PARK);
@@ -121,5 +130,9 @@ public class HmxyMod {
 			tempMap.putIfAbsent(Structures.PARK.get(), StructureSettings.DEFAULTS.get(Structures.PARK.get()));
 			serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 		}
+	}
+	
+	public static ResourceLocation modLoc(String path) {
+		return new ResourceLocation(MOD_ID,path);
 	}
 }

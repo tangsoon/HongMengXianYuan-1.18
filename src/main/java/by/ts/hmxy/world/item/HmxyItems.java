@@ -29,7 +29,7 @@ public class HmxyItems {
 			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, ReikiStoneItem.GradeEnum.TOP_GRADE.index));
 	/**灵石矿*/
 	public static final RegistryObject<Item> REIKI_STONE_ORE=ITEMS.register("reiki_stone_ore", ()->new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)));
-	
+	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER=ITEMS.register("reiki_stone_ore_flicker", ()->new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)));
 	/**往生石*/
 	//public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
 	/**凡界传送门*/
@@ -39,4 +39,5 @@ public class HmxyItems {
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET=ITEMS.register("previous_life_water_bucket", ()->{
 		return new BucketItem(()->{return HmxyFluids.PREVIOUS_LIFE_WATER.get();},new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.EPIC).tab(Tabs.SUNDRY));
 	});
+	
 }

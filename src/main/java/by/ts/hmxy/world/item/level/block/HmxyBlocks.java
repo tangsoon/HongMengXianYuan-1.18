@@ -2,6 +2,7 @@ package by.ts.hmxy.world.item.level.block;
 
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -16,6 +17,8 @@ public class HmxyBlocks {
 			HmxyMod.MOD_ID);
 	/** 灵石矿 */
 	public static final RegistryObject<Block> REIKI_STONE_ORE = BLOCKS.register("reiki_stone_ore", () -> new OreBlock(
+			BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundType.DEEPSLATE),UniformInt.of(0, 2)));
+	public static final RegistryObject<Block> REIKI_STONE_ORE_FLICKER = BLOCKS.register("reiki_stone_ore_flicker", () -> new OreBlock(
 			BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundType.DEEPSLATE),UniformInt.of(0, 2)));
 	/**凡界传送门*/
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = BLOCKS.register("previous_life_water", () -> new PreviousLifeWaterBlock());	

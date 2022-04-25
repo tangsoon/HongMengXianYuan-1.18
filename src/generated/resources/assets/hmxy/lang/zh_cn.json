@@ -1,6 +1,6 @@
 {
+  "block.hmxy.previous_life_water": "往生泉",
   "block.hmxy.reiki_stone_ore": "灵石矿",
-  "block.hmxy.the_mortal_portal": "凡界传送门",
   "grade.elixir.di": "地",
   "grade.elixir.fang": "荒",
   "grade.elixir.hong": "洪",
@@ -17,7 +17,6 @@
   "item.hmxy.low_grade_reiki_stone": "下品灵石",
   "item.hmxy.medium_grade_reiki_stone": "中品灵石",
   "item.hmxy.nature_reiki_stone": "天然灵石",
-  "item.hmxy.previous_life_stone": "往生石",
   "item.hmxy.top_grade_reiki_stone": "极品灵石",
   "itemGroup.elixir": "丹药(鸿蒙仙缘)",
   "itemGroup.ore": "矿石(鸿蒙仙缘)",

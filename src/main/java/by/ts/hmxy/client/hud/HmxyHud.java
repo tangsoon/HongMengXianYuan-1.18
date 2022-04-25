@@ -164,7 +164,7 @@ public class HmxyHud {
 					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
 					float f = mc.player.getJumpRidingScale();
 					int yOffset=-20;
-					int i = 182;
+					//int i = 182;
 					int j = (int) (f * 183.0F);
 					int k = gui.screenHeight - 32 + 3;
 					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);

@@ -40,6 +40,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
     	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
     	this.add(HmxyBlocks.REIKI_STONE_ORE.get(), "灵石矿");
+    	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
     	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
     }
     

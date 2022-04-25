@@ -1,14 +1,12 @@
 package by.ts.hmxy.world.item.level.block;
 
-import java.awt.Color;
 import java.util.Random;
-
 import com.mojang.math.Vector3f;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -18,14 +16,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 
-public class ReikiStoneOreBlock extends Block {
+public class ReikiStoneOreBlock extends OreBlock {
 	public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
 	public final ReikiType type;
 
@@ -33,6 +33,11 @@ public class ReikiStoneOreBlock extends Block {
 		super(p);
 		this.type = type;
 		this.registerDefaultState(this.defaultBlockState().setValue(LIT, Boolean.valueOf(false)));
+	}
+
+	public ReikiStoneOreBlock(BlockBehaviour.Properties p, UniformInt u, ReikiType type) {
+		super(p, u);
+		this.type = type;
 	}
 
 	public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
@@ -100,7 +105,7 @@ public class ReikiStoneOreBlock extends Block {
 						: (double) random.nextFloat();
 				double d3 = direction$axis == Direction.Axis.Z ? 0.5D + 0.5625D * (double) direction.getStepZ()
 						: (double) random.nextFloat();
-				pLevel.addParticle(this.type.particle,(double) pPos.getX() + d1, (double) pPos.getY() + d2,
+				pLevel.addParticle(this.type.particle, (double) pPos.getX() + d1, (double) pPos.getY() + d2,
 						(double) pPos.getZ() + d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
@@ -115,15 +120,16 @@ public class ReikiStoneOreBlock extends Block {
 		public final DustParticleOptions particle;
 
 		public ReikiType(int rgb) {
-			Color c = new Color(rgb);
-			this.color = new Vector3f(c.getRed(), c.getGreen(), c.getBlue());
+			this.color = new Vector3f(Vec3.fromRGB24(rgb));
 			this.particle = new DustParticleOptions(color, 1.0F);
 		}
 	}
 
 	public enum Type {
-		ORDINARY(new ReikiType(0xa1eeff)),FLICKER(new ReikiType(0xb9d2f1));
+		ORDINARY(new ReikiType(0xa1eeff)), FLICKER(new ReikiType(0xb9d2f1));
+
 		ReikiType type;
+
 		private Type(ReikiType type) {
 			this.type = type;
 		}

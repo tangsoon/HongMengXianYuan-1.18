@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import by.ts.hmxy.HmxyConfig;
 import java.util.List;
@@ -98,7 +99,7 @@ public class HmxyHud {
 
 					// 选择框
 					int selected = player.getInventory().selected;
-					Gui.blit(mStack, px + 22 + 20 * selected, py + 11, 222, 0, 24, 24, tw, th);
+					Gui.blit(mStack, px + 21 + 20 * selected, py + 11, 222, 0, 24, 24, tw, th);
 
 					// 境界
 					String jingjie = "境界";
@@ -129,13 +130,51 @@ public class HmxyHud {
 	public static final IIngameOverlay ITEM_NAME_ELEMENT = OverlayRegistry.registerOverlayTop("Item Name",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui) {
+				if (!mc.options.hideGui&&HmxyConfig.showHmxyHud()) {
 					gui.setupOverlayRenderState(true, false);
 					if (mc.options.heldItemTooltips && mc.gameMode.getPlayerMode() != GameType.SPECTATOR) {
 						GuiHelper.renderSelectedItemName(gui, mStack);
 					} else if (mc.player.isSpectator()) {
 						gui.spectatorGui.renderTooltip(mStack);
 					}
+				}
+			});
+
+	public static final IIngameOverlay MOUNT_HEALTH_ELEMENT = OverlayRegistry.registerOverlayTop("Mount Health",
+			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+				Minecraft mc = Minecraft.getInstance();
+				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&HmxyConfig.showHmxyHud()) {
+					gui.setupOverlayRenderState(true, false);
+					GuiHelper.renderHealthMount(gui, screenWidth, screenHeight, mStack);
+				}
+			});
+
+	public static final IIngameOverlay JUMP_BAR_ELEMENT = OverlayRegistry.registerOverlayTop("Jump Bar",
+			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+				Minecraft mc = Minecraft.getInstance();
+				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&HmxyConfig.showHmxyHud()) {
+					gui.setupOverlayRenderState(true, false);
+					int pX = screenWidth / 2 - 91;
+					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);
+
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					RenderSystem.disableBlend();
+
+					mc.getProfiler().push("jumpBar");
+					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
+					float f = mc.player.getJumpRidingScale();
+					int yOffset=-20;
+					int i = 182;
+					int j = (int) (f * 183.0F);
+					int k = gui.screenHeight - 32 + 3;
+					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);
+					if (j > 0) {
+						gui.blit(mStack, pX, k+yOffset, 0, 89, j, 5);
+					}
+					mc.getProfiler().pop();
+					RenderSystem.enableBlend();
+					mc.getProfiler().pop();
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 			});
 
@@ -146,7 +185,9 @@ public class HmxyHud {
 	public static final ImmutableList<IIngameOverlay> CANCEL_LIST = new ImmutableList.Builder<IIngameOverlay>()
 			.add(ForgeIngameGui.HOTBAR_ELEMENT).add(ForgeIngameGui.ITEM_NAME_ELEMENT)
 			.add(ForgeIngameGui.MOUNT_HEALTH_ELEMENT).add(ForgeIngameGui.PLAYER_HEALTH_ELEMENT)
-			.add(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT).add(ForgeIngameGui.FOOD_LEVEL_ELEMENT).build();
+			.add(ForgeIngameGui.EXPERIENCE_BAR_ELEMENT).add(ForgeIngameGui.FOOD_LEVEL_ELEMENT)
+			.add(ForgeIngameGui.AIR_LEVEL_ELEMENT).add(ForgeIngameGui.MOUNT_HEALTH_ELEMENT)
+			.add(ForgeIngameGui.JUMP_BAR_ELEMENT).build();
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {

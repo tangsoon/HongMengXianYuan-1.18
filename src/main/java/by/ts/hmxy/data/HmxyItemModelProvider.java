@@ -1,7 +1,6 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.world.item.HmxyItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;

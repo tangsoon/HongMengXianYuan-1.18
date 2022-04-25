@@ -10,15 +10,20 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.gui.ForgeIngameGui;
 
 @OnlyIn(Dist.CLIENT)
 public class GuiHelper {
 
-	private final static int yOffset = 5;
+	private final static int yOffset = 10;
 
-	//Copy from the villain and do some change.
+	// Copy from the villain and do some change.
 	public static void renderSelectedItemName(Gui gui, PoseStack pPoseStack) {
 		Minecraft mc = Minecraft.getInstance();
 		mc.getProfiler().push("selectedItemName");
@@ -33,10 +38,6 @@ public class GuiHelper {
 			int i = gui.getFont().width(highlightTip);
 			int j = (gui.screenWidth - i) / 2;
 			int k = gui.screenHeight - 59 + yOffset;
-			if (!mc.gameMode.canHurtPlayer()) {
-				k += 14;
-			}
-
 			int l = (int) ((float) gui.toolHighlightTimer * 256.0F / 10.0F);
 			if (l > 255) {
 				l = 255;
@@ -58,5 +59,58 @@ public class GuiHelper {
 			}
 		}
 		mc.getProfiler().pop();
+	}
+
+	//Copy from forge and do some change.
+	public static void renderHealthMount(ForgeIngameGui forgeGui, int width, int height, PoseStack mStack) {
+		Minecraft mc = Minecraft.getInstance();
+		Player player = (Player) mc.getCameraEntity();
+		Entity tmp = player.getVehicle();
+		if (!(tmp instanceof LivingEntity))
+			return;
+
+		bind(ForgeIngameGui.GUI_ICONS_LOCATION);
+
+		boolean unused = false;
+		int left_align = width / 2 + 91;
+
+		mc.getProfiler().popPush("mountHealth");
+		RenderSystem.enableBlend();
+		LivingEntity mount = (LivingEntity) tmp;
+		int health = (int) Math.ceil((double) mount.getHealth());
+		float healthMax = mount.getMaxHealth();
+		int hearts = (int) (healthMax + 0.5F) / 2;
+
+		if (hearts > 30)
+			hearts = 30;
+
+		final int MARGIN = 52;
+		final int BACKGROUND = MARGIN + (unused ? 1 : 0);
+		final int HALF = MARGIN + 45;
+		final int FULL = MARGIN + 36;
+		int yOffset=-20;
+		for (int heart = 0; hearts > 0; heart += 20) {
+			int top = height - forgeGui.right_height;
+
+			int rowCount = Math.min(hearts, 10);
+			hearts -= rowCount;
+
+			for (int i = 0; i < rowCount; ++i) {
+				int x = left_align - i * 8 - 9;
+				forgeGui.blit(mStack, x, top+yOffset, BACKGROUND, 9, 9, 9);
+
+				if (i * 2 + 1 + heart < health)
+					forgeGui.blit(mStack, x, top+yOffset, FULL, 9, 9, 9);
+				else if (i * 2 + 1 + heart == health)
+					forgeGui.blit(mStack, x, top+yOffset, HALF, 9, 9, 9);
+			}
+
+			forgeGui.right_height += 10;
+		}
+		RenderSystem.disableBlend();
+	}
+
+	static void bind(ResourceLocation res) {
+		RenderSystem.setShaderTexture(0, res);
 	}
 }

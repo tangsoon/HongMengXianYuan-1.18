@@ -19,6 +19,6 @@ public class HmxyBlocks {
 			BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundType.DEEPSLATE),UniformInt.of(0, 2)));
 	public static final RegistryObject<Block> REIKI_STONE_ORE_FLICKER = BLOCKS.register("reiki_stone_ore_flicker", () -> new OreBlock(
 			BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F).sound(SoundType.DEEPSLATE),UniformInt.of(0, 2)));
-	/**凡界传送门*/
+	/**凡界传送门，往生泉*/
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = BLOCKS.register("previous_life_water", () -> new PreviousLifeWaterBlock());	
 }

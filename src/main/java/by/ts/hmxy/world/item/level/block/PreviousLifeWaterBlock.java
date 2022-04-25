@@ -2,40 +2,36 @@ package by.ts.hmxy.world.item.level.block;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.BlockPos;
 import java.util.Random;
-import by.ts.hmxy.world.dimension.TheMortalTeleporter;
+import java.util.function.Function;
+
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 
-public class PreviousLifeWaterBlock extends LiquidBlock {
+public class PreviousLifeWaterBlock extends LiquidBlock implements ITeleporter {
 	public PreviousLifeWaterBlock() {
-		super(()->(FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER.get(),
+		super(() -> (FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER.get(),
 				BlockBehaviour.Properties.of(Material.WATER).strength(100f).hasPostProcess((bs, br, bp) -> true)
 						.emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 15));
 	}
-
-	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
-	}
-
-	@Override
-	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
-	}
-
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
@@ -83,7 +79,15 @@ public class PreviousLifeWaterBlock extends LiquidBlock {
 	}
 
 	private void teleportToDimension(Entity entity, BlockPos pos, ResourceKey<Level> destinationType) {
-		entity.changeDimension(entity.getServer().getLevel(destinationType), new TheMortalTeleporter());
+		entity.changeDimension(entity.getServer().getLevel(destinationType), this);
 	}
 
+	@Override
+	public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw,
+			Function<Boolean, Entity> repositionEntity) {
+		Entity newEntity =repositionEntity.apply(true);
+		BlockPos pos= destWorld.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,new BlockPos(entity.position()));
+		newEntity.moveTo(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
+		return newEntity;
+	}
 }

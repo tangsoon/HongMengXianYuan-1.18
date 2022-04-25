@@ -12,16 +12,16 @@ import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TheMortalTeleporter implements ITeleporter {
-	public static PoiType poi = null;
-
-	@SubscribeEvent
-	public static void registerPointOfInterest(RegistryEvent.Register<PoiType> event) {
-		poi = new PoiType("the_mortal_portal",
-				Sets.newHashSet(ImmutableSet.copyOf(HmxyBlocks.PREVIOUS_LIFE_WATER.get().getStateDefinition().getPossibleStates())), 0, 1)
-						.setRegistryName("the_mortal_portal");
-		ForgeRegistries.POI_TYPES.register(poi);
-	}
-
-	public TheMortalTeleporter() {
-	}
+//	public static PoiType poi = null;
+//
+//	@SubscribeEvent
+//	public static void registerPointOfInterest(RegistryEvent.Register<PoiType> event) {
+//		poi = new PoiType("the_mortal_portal",
+//				Sets.newHashSet(ImmutableSet.copyOf(HmxyBlocks.PREVIOUS_LIFE_WATER.get().getStateDefinition().getPossibleStates())), 0, 1)
+//						.setRegistryName("the_mortal_portal");
+//		ForgeRegistries.POI_TYPES.register(poi);
+//	}
+//
+//	public TheMortalTeleporter() {
+//	}
 }

@@ -32,7 +32,7 @@ public class HmxyItems {
 	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER=ITEMS.register("reiki_stone_ore_flicker", ()->new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)));
 	/**往生石*/
 	//public static final RegistryObject<Item> PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new TheMortalItem());
-	/**凡界传送门*/
+	/**凡界传送门，往生泉*/
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = ITEMS.register("previous_life_water",
 			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(),new Properties().tab(Tabs.SUNDRY)));
 	/**桶装往生泉*/

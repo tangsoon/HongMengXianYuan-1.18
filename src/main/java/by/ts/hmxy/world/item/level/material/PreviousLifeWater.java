@@ -16,7 +16,7 @@ public abstract class PreviousLifeWater extends ForgeFlowingFluid {
 	public static final ForgeFlowingFluid.Properties PROPERTIES = new ForgeFlowingFluid.Properties(
 			() -> HmxyFluids.PREVIOUS_LIFE_WATER.get(), () -> HmxyFluids.PREVIOUS_LIFE_WATER_FLOWING.get(),
 			FluidAttributes.builder(new ResourceLocation("hmxy:block/previous_life_water"),
-					new ResourceLocation("hmxy:block/previous_life_water_flowing")).gaseous())
+					new ResourceLocation("hmxy:block/previous_life_water_flowing")))
 							.explosionResistance(100f).bucket(() -> HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get())
 							.block(() -> (LiquidBlock) HmxyBlocks.PREVIOUS_LIFE_WATER.get());
 	

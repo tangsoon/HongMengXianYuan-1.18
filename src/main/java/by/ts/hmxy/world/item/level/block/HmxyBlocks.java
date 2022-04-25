@@ -2,7 +2,6 @@ package by.ts.hmxy.world.item.level.block;
 
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.OreBlock;
 import net.minecraft.world.level.block.SoundType;

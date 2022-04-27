@@ -62,7 +62,6 @@ public class HmxyHud {
 					// 经验条
 					Gui.blit(mStack, px + 3, py + 35, 0, 41, 200, 3, tw, th);
 					// 灵力条
-					
 					float lingLi =HmxyHelper.getLingLi(player);
 					int count = 1;
 					while (lingLi > count * 20) {
@@ -97,6 +96,7 @@ public class HmxyHud {
 					int airOffset = (int) (35.0F * (1.0F - air / 300.0F));
 					Gui.blit(mStack, px + 210, py + 3 + airOffset, 219, airOffset, 3, 35, tw, th);
 					// 真元
+					//TODO 重新画个真元的UI
 					int zhenYuan=HmxyHelper.getZhenYuan(player);
 					int xiaoJingJie=HmxyHelper.getXiaoJingJie(player);
 					int necessaryZhenYuan=HmxyHelper.getNecessaryZhenYuan(xiaoJingJie+1);

@@ -1,6 +1,8 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.util.HmxyHelper;
+import by.ts.hmxy.util.HmxyHelper.DaJingJie;
 import by.ts.hmxy.world.entity.HmxyEntities;
 import by.ts.hmxy.world.item.Grade;
 import by.ts.hmxy.world.item.HmxyItems;
@@ -51,12 +53,24 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
     	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
     	
+    	//大境界名字
+    	HmxyHelper.JingJies.forEach(j->{
+    		HmxyLanguageProvider.this.add(j);
+    	});
+    	
     	//实体
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
     }
     
     public void add(Grade grade, String name) {
         add(grade.getName(), name);
+    }
+    public void add(DaJingJie daJingJie) {
+    	this.add(daJingJie.getName(),daJingJie.getZhName());
+    }
+    
+    public void add(DaJingJie daJingJie,String tName) {
+    	add(daJingJie.getName(),tName);
     }
     
     public void add(CreativeModeTab tab, String name) {

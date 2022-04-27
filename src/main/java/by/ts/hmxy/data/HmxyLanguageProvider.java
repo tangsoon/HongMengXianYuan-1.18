@@ -1,6 +1,7 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.world.entity.HmxyEntities;
 import by.ts.hmxy.world.item.Grade;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.ReikiStoneItem;
@@ -46,6 +47,8 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyBlocks.REIKI_STONE_ORE.get(), "灵石矿");
     	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
     	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
+    	
+    	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
     }
     
     public void add(Grade grade, String name) {

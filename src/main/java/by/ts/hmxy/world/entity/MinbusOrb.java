@@ -1,10 +1,13 @@
 package by.ts.hmxy.world.entity;
 
 import java.util.List;
+
+import by.ts.hmxy.util.JingJieHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -122,12 +125,12 @@ public class MinbusOrb extends Entity {
 
 	}
 
-	public static void award(ServerLevel p_147083_, Vec3 p_147084_, int p_147085_) {
-		while (p_147085_ > 0) {
-			int i = getExperienceValue(p_147085_);
-			p_147085_ -= i;
-			if (!tryMergeToExisting(p_147083_, p_147084_, i)) {
-				p_147083_.addFreshEntity(new MinbusOrb(p_147083_, p_147084_.x(), p_147084_.y(), p_147084_.z(), i));
+	public static void award(ServerLevel level, Vec3 vec, int value) {
+		while (value > 0) {
+			int i = getExperienceValue(value);
+			value -= i;
+			if (!tryMergeToExisting(level, vec, i)) {
+				level.addFreshEntity(new MinbusOrb(level, vec.x(), vec.y(), vec.z(), i));
 			}
 		}
 
@@ -204,16 +207,27 @@ public class MinbusOrb extends Entity {
 	 */
 	public void playerTouch(Player pEntity) {
 		if (!this.level.isClientSide) {
-			// 在这里，不单独设置灵气的冷却时间，而使用经验的冷却时间。
-			// TODO 判断玩家是否能够吸收该灵气，如果境界达到圆满则不能直接吸收。
-			if (pEntity.takeXpDelay == 0) {
-				pEntity.takeXpDelay = 2;
+			int xiaoJingJie, zhenYuan;
+			if ((zhenYuan = JingJieHelper.getZhenYuan(pEntity)) <= JingJieHelper
+					.getNecessaryZhenYuan(xiaoJingJie = JingJieHelper.getXiaoJingJie(pEntity) + 1)
+					&& !JingJieHelper.isTop(xiaoJingJie, zhenYuan)) {
+				if (pEntity.takeXpDelay == 0) {
+					pEntity.takeXpDelay = 2;
+				}
+				int rest=JingJieHelper.onGetZhenYuan(pEntity, this.value);
+				if(rest<this.value) {
+					--this.count;
+					if (this.count == 0) {
+						this.discard();
+					}
+					if(rest!=0) {
+						 MinbusOrb.award((ServerLevel)this.level, this.position(), rest);
+					}
+				}
+				this.level.playSound((Player) null, this.getX(), this.getY(), this.getZ(),
+						SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.NEUTRAL, 0.5F,
+						this.level.getRandom().nextFloat() * 0.4F + 0.8F);
 			}
-			--this.count;
-			if (this.count == 0) {
-				this.discard();
-			}
-			// TODO 在这里调用检测境界提升的代码。
 		}
 	}
 

@@ -39,5 +39,8 @@ public class HmxyItems {
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET=ITEMS.register("previous_life_water_bucket", ()->{
 		return new BucketItem(()->{return HmxyFluids.PREVIOUS_LIFE_WATER.get();},new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.EPIC).tab(Tabs.SUNDRY));
 	});
+	/**灵气瓶*/
+	public static final RegistryObject<Item> MINBUS_BOTTLE = ITEMS.register("minbus_bottle",
+			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)));
 	
 }

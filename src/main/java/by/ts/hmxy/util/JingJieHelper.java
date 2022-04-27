@@ -6,14 +6,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,7 +28,6 @@ import net.minecraftforge.fmllegacy.ForgeI18n;
 /**
  * 玩家境界相关的操作
  * @author tangsoon
- *
  */
 @EventBusSubscriber
 public class JingJieHelper {
@@ -45,14 +46,15 @@ public class JingJieHelper {
 	}
 	
 	public static <T> void registerDataIfNull(LivingEntity living,EntityDataAccessor<T> dataAcce,T defaultValue) {
-		if(!living.getEntityData().getAll().stream().anyMatch(dataItem->{
+		boolean result=living.getEntityData().getAll().stream().anyMatch(dataItem->{
 			return dataItem.getAccessor()==dataAcce;
-		})) {
+		});
+		if(!result) {
 			living.getEntityData().define(dataAcce, defaultValue);
 		}
 	}
 	
-	public static class DaJingJie{
+	public static class DaJingJie implements Comparable<DaJingJie>{
 		private int index;
 		private String name;
 		
@@ -78,6 +80,11 @@ public class JingJieHelper {
 		@OnlyIn(Dist.CLIENT)
 		public String getLocalName() {
 			return ForgeI18n.getPattern(name);
+		}
+
+		@Override
+		public int compareTo(DaJingJie o) {
+			return this.index>o.index?1:-1;
 		}
 	}
 	
@@ -115,6 +122,7 @@ public class JingJieHelper {
 					jr.close();
 				}
 				fr.close();
+				Collections.sort(JingJies);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -146,6 +154,9 @@ public class JingJieHelper {
         }
 	}
 	
+	public static void initPlayerData() {
+		
+	}
 	
 	
 	/**根据小境界计算大境界*/
@@ -154,5 +165,60 @@ public class JingJieHelper {
 			return xiaoJingJie;
 		}
 		return (xiaoJingJie-1)/4+1;
+	}
+	
+	public static Integer getZhenYuan(LivingEntity living) {
+		return living.getEntityData().get(ZHEN_YUAN);
+	}
+	
+	public static void setZhenYuan(LivingEntity living,Integer zhenYuan){
+		living.getEntityData().set(ZHEN_YUAN, zhenYuan);
+	}
+	
+	public static int getNecessaryZhenYuan(int nextXiaoJingJie) {
+		 return (1*(1+nextXiaoJingJie)*nextXiaoJingJie/2+20)*30*nextXiaoJingJie;
+	}
+	
+	public static int getXiaoJingJie(LivingEntity entity) {
+		return entity.getEntityData().get(XIAO_JING_JIE);
+	}
+	
+	public static int onGetZhenYuan(LivingEntity entity, int value) {
+		int zhenYuan= JingJieHelper.getZhenYuan(entity);
+		int xiaoJingJie=JingJieHelper.getXiaoJingJie(entity);
+		int necessaryZhenYuan=JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1);
+		while(value>0) {
+			int capacity=necessaryZhenYuan-zhenYuan;
+			int consume=Math.min(value, capacity);
+			value-=consume;
+			zhenYuan+=consume;
+			if(zhenYuan==necessaryZhenYuan) {
+				if(xiaoJingJie==0||xiaoJingJie%4!=0) {
+					zhenYuan=0;
+					xiaoJingJie+=1;
+					onXiaoJingJieGrow(entity);
+					entity.level.playSound((Player) null, entity.getX(), entity.getY(), entity.getZ(),
+							SoundEvents.PLAYER_LEVELUP, SoundSource.NEUTRAL, 0.5F,
+							entity.level.getRandom().nextFloat() * 0.4F + 0.6F);
+					xiaoJingJie=JingJieHelper.getXiaoJingJie(entity);
+					necessaryZhenYuan=JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1);
+				}
+				else {
+					//到达圆满
+					break;
+				}
+			}
+		}
+		JingJieHelper.setZhenYuan(entity,zhenYuan);
+		entity.getEntityData().set(XIAO_JING_JIE,xiaoJingJie);
+		return value;
+	}
+	
+	private static void onXiaoJingJieGrow(LivingEntity living) {
+		//TODO 在这里执行属性成长
+	}
+	
+	public static boolean isTop(int xiaoJingJie,int zhenYuan) {
+		return xiaoJingJie%4==0&&JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1)==zhenYuan;
 	}
 }

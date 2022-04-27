@@ -21,6 +21,8 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import by.ts.hmxy.HmxyConfig;
+import by.ts.hmxy.util.JingJieHelper;
+
 import java.util.List;
 import java.util.Optional;
 import com.google.common.collect.ImmutableList;
@@ -61,16 +63,16 @@ public class HmxyHud {
 					Gui.blit(mStack, px + 3, py + 35, 0, 41, 200, 3, tw, th);
 					// 灵力条
 					// TODO 改成灵力而不是生命值
-					float minbus = player.getHealth();
+					float lingLi = player.getHealth();
 					int count = 1;
-					while (minbus > count * 20) {
-						minbus -= count * 20;
+					while (lingLi > count * 20) {
+						lingLi -= count * 20;
 						count += 1;
 					}
 					for (int i = 0; i < count - 1; i++) {
 						Gui.blit(mStack, px + 23, py + 8, 0, 44, 200, 3, tw, th);
 					}
-					int minbusOffset = (int) (200.0F * (1.0F - minbus / (count * 20.0F)));
+					int minbusOffset = (int) (200.0F * (1.0F - lingLi / (count * 20.0F)));
 					Gui.blit(mStack, px + 23, py + 8, 0, 44, 200 - minbusOffset, 3, tw - minbusOffset, th);
 					// 血条
 					float health = player.getHealth();
@@ -95,8 +97,12 @@ public class HmxyHud {
 					int airOffset = (int) (35.0F * (1.0F - air / 300.0F));
 					Gui.blit(mStack, px + 210, py + 3 + airOffset, 219, airOffset, 3, 35, tw, th);
 					// 真元
-					Gui.blit(mStack, px + 3, py + 3, 200, 41, 18, 8, tw, th);
-
+					int zhenYuan=JingJieHelper.getZhenYuan(player);
+					int necessaryZhenYuan=JingJieHelper.getNecessaryZhenYuan(JingJieHelper.getXiaoJingJie(player)+1);
+					if(necessaryZhenYuan!=0) {
+						int zhenYuanOffSet= (int) ((1.0F-(float)zhenYuan/necessaryZhenYuan)*18);
+						Gui.blit(mStack, px + 3, py + 3, 200, 41, 18-zhenYuanOffSet, 8, tw, th);	
+					}
 					// 选择框
 					int selected = player.getInventory().selected;
 					Gui.blit(mStack, px + 21 + 20 * selected, py + 11, 222, 0, 24, 24, tw, th);

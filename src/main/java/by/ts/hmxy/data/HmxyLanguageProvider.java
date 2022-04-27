@@ -19,11 +19,12 @@ public class HmxyLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+    	//表
     	this.add(Tabs.ELIXIR,"丹药(鸿蒙仙缘)");
     	this.add(Tabs.SUNDRY,"杂物(鸿蒙仙缘)");
     	this.add(Tabs.ORE,"矿石(鸿蒙仙缘)");
     	
-    	
+    	//物品
     	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
     	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
@@ -31,7 +32,9 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyItems.TOP_GRADE_REIKI_STONE.get(), "极品灵石");
 //    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
     	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
+    	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
     	
+    	//品质
     	this.add(ElixirItem.GradeEnum.TIAN.grade, "天");
     	this.add(ElixirItem.GradeEnum.DI.grade, "地");
     	this.add(ElixirItem.GradeEnum.XUAN.grade, "玄");
@@ -48,6 +51,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
     	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
     	
+    	//实体
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
     }
     

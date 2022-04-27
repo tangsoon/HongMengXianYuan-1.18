@@ -2,7 +2,7 @@ package by.ts.hmxy.world.entity;
 
 import java.util.List;
 
-import by.ts.hmxy.util.JingJieHelper;
+import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -208,13 +208,13 @@ public class MinbusOrb extends Entity {
 	public void playerTouch(Player pEntity) {
 		if (!this.level.isClientSide) {
 			int xiaoJingJie, zhenYuan;
-			if ((zhenYuan = JingJieHelper.getZhenYuan(pEntity)) <= JingJieHelper
-					.getNecessaryZhenYuan(xiaoJingJie = JingJieHelper.getXiaoJingJie(pEntity) + 1)
-					&& !JingJieHelper.isTop(xiaoJingJie, zhenYuan)) {
+			if ((zhenYuan = HmxyHelper.getZhenYuan(pEntity)) <= HmxyHelper
+					.getNecessaryZhenYuan(xiaoJingJie = HmxyHelper.getXiaoJingJie(pEntity) + 1)
+					&& !HmxyHelper.isTop(xiaoJingJie, zhenYuan)) {
 				if (pEntity.takeXpDelay == 0) {
 					pEntity.takeXpDelay = 2;
 				}
-				int rest=JingJieHelper.onGetZhenYuan(pEntity, this.value);
+				int rest=HmxyHelper.onGetZhenYuan(pEntity, this.value);
 				if(rest<this.value) {
 					--this.count;
 					if (this.count == 0) {

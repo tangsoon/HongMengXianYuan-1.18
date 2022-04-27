@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
@@ -16,11 +17,18 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fmllegacy.ForgeI18n;
@@ -30,29 +38,43 @@ import net.minecraftforge.fmllegacy.ForgeI18n;
  * @author tangsoon
  */
 @EventBusSubscriber
-public class JingJieHelper {
+public class HmxyHelper {
 	/**真元*/
-	private static final EntityDataAccessor<Integer> ZHEN_YUAN = SynchedEntityData.defineId(Player.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ZHEN_YUAN = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
 	/**小境界*/
-	private static final EntityDataAccessor<Integer> XIAO_JING_JIE=SynchedEntityData.defineId(Player.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> XIAO_JING_JIE=SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
+	/**灵力*/
+	private static final EntityDataAccessor<Float> 灵力=SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.FLOAT);
+	/**灵力上限*/
+	public static final Attribute MAX_LING_LI = new RangedAttribute("attribute.name.generic.max_ling_li", 20.0D, 1.0D, 1024.0D).setSyncable(true);
+	/**灵力上限修饰符*/
+	public static final UUID uuid=UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
+	@SubscribeEvent
+	public static void onEntityConstructing(EntityConstructing event) {
+		Entity entity=event.getEntity();
+		if(entity instanceof Player) {
+			Player player=(Player) entity;
+			player.getEntityData().define(ZHEN_YUAN, Integer.valueOf(0));
+			player.getEntityData().define(XIAO_JING_JIE, Integer.valueOf(0));
+			player.getEntityData().define(灵力, Float.valueOf(0.0F));
+//			HmxyHelper.registerDataIfNull(player,ZHEN_YUAN, Integer.valueOf(0));
+//			HmxyHelper.registerDataIfNull(player, XIAO_JING_JIE,Integer.valueOf(0));
+		}
+	}
 	
 	@SubscribeEvent
-	public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
-		if(event.getEntity() instanceof Player) {
-			Player player=(Player) event.getEntity();
-			JingJieHelper.registerDataIfNull(player,ZHEN_YUAN, Integer.valueOf(0));
-			JingJieHelper.registerDataIfNull(player, XIAO_JING_JIE,Integer.valueOf(0));
-		}
+	public static void onEntityAttributeCreate(EntityAttributeCreationEvent event) {
+		event.put(EntityType.PLAYER,LivingEntity.createLivingAttributes().add(MAX_LING_LI).build());
 	}
 	
-	public static <T> void registerDataIfNull(LivingEntity living,EntityDataAccessor<T> dataAcce,T defaultValue) {
-		boolean result=living.getEntityData().getAll().stream().anyMatch(dataItem->{
-			return dataItem.getAccessor()==dataAcce;
-		});
-		if(!result) {
-			living.getEntityData().define(dataAcce, defaultValue);
-		}
-	}
+//	public static <T> void registerDataIfNull(LivingEntity living,EntityDataAccessor<T> dataAcce,T defaultValue) {
+//		boolean result=living.getEntityData().getAll().stream().anyMatch(dataItem->{
+//			return dataItem.getAccessor()==dataAcce;
+//		});
+//		if(!result) {
+//			living.getEntityData().define(dataAcce, defaultValue);
+//		}
+//	}
 	
 	public static class DaJingJie implements Comparable<DaJingJie>{
 		private int index;
@@ -184,9 +206,9 @@ public class JingJieHelper {
 	}
 	
 	public static int onGetZhenYuan(LivingEntity entity, int value) {
-		int zhenYuan= JingJieHelper.getZhenYuan(entity);
-		int xiaoJingJie=JingJieHelper.getXiaoJingJie(entity);
-		int necessaryZhenYuan=JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1);
+		int zhenYuan= HmxyHelper.getZhenYuan(entity);
+		int xiaoJingJie=HmxyHelper.getXiaoJingJie(entity);
+		int necessaryZhenYuan=HmxyHelper.getNecessaryZhenYuan(xiaoJingJie+1);
 		while(value>0) {
 			int capacity=necessaryZhenYuan-zhenYuan;
 			int consume=Math.min(value, capacity);
@@ -200,8 +222,8 @@ public class JingJieHelper {
 					entity.level.playSound((Player) null, entity.getX(), entity.getY(), entity.getZ(),
 							SoundEvents.PLAYER_LEVELUP, SoundSource.NEUTRAL, 0.5F,
 							entity.level.getRandom().nextFloat() * 0.4F + 0.6F);
-					xiaoJingJie=JingJieHelper.getXiaoJingJie(entity);
-					necessaryZhenYuan=JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1);
+					xiaoJingJie=HmxyHelper.getXiaoJingJie(entity);
+					necessaryZhenYuan=HmxyHelper.getNecessaryZhenYuan(xiaoJingJie+1);
 				}
 				else {
 					//到达圆满
@@ -209,7 +231,7 @@ public class JingJieHelper {
 				}
 			}
 		}
-		JingJieHelper.setZhenYuan(entity,zhenYuan);
+		HmxyHelper.setZhenYuan(entity,zhenYuan);
 		entity.getEntityData().set(XIAO_JING_JIE,xiaoJingJie);
 		return value;
 	}
@@ -219,6 +241,31 @@ public class JingJieHelper {
 	}
 	
 	public static boolean isTop(int xiaoJingJie,int zhenYuan) {
-		return xiaoJingJie%4==0&&JingJieHelper.getNecessaryZhenYuan(xiaoJingJie+1)==zhenYuan;
+		return xiaoJingJie%4==0&&HmxyHelper.getNecessaryZhenYuan(xiaoJingJie+1)==zhenYuan;
+	}
+	/**获取灵力*/
+	public static float getLingLi(LivingEntity entity) {
+		return entity.getEntityData().get(灵力);
+	}
+	/**设置灵力*/
+	public static void setLingLi(LivingEntity entity) {
+		entity.getEntityData().get(灵力);
+	}
+	/**设置最大灵力*/
+	public static void setMaxLingLi(LivingEntity living,double value) {
+		changeAttr(living, MAX_LING_LI, uuid, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
+	}
+	
+	public static double getMaxLingLi(LivingEntity living, Attribute attr) {
+		return living.getAttributeValue(attr);
+	}
+	
+	public static void changeAttr(LivingEntity living,Attribute attr,UUID uuid,String name,double value,AttributeModifier.Operation op) {
+		AttributeInstance attrIns= living.getAttribute(attr);
+		AttributeModifier modifer=new AttributeModifier(uuid,name,value,op);
+		if(attrIns.hasModifier(modifer)) {
+			attrIns.removeModifier(uuid);
+		}
+		attrIns.addPermanentModifier(modifer);
 	}
 }

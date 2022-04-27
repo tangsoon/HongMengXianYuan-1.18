@@ -29,7 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
 import by.ts.hmxy.client.ClientSetup;
-import by.ts.hmxy.util.JingJieHelper;
+import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.world.entity.HmxyEntities;
 import by.ts.hmxy.world.item.HmxyItems;
 import by.ts.hmxy.world.item.level.block.HmxyBlocks;
@@ -86,7 +86,7 @@ public class HmxyMod {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			JingJieHelper.initJingJies();
+			HmxyHelper.initJingJies();
 			Structures.setupStructures();
 			ConfiguredStructures.registerConfiguredStructures();
 		});

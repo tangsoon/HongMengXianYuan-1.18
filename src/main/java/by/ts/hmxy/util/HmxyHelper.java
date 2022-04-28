@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
@@ -55,6 +59,8 @@ public class HmxyHelper {
 	/** 灵力上限修饰符 */
 	public static final UUID uuid = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
+	private static final Logger LOGGER=LogManager.getLogger();
+	
 	@SubscribeEvent
 	public static void onEntityConstructing(EntityConstructing event) {
 		Entity entity = event.getEntity();
@@ -118,7 +124,7 @@ public class HmxyHelper {
 
 	/** 初始化境界 */
 	public static void initJingJies() {
-
+		LOGGER.info("开始读取大境界。。。");
 		File file = new File("config\\" + HmxyMod.MOD_ID + "_da_jing_jie.json");
 		if (file.exists() && !file.isDirectory()) {
 			try {
@@ -180,6 +186,7 @@ public class HmxyHelper {
 				e.printStackTrace();
 			}
 		}
+		LOGGER.info("开始读取大境界完成");
 	}
 
 	public static void initPlayerData() {

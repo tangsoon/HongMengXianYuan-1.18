@@ -20,6 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,7 +29,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
-import by.ts.hmxy.client.ClientSetup;
+
+import by.ts.hmxy.event.EntityRenderersHandler;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.world.entity.HmxyEntities;
 import by.ts.hmxy.world.item.HmxyItems;
@@ -49,7 +51,7 @@ public class HmxyMod {
 		forgeBus.register(this);
 		forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
-		forgeBus.addListener(EventPriority.HIGH, ClientSetup::new);
+		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		Structures.STRUCTURES.register(modEventBus);
 		HmxyItems.ITEMS.register(modEventBus);
@@ -58,6 +60,27 @@ public class HmxyMod {
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
 		modEventBus.addListener(this::setup);		
+		
+		new Thread(()->{
+			InputStream inStream= ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt");
+			if(inStream!=null) {
+				InputStreamReader in=new InputStreamReader(inStream);
+				char[] cs=new char[64];
+				try {
+					while((in.read(cs))!=-1) {
+						System.out.print(cs);
+					}
+					System.out.println();
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}	
+			}
+			else {
+				HmxyMod.LOGGER.warn("未能正确加载横幅，信仰崩塌！！！");
+			}
+		}).run();
+		
 		Class<?> testModClass;
 		String testModName="by.ts.hmxy.HmxyModTest";
 		try {

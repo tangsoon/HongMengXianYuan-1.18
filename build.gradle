@@ -80,6 +80,8 @@ minecraft {
 
 mixin {
     add sourceSets.main, mod_id + ".refmap.json"
+    debug.verbose = true
+    debug.export = true
 }
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {

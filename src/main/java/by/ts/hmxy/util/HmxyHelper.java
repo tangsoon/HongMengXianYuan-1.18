@@ -216,6 +216,10 @@ public class HmxyHelper {
 	public static int getXiaoJingJie(LivingEntity entity) {
 		return entity.getEntityData().get(XIAO_JING_JIE);
 	}
+	
+	public static void setXiaoJingJie(LivingEntity entity,int xiaoJingJie) {
+		entity.getEntityData().set(XIAO_JING_JIE,xiaoJingJie);
+	}
 
 	public static int onGetZhenYuan(LivingEntity entity, int value) {
 		int zhenYuan = HmxyHelper.getZhenYuan(entity);
@@ -261,8 +265,8 @@ public class HmxyHelper {
 	}
 
 	/** 设置灵力 */
-	public static void setLingLi(LivingEntity entity) {
-		entity.getEntityData().get(灵力);
+	public static void setLingLi(LivingEntity entity,float lingLi) {
+		entity.getEntityData().set(灵力,lingLi);
 	}
 
 	/** 设置最大灵力 */

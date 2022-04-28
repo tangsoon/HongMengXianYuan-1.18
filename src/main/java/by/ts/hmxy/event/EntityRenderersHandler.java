@@ -1,4 +1,4 @@
-package by.ts.hmxy.client;
+package by.ts.hmxy.event;
 
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.client.hud.HmxyHud;
@@ -13,9 +13,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = HmxyMod.MOD_ID, value =Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ClientSetup {
+public class EntityRenderersHandler {
 
-	public ClientSetup(FMLClientSetupEvent event) {
+	public EntityRenderersHandler(FMLClientSetupEvent event) {
 		MinecraftForge.EVENT_BUS.addListener(t->HmxyHud.init());
 	}
 	

@@ -57,22 +57,7 @@ public class HmxyMod {
 		HmxyFluids.FLUIDS.register(modEventBus);
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
-		modEventBus.addListener(this::setup);
-		
-		new Thread(()->{
-			InputStreamReader in=new InputStreamReader(ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt"));
-			char[] cs=new char[64];
-			try {
-				while((in.read(cs))!=-1) {
-					System.out.print(cs);
-				}
-				System.out.println();
-				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}).run();
-		
+		modEventBus.addListener(this::setup);		
 		Class<?> testModClass;
 		String testModName="by.ts.hmxy.HmxyModTest";
 		try {

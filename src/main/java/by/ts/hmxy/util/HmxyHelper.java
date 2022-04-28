@@ -270,7 +270,8 @@ public class HmxyHelper {
 	public static void changeAttr(LivingEntity living, Attribute attr, UUID uuid, String name, double value,
 			AttributeModifier.Operation op) {
 		AttributeInstance attrIns = living.getAttribute(attr);
-		AttributeModifier modifer = new AttributeModifier(uuid, name, value, op);
+		double oldValue=attrIns.getValue();
+		AttributeModifier modifer = new AttributeModifier(uuid, name, value-oldValue, op);
 		if (attrIns.hasModifier(modifer)) {
 			attrIns.removeModifier(uuid);
 		}

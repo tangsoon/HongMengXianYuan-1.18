@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.ts.hmxy.mixins",
+  "package": "by.ts.hmxy.mixins",
   "compatibilityLevel": "JAVA_16",
   "refmap": "hmxy.refmap.json",
   "mixins": [

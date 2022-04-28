@@ -58,7 +58,7 @@ public class HmxyMod {
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
 		modEventBus.addListener(this::setup);
-
+		
 		new Thread(()->{
 			InputStreamReader in=new InputStreamReader(ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt"));
 			char[] cs=new char[64];

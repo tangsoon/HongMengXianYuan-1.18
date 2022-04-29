@@ -23,6 +23,11 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		logger.error("调用了一个不该调用的方法: " + this.getClass());
 	}
 
+	@Inject(method = "defineSynchedData", at = @At("RETURN"))
+	protected void onDefineSynchedData() {
+		
+	}
+
 	@Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
 	public void onReadAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
 		HmxyHelper.setZhenYuan(this, pCompound.getInt("zhenYuan"));
@@ -36,9 +41,24 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		pCompound.putInt("xiaoJingJie", HmxyHelper.getXiaoJingJie(this));
 		pCompound.putFloat("lingLi", HmxyHelper.getLingLi(this));
 	}
-	
+
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void onTick(CallbackInfo ci) {
-		
+		// 恢复灵力
+		boolean canRecover = true;
+		LivingEntity living = this;
+		if (living instanceof Player) {
+			if (((Player) living).isSprinting()) {
+				canRecover = false;
+			}
+		}
+
+		float capacity;
+		float currentLingLi;
+		float maxLingLi;
+		if (canRecover && (capacity = ((maxLingLi = (float) HmxyHelper.getMaxLingLi(this))
+				- (currentLingLi = HmxyHelper.getLingLi(this)))) > 0) {
+			HmxyHelper.setLingLi(this, currentLingLi + Math.min(capacity, (maxLingLi) / 6000.0F));// 一天只会自动恢复4管灵力
+		}
 	}
 }

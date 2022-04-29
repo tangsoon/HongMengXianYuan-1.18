@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.mixins.MixinJingJieEntity;
+import by.ts.hmxy.mixins.MixinLivingEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -50,17 +52,17 @@ public class HmxyHelper {
 	public static final Attribute MAX_LING_LI = new RangedAttribute("attribute.name.generic.max_ling_li", 20.0D, 1.0D,
 			1024.0D).setSyncable(true);
 	/** 灵力上限修饰符 */
-	public static final UUID uuid = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
+	public static final UUID MAX_LING_LI_UUID = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
 	private static final Logger LOGGER=LogManager.getLogger();
 	
 	@SubscribeEvent
 	public static void onEntityConstructing(EntityConstructing event) {
 		Entity entity = event.getEntity();
-		if (entity instanceof Player) {
+		if (entity instanceof MixinJingJieEntity) {
 			entity.getEntityData().define(ZHEN_YUAN, Integer.valueOf(0));
 			entity.getEntityData().define(XIAO_JING_JIE, Integer.valueOf(0));
-			entity.getEntityData().define(灵力, Float.valueOf(0.0F));
+			entity.getEntityData().define(灵力, Float.valueOf(20.0F));
 		}
 	}
 
@@ -264,11 +266,11 @@ public class HmxyHelper {
 
 	/** 设置最大灵力 */
 	public static void setMaxLingLi(LivingEntity living, double value) {
-		changeAttr(living, MAX_LING_LI, uuid, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
+		changeAttr(living, MAX_LING_LI, MAX_LING_LI_UUID, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
 	}
 
-	public static double getMaxLingLi(LivingEntity living, Attribute attr) {
-		return living.getAttributeValue(attr);
+	public static double getMaxLingLi(LivingEntity living) {
+		return living.getAttributeValue(MAX_LING_LI);
 	}
 
 	public static void changeAttr(LivingEntity living, Attribute attr, UUID uuid, String name, double value,
@@ -280,5 +282,5 @@ public class HmxyHelper {
 			attrIns.removeModifier(uuid);
 		}
 		attrIns.addPermanentModifier(modifer);
-	}
+	}	
 }

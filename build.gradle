@@ -24,7 +24,7 @@ version = property("mc_version")+"-"+property("mod_version")
 group = property("mod_group")
 archivesBaseName = property("mod_name") + "-" + property("version_name")
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {

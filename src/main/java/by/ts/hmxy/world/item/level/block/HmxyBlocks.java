@@ -10,13 +10,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class HmxyBlocks {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
 			HmxyMod.MOD_ID);
+	
 	/** 灵石矿 */
 	public static final RegistryObject<Block> REIKI_STONE_ORE = BLOCKS.register("reiki_stone_ore",
 			() -> new ReikiStoneOreBlock(

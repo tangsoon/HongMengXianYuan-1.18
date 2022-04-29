@@ -4,7 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.ForgeI18n;
+import net.minecraftforge.common.ForgeI18n;
 
 public final class Grade {
 	public final Rarity rarity;

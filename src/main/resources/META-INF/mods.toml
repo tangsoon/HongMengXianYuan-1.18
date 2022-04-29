@@ -22,6 +22,6 @@ description="\n道友，修个仙吗？。\n"
 [[dependencies.hmxy]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.17.1,1.18)"
+    versionRange="[1.18.1,1.18.2]"
     ordering="NONE"
     side="BOTH"

@@ -19,7 +19,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.Registry;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.BlockPos;
 import java.util.Random;
 import java.util.function.Function;
@@ -62,20 +61,20 @@ public class PreviousLifeWaterBlock extends LiquidBlock implements ITeleporter {
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-		if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions() && !entity.level.isClientSide()
-				&& true) {
-			if (entity.isOnPortalCooldown()) {
-				entity.setPortalCooldown();
-			} else if (entity.level.dimension() != ResourceKey.create(Registry.DIMENSION_REGISTRY,
-					new ResourceLocation("hmxy:the_mortal"))) {
-				entity.setPortalCooldown();
-				teleportToDimension(entity, pos,
-						ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("hmxy:the_mortal")));
-			} else {
-				entity.setPortalCooldown();
-				teleportToDimension(entity, pos, Level.OVERWORLD);
-			}
-		}
+//		if (!entity.isPassenger() && !entity.isVehicle() && entity.canChangeDimensions() && !entity.level.isClientSide()
+//				&& true) {
+//			if (entity.isOnPortalCooldown()) {
+//				entity.setPortalCooldown();
+//			} else if (entity.level.dimension() != ResourceKey.create(Registry.DIMENSION_REGISTRY,
+//					new ResourceLocation("hmxy:the_mortal"))) {
+//				entity.setPortalCooldown();
+//				teleportToDimension(entity, pos,
+//						ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("hmxy:the_mortal")));
+//			} else {
+//				entity.setPortalCooldown();
+//				teleportToDimension(entity, pos, Level.OVERWORLD);
+//			}
+//		}
 	}
 
 	private void teleportToDimension(Entity entity, BlockPos pos, ResourceKey<Level> destinationType) {

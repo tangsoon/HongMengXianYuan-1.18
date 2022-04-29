@@ -21,6 +21,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import by.ts.hmxy.HmxyConfig;
+import by.ts.hmxy.config.MyConfig;
 import by.ts.hmxy.util.HmxyHelper;
 
 import java.util.List;
@@ -201,7 +202,7 @@ public class HmxyHud {
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)
-				&& HmxyConfig.showHmxyHud() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
+				&& MyConfig.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
 			event.setCanceled(true);
 		}
 	}

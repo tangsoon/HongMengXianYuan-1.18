@@ -30,7 +30,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		this.getEntityData().define(HmxyHelper.XIAO_JING_JIE, Integer.valueOf(0));
 		this.getEntityData().define(HmxyHelper.灵力, Float.valueOf(20.0F));
 	}
-
+	
 	@Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
 	public void onReadAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
 		HmxyHelper.setZhenYuan(this, pCompound.getInt("zhenYuan"));

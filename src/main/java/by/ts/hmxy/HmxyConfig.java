@@ -6,6 +6,6 @@ public class HmxyConfig {
 	}
 	
 	public static float lingLiConsumePerTickWhenSpringting() {
-		return 0.0025F;
+		return 0.05F;
 	}
 }

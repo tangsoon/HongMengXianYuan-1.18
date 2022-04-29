@@ -4,8 +4,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import by.ts.hmxy.config.MyConfig;
 import by.ts.hmxy.event.EntityRenderersHandler;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
@@ -43,6 +47,8 @@ public class HmxyMod {
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
 		Attrs.ATTRIBUTES.register(modEventBus);	
+		
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MyConfig.GENERAL_SPEC, "hmxy_client_confic.toml");
 
 		HmxyHelper.initJingJies();
 		

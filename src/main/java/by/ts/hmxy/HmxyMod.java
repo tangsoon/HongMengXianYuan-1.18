@@ -89,7 +89,7 @@ public class HmxyMod {
 			testModClass=Class.forName(testModName);
 			testModClass.getConstructor().newInstance();
 			LOGGER.info("启用测试类: "+testModName);
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  | InvocationTargetException | NoSuchMethodException  e) {
 			LOGGER.info("未启用测试类: "+testModName);
 		}
 	}

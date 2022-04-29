@@ -14,12 +14,9 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.mixins.MixinJingJieEntity;
-import by.ts.hmxy.mixins.MixinLivingEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -30,7 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fmllegacy.ForgeI18n;
@@ -55,16 +51,6 @@ public class HmxyHelper {
 	public static final UUID MAX_LING_LI_UUID = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
 	private static final Logger LOGGER=LogManager.getLogger();
-	
-	@SubscribeEvent
-	public static void onEntityConstructing(EntityConstructing event) {
-		Entity entity = event.getEntity();
-		if (entity instanceof MixinJingJieEntity) {
-			entity.getEntityData().define(ZHEN_YUAN, Integer.valueOf(0));
-			entity.getEntityData().define(XIAO_JING_JIE, Integer.valueOf(0));
-			entity.getEntityData().define(灵力, Float.valueOf(20.0F));
-		}
-	}
 
 	@SubscribeEvent
 	public static void onEntityAttributeCreate(EntityAttributeCreationEvent event) {

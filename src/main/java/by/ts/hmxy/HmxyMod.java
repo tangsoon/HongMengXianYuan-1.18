@@ -10,6 +10,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.loading.FileUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.ts.hmxy.config.MyConfig;
+import by.ts.hmxy.config.CommonConfig;
 import by.ts.hmxy.event.EntityRenderersHandler;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
@@ -27,6 +30,8 @@ import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？
+//TODO tesr；配置界面；加载GUI
+//TODO 用体力代替部分灵力消耗
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {
@@ -34,11 +39,16 @@ public class HmxyMod {
 	public static final String MOD_ID = "hmxy";
 
 	public HmxyMod() {
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		forgeBus.register(this);
-		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);
-	
 		
+		FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(HmxyMod.MOD_ID),HmxyMod.MOD_ID);
+		ModLoadingContext modLoadingContext=ModLoadingContext.get();
+		LOGGER.info("开始读取配置");
+		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/client_config.toml");
+		modLoadingContext.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/common_config.toml");
+		modLoadingContext.registerConfig(ModConfig.Type.SERVER, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
+		LOGGER.info("读取配置结束");
+		HmxyHelper.initJingJies();
+	
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::setup);
 		HmxyItems.ITEMS.register(modEventBus);
@@ -48,9 +58,9 @@ public class HmxyMod {
 		HmxyEntities.ITEMS.register(modEventBus);
 		Attrs.ATTRIBUTES.register(modEventBus);	
 		
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MyConfig.GENERAL_SPEC, "hmxy_client_confic.toml");
-
-		HmxyHelper.initJingJies();
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		forgeBus.register(this);
+		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);
 		
 		new Thread(()->{
 			InputStream inStream= ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt");
@@ -88,7 +98,6 @@ public class HmxyMod {
 			
 		});
 	}
-
 	
 	public static ResourceLocation modLoc(String path) {
 		return new ResourceLocation(MOD_ID,path);

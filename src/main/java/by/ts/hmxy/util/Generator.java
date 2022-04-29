@@ -1,4 +1,4 @@
-package by.ts.gen;
+package by.ts.hmxy.util;
 
 import java.io.File;
 import java.io.IOException;

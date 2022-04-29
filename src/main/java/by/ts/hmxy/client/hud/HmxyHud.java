@@ -20,10 +20,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
-import by.ts.hmxy.HmxyConfig;
-import by.ts.hmxy.config.MyConfig;
+import by.ts.hmxy.config.ClientConfig;
 import by.ts.hmxy.util.HmxyHelper;
-
 import java.util.List;
 import java.util.Optional;
 import com.google.common.collect.ImmutableList;
@@ -38,7 +36,7 @@ public class HmxyHud {
 			.of(OverlayRegistry.registerOverlayTop("horbar and properties", (gui, mStack, partialTicks, gw, gh) -> {
 				Minecraft mc = Minecraft.getInstance();
 				if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL
-						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && HmxyConfig.showHmxyHud()
+						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && ClientConfig.isToolBarOpen.get()
 						&& !mc.options.hideGui) {
 					Player player = mc.player;
 
@@ -139,7 +137,7 @@ public class HmxyHud {
 	public static final IIngameOverlay ITEM_NAME_ELEMENT = OverlayRegistry.registerOverlayTop("Item Name",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui&&HmxyConfig.showHmxyHud()) {
+				if (!mc.options.hideGui&&ClientConfig.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					if (mc.options.heldItemTooltips && mc.gameMode.getPlayerMode() != GameType.SPECTATOR) {
 						GuiHelper.renderSelectedItemName(gui, mStack);
@@ -152,7 +150,7 @@ public class HmxyHud {
 	public static final IIngameOverlay MOUNT_HEALTH_ELEMENT = OverlayRegistry.registerOverlayTop("Mount Health",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&HmxyConfig.showHmxyHud()) {
+				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&ClientConfig.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					GuiHelper.renderHealthMount(gui, screenWidth, screenHeight, mStack);
 				}
@@ -161,19 +159,16 @@ public class HmxyHud {
 	public static final IIngameOverlay JUMP_BAR_ELEMENT = OverlayRegistry.registerOverlayTop("Jump Bar",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&HmxyConfig.showHmxyHud()) {
+				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&ClientConfig.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					int pX = screenWidth / 2 - 91;
 					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);
-
 					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 					RenderSystem.disableBlend();
-
 					mc.getProfiler().push("jumpBar");
 					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
 					float f = mc.player.getJumpRidingScale();
 					int yOffset=-20;
-					//int i = 182;
 					int j = (int) (f * 183.0F);
 					int k = gui.screenHeight - 32 + 3;
 					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);
@@ -202,7 +197,7 @@ public class HmxyHud {
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)
-				&& MyConfig.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
+				&&ClientConfig.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
 			event.setCanceled(true);
 		}
 	}

@@ -20,8 +20,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,13 +28,13 @@ import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-//TODO 自定义属性的持久化
+
 /**
  * 玩家境界相关的操作
  * 
  * @author tangsoon
  */
-@EventBusSubscriber(bus = Bus.MOD,modid = HmxyMod.MOD_ID)
+@EventBusSubscriber(bus = Bus.MOD, modid = HmxyMod.MOD_ID)
 public class HmxyHelper {
 	/** 真元 */
 	public static EntityDataAccessor<Integer> ZHEN_YUAN;
@@ -44,15 +42,23 @@ public class HmxyHelper {
 	public static EntityDataAccessor<Integer> XIAO_JING_JIE;
 	/** 灵力 */
 	public static EntityDataAccessor<Float> 灵力;
-	
 	/** 灵力上限修饰符 */
 	public static final UUID MAX_LING_LI_UUID = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
-	private static final Logger LOGGER=LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@SubscribeEvent
 	public static void onEntityAttributeCreate(EntityAttributeModificationEvent event) {
-		event.add(EntityType.PLAYER, Attrs.MAX_LING_LI.get());
+		addAttributes(event, EntityType.PLAYER, Attrs.MAX_LING_LI.get(), Attrs.LING_LI_CONSUME_WHEN_PRINTING.get(),
+				Attrs.LING_LI_RESUME.get());
+	}
+
+	/** 一个辅助方法用来添加属性 */
+	public static void addAttributes(EntityAttributeModificationEvent event,
+			EntityType<? extends LivingEntity> entityType, Attribute... attributes) {
+		for (Attribute attr : attributes) {
+			event.add(entityType, attr);
+		}
 	}
 
 	public static class DaJingJie implements Comparable<DaJingJie> {
@@ -60,11 +66,11 @@ public class HmxyHelper {
 		private String name;
 		private String zhName;
 
-		DaJingJie(int index, String name,String zhName) {
+		DaJingJie(int index, String name, String zhName) {
 			super();
 			this.index = index;
 			this.name = name;
-			this.zhName=zhName;
+			this.zhName = zhName;
 		}
 
 		public int getIndex() {
@@ -92,7 +98,7 @@ public class HmxyHelper {
 		public int compareTo(DaJingJie o) {
 			return this.index > o.index ? 1 : -1;
 		}
-		
+
 		public String getZhName() {
 			return this.zhName;
 		}
@@ -114,18 +120,18 @@ public class HmxyHelper {
 						jr.beginObject();
 						int index = -1;
 						String jingName = null;
-						String nameZh=null;
+						String nameZh = null;
 						if ("index".equals(jr.nextName())) {
 							index = jr.nextInt();
 						}
 						if ("name".equals(jr.nextName())) {
 							jingName = jr.nextString();
 						}
-						if("zhName".equals(jr.nextName())) {
-							nameZh=jr.nextString();
+						if ("zhName".equals(jr.nextName())) {
+							nameZh = jr.nextString();
 						}
 						if (index != -1 && jingName != null) {
-							DaJingJie daJingJie = new DaJingJie(index, jingName,nameZh);
+							DaJingJie daJingJie = new DaJingJie(index, jingName, nameZh);
 							JingJies.add(daJingJie);
 						} else {
 							throw new Exception(HmxyMod.MOD_ID + "_da_jing_jie.json错误!!!");
@@ -145,16 +151,16 @@ public class HmxyHelper {
 				e.printStackTrace();
 			}
 		} else {
-			JingJies.add(new DaJingJie(0, "da_jing_jie.fan_ti.name","凡体"));
-			JingJies.add(new DaJingJie(1, "da_jing_jie.lian_qi.name","练气"));
-			JingJies.add(new DaJingJie(2, "da_jing_jie.zhu_ji.name","筑基"));
-			JingJies.add(new DaJingJie(3, "da_jing_jie.jie_dan.name","结丹"));
-			JingJies.add(new DaJingJie(4, "da_jing_jie.jin_dan.name","金丹"));
-			JingJies.add(new DaJingJie(5, "da_jing_jie.yuan_ying.name","元婴"));
-			JingJies.add(new DaJingJie(6, "da_jing_jie.hua_shen.name","化神"));
-			JingJies.add(new DaJingJie(7, "da_jing_jie.lian_xu.name","炼虚"));
-			JingJies.add(new DaJingJie(8, "da_jing_jie.he_ti.name","合体"));
-			JingJies.add(new DaJingJie(9, "da_jing_jie.da_cheng.name","大乘"));
+			JingJies.add(new DaJingJie(0, "da_jing_jie.fan_ti.name", "凡体"));
+			JingJies.add(new DaJingJie(1, "da_jing_jie.lian_qi.name", "练气"));
+			JingJies.add(new DaJingJie(2, "da_jing_jie.zhu_ji.name", "筑基"));
+			JingJies.add(new DaJingJie(3, "da_jing_jie.jie_dan.name", "结丹"));
+			JingJies.add(new DaJingJie(4, "da_jing_jie.jin_dan.name", "金丹"));
+			JingJies.add(new DaJingJie(5, "da_jing_jie.yuan_ying.name", "元婴"));
+			JingJies.add(new DaJingJie(6, "da_jing_jie.hua_shen.name", "化神"));
+			JingJies.add(new DaJingJie(7, "da_jing_jie.lian_xu.name", "炼虚"));
+			JingJies.add(new DaJingJie(8, "da_jing_jie.he_ti.name", "合体"));
+			JingJies.add(new DaJingJie(9, "da_jing_jie.da_cheng.name", "大乘"));
 			Gson gson = new Gson();
 			String str = gson.toJson(JingJies);
 			try {
@@ -195,9 +201,9 @@ public class HmxyHelper {
 	public static int getXiaoJingJie(LivingEntity entity) {
 		return entity.getEntityData().get(XIAO_JING_JIE);
 	}
-	
-	public static void setXiaoJingJie(LivingEntity entity,int xiaoJingJie) {
-		entity.getEntityData().set(XIAO_JING_JIE,xiaoJingJie);
+
+	public static void setXiaoJingJie(LivingEntity entity, int xiaoJingJie) {
+		entity.getEntityData().set(XIAO_JING_JIE, xiaoJingJie);
 	}
 
 	public static int onGetZhenYuan(LivingEntity entity, int value) {
@@ -244,27 +250,19 @@ public class HmxyHelper {
 	}
 
 	/** 设置灵力 */
-	public static void setLingLi(LivingEntity entity,float lingLi) {
-		entity.getEntityData().set(灵力,lingLi);
+	public static void setLingLi(LivingEntity entity, float lingLi) {
+		entity.getEntityData().set(灵力, lingLi);
 	}
-
-	/** 设置最大灵力 */
-	public static void setMaxLingLi(LivingEntity living, double value) {
-		changeAttr(living, Attrs.MAX_LING_LI.get(), MAX_LING_LI_UUID, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
-	}
-
+	
 	public static double getMaxLingLi(LivingEntity living) {
 		return living.getAttributeValue(Attrs.MAX_LING_LI.get());
 	}
-
-	public static void changeAttr(LivingEntity living, Attribute attr, UUID uuid, String name, double value,
-			AttributeModifier.Operation op) {
-		AttributeInstance attrIns = living.getAttribute(attr);
-		double oldValue=attrIns.getValue();
-		AttributeModifier modifer = new AttributeModifier(uuid, name, value-oldValue, op);
-		if (attrIns.hasModifier(modifer)) {
-			attrIns.removeModifier(uuid);
-		}
-		attrIns.addPermanentModifier(modifer);
-	}	
+	
+	public static double getLingLiConsumeWhenSprinting(LivingEntity living) {
+		return living.getAttributeValue(Attrs.LING_LI_CONSUME_WHEN_PRINTING.get());
+	}
+	
+	public static double getLingLiResumeWhenSprinting(LivingEntity living) {
+		return living.getAttributeValue(Attrs.LING_LI_RESUME.get());
+	}
 }

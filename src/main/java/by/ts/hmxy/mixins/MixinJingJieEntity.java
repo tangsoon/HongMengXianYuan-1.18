@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import by.ts.hmxy.HmxyConfig;
 import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
@@ -47,14 +46,12 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void onTick(CallbackInfo ci) {
-		boolean canRecover = true;
 		LivingEntity living = this;
 		float lingLi = HmxyHelper.getLingLi(this);
 		if (living instanceof Player) {
 			//冲刺时消耗灵力
 			if (((Player) living).isSprinting()) {
-				canRecover = false;
-				float consume = HmxyConfig.lingLiConsumePerTickWhenSpringting();
+				float consume =(float) HmxyHelper.getLingLiConsumeWhenSprinting(this);
 				if (lingLi > consume) {
 					HmxyHelper.setLingLi(this, lingLi - consume);
 				} else {
@@ -62,11 +59,10 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 				}
 			}
 		}
-
+		//灵力恢复，冲刺、在水中、飞行中不能恢复灵力
 		float capacity;
-		float maxLingLi;
-		if (canRecover && (capacity = ((maxLingLi = (float) HmxyHelper.getMaxLingLi(this)) - lingLi)) > 0) {
-			HmxyHelper.setLingLi(this, lingLi + Math.min(capacity, (maxLingLi) / 6000.0F));// 一天只会自动恢复4管灵力
+		if (!this.isSprinting()&&!this.isInWater()&&!this.isFallFlying()&& (capacity = ((float) HmxyHelper.getMaxLingLi(this) - lingLi)) > 0) {
+			HmxyHelper.setLingLi(this, lingLi + Math.min(capacity,(float)HmxyHelper.getLingLiResumeWhenSprinting(this)));
 		}
 	}
 }

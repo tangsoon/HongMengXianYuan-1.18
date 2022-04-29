@@ -60,6 +60,8 @@ public class HmxyMod {
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
 		modEventBus.addListener(this::setup);		
+
+		HmxyHelper.initJingJies();
 		
 		new Thread(()->{
 			InputStream inStream= ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt");
@@ -94,7 +96,6 @@ public class HmxyMod {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			HmxyHelper.initJingJies();
 			Structures.setupStructures();
 			ConfiguredStructures.registerConfiguredStructures();
 		});

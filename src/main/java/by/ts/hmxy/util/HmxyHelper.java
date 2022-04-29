@@ -9,16 +9,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -45,14 +41,11 @@ import net.minecraftforge.fmllegacy.ForgeI18n;
 @EventBusSubscriber
 public class HmxyHelper {
 	/** 真元 */
-	private static final EntityDataAccessor<Integer> ZHEN_YUAN = SynchedEntityData.defineId(Player.class,
-			EntityDataSerializers.INT);
+	public static EntityDataAccessor<Integer> ZHEN_YUAN;
 	/** 小境界 */
-	private static final EntityDataAccessor<Integer> XIAO_JING_JIE = SynchedEntityData.defineId(Player.class,
-			EntityDataSerializers.INT);
+	public static EntityDataAccessor<Integer> XIAO_JING_JIE;
 	/** 灵力 */
-	private static final EntityDataAccessor<Float> 灵力 = SynchedEntityData.defineId(Player.class,
-			EntityDataSerializers.FLOAT);
+	public static EntityDataAccessor<Float> 灵力;
 	/** 灵力上限 */
 	public static final Attribute MAX_LING_LI = new RangedAttribute("attribute.name.generic.max_ling_li", 20.0D, 1.0D,
 			1024.0D).setSyncable(true);

@@ -23,7 +23,6 @@ public abstract class MixinPlayer extends LivingEntity{
 		HmxyHelper.setZhenYuan(this, pCompound.getInt("zhenYuan"));
 		HmxyHelper.setXiaoJingJie(this, pCompound.getInt("xiaoJingJie"));
 		HmxyHelper.setLingLi(this, pCompound.getFloat("lingLi"));
-		
 	}
 	
 	@Inject(method = "addAdditionalSaveData", at = @At("RETURN") )

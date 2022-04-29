@@ -22,13 +22,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fmllegacy.ForgeI18n;
 //TODO 自定义属性的持久化
 /**
@@ -36,7 +36,7 @@ import net.minecraftforge.fmllegacy.ForgeI18n;
  * 
  * @author tangsoon
  */
-@EventBusSubscriber
+@EventBusSubscriber(bus = Bus.MOD,modid = HmxyMod.MOD_ID)
 public class HmxyHelper {
 	/** 真元 */
 	public static EntityDataAccessor<Integer> ZHEN_YUAN;
@@ -44,17 +44,15 @@ public class HmxyHelper {
 	public static EntityDataAccessor<Integer> XIAO_JING_JIE;
 	/** 灵力 */
 	public static EntityDataAccessor<Float> 灵力;
-	/** 灵力上限 */
-	public static final Attribute MAX_LING_LI = new RangedAttribute("attribute.name.generic.max_ling_li", 20.0D, 1.0D,
-			1024.0D).setSyncable(true);
+	
 	/** 灵力上限修饰符 */
 	public static final UUID MAX_LING_LI_UUID = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
 	private static final Logger LOGGER=LogManager.getLogger();
 
 	@SubscribeEvent
-	public static void onEntityAttributeCreate(EntityAttributeCreationEvent event) {
-		event.put(EntityType.PLAYER, LivingEntity.createLivingAttributes().add(MAX_LING_LI).build());
+	public static void onEntityAttributeCreate(EntityAttributeModificationEvent event) {
+		event.add(EntityType.PLAYER, Attrs.MAX_LING_LI.get());
 	}
 
 	public static class DaJingJie implements Comparable<DaJingJie> {
@@ -252,11 +250,11 @@ public class HmxyHelper {
 
 	/** 设置最大灵力 */
 	public static void setMaxLingLi(LivingEntity living, double value) {
-		changeAttr(living, MAX_LING_LI, MAX_LING_LI_UUID, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
+		changeAttr(living, Attrs.MAX_LING_LI.get(), MAX_LING_LI_UUID, "更改最大灵力", value, AttributeModifier.Operation.ADDITION);
 	}
 
 	public static double getMaxLingLi(LivingEntity living) {
-		return living.getAttributeValue(MAX_LING_LI);
+		return living.getAttributeValue(Attrs.MAX_LING_LI.get());
 	}
 
 	public static void changeAttr(LivingEntity living, Attribute attr, UUID uuid, String name, double value,

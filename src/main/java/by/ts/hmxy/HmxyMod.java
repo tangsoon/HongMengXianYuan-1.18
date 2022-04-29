@@ -31,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import com.mojang.serialization.Codec;
 
 import by.ts.hmxy.event.EntityRenderersHandler;
+import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.world.entity.HmxyEntities;
 import by.ts.hmxy.world.item.HmxyItems;
@@ -52,14 +53,17 @@ public class HmxyMod {
 		forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
 		forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
 		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);
+	
+		
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modEventBus.addListener(this::setup);	
 		Structures.STRUCTURES.register(modEventBus);
 		HmxyItems.ITEMS.register(modEventBus);
 		HmxyBlocks.BLOCKS.register(modEventBus);
 		HmxyFluids.FLUIDS.register(modEventBus);
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
-		modEventBus.addListener(this::setup);		
+		Attrs.ATTRIBUTES.register(modEventBus);	
 
 		HmxyHelper.initJingJies();
 		

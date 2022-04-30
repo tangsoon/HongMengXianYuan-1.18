@@ -80,9 +80,9 @@ minecraft {
 
 mixin {
     add sourceSets.main, mod_id + ".refmap.json"
-   	//mixin.debug=true
-   	//mixin.checks=true
-   	//mixin.hotSwap=true
+   	mixin.debug=true
+   	mixin.checks=true
+   	mixin.hotSwap=true
 }
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {

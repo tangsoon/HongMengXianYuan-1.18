@@ -44,13 +44,13 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void onTick(CallbackInfo ci) {
 		LivingEntity living = this;
-		float lingLi = HmxyHelper.getLingLi(this);
+		float stamina = HmxyHelper.getStamina(this);
 
-		// 冲刺时消耗灵力
-		if (HmxyHelper.isConsummingLingLi(living)) {
-			float consume = (float) HmxyHelper.getLingLiConsumeWhenSprinting(this);
-			if (lingLi > consume) {
-				HmxyHelper.setLingLi(this, lingLi - consume);
+		// 冲刺时消耗体力
+		if (HmxyHelper.isConsummingStamina(living)) {
+			float consume = (float) HmxyHelper.getStaminaConsume(this);
+			if (stamina > consume) {
+				HmxyHelper.setStamina(living, stamina);
 			} else {
 				this.setSprinting(false);
 			}
@@ -58,10 +58,10 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 
 		// 灵力恢复，冲刺、在水中、飞行中不能恢复灵力
 		float capacity;
-		if (!HmxyHelper.isConsummingLingLi(living)
-				&& (capacity = ((float) HmxyHelper.getMaxLingLi(this) - lingLi)) > 0) {
+		if (!HmxyHelper.isConsummingStamina(living)
+				&& (capacity = ((float) HmxyHelper.getMaxStamina(this) - stamina)) > 0) {
 			HmxyHelper.setLingLi(this,
-					lingLi + Math.min(capacity, (float) HmxyHelper.getLingLiResumeWhenSprinting(this)));
+					stamina + Math.min(capacity, (float) HmxyHelper.getStaminaResume(this)));
 		}
 	}
 }

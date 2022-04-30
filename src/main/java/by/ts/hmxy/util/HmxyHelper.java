@@ -38,12 +38,17 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
  */
 @EventBusSubscriber(bus = Bus.MOD, modid = HmxyMod.MOD_ID)
 public class HmxyHelper {
+	// ------------------------------拥有境界的生物的属性------------------------------
 	/** 真元 */
 	public static EntityDataAccessor<Integer> ZHEN_YUAN;
 	/** 小境界 */
 	public static EntityDataAccessor<Integer> XIAO_JING_JIE;
 	/** 灵力 */
 	public static EntityDataAccessor<Float> 灵力;
+	/** 耐力 */
+	public static EntityDataAccessor<Float> STAMINA;
+	// ------------------------------------------------------------------------------
+
 	/** 灵力上限修饰符 */
 	public static final UUID MAX_LING_LI_UUID = UUID.fromString("da63a858-86bb-4097-878e-6f9fca0fe19c");
 
@@ -51,8 +56,8 @@ public class HmxyHelper {
 
 	@SubscribeEvent
 	public static void onEntityAttributeCreate(EntityAttributeModificationEvent event) {
-		addAttributes(event, EntityType.PLAYER, Attrs.MAX_LING_LI.get(), Attrs.LING_LI_CONSUME_WHEN_PRINTING.get(),
-				Attrs.LING_LI_RESUME.get());
+		addAttributes(event, EntityType.PLAYER, Attrs.MAX_LING_LI.get(), Attrs.LING_LI_RESUME.get(),
+				Attrs.STAMINA_RESUME.get(), Attrs.MAX_STAMINA.get(), Attrs.STAMINA_CONSUME.get());
 	}
 
 	/** 一个辅助方法用来添加属性 */
@@ -196,6 +201,14 @@ public class HmxyHelper {
 		living.getEntityData().set(ZHEN_YUAN, zhenYuan);
 	}
 
+	public static float getStamina(LivingEntity living) {
+		return living.getEntityData().get(STAMINA);
+	}
+
+	public static void setStamina(LivingEntity living, float stamina) {
+		living.getEntityData().set(STAMINA, stamina);
+	}
+
 	public static int getNecessaryZhenYuan(int nextXiaoJingJie) {
 		return (1 * (1 + nextXiaoJingJie) * nextXiaoJingJie / 2 + 20) * 30 * nextXiaoJingJie;
 	}
@@ -255,35 +268,39 @@ public class HmxyHelper {
 	public static void setLingLi(LivingEntity entity, float lingLi) {
 		entity.getEntityData().set(灵力, lingLi);
 	}
-	
+
 	public static double getMaxLingLi(LivingEntity living) {
 		return living.getAttributeValue(Attrs.MAX_LING_LI.get());
 	}
-	
-	public static double getLingLiConsumeWhenSprinting(LivingEntity living) {
-		return living.getAttributeValue(Attrs.LING_LI_CONSUME_WHEN_PRINTING.get());
+
+	public static double getStaminaConsume(LivingEntity living) {
+		return living.getAttributeValue(Attrs.STAMINA_CONSUME.get());
+	}
+
+	public static double getStaminaResume(LivingEntity living) {
+		return living.getAttributeValue(Attrs.STAMINA_RESUME.get());
 	}
 	
-	public static double getLingLiResumeWhenSprinting(LivingEntity living) {
-		return living.getAttributeValue(Attrs.LING_LI_RESUME.get());
+	public static double getMaxStamina(LivingEntity living) {
+		return living.getAttributeValue(Attrs.MAX_STAMINA.get());
 	}
-	
-	private static final List<Predicate<LivingEntity>> IS_CONSUMMING_LingLi = new ArrayList<>();
-	
+
+	private static final List<Predicate<LivingEntity>> IS_CONSUMMING_STAMINA = new ArrayList<>();
+
 	static {
-		IS_CONSUMMING_LingLi.add(living -> {
+		IS_CONSUMMING_STAMINA.add(living -> {
 			return living.isSwimming();
 		});
-		IS_CONSUMMING_LingLi.add(living -> {
+		IS_CONSUMMING_STAMINA.add(living -> {
 			return living.isSprinting();
 		});
-		IS_CONSUMMING_LingLi.add(living -> {
+		IS_CONSUMMING_STAMINA.add(living -> {
 			return living.isFallFlying();
 		});
 	}
-	
-	public static boolean isConsummingLingLi(LivingEntity living) {
-		if (IS_CONSUMMING_LingLi.stream().anyMatch(p -> {
+
+	public static boolean isConsummingStamina(LivingEntity living) {
+		if (IS_CONSUMMING_STAMINA.stream().anyMatch(p -> {
 			return p.test(living);
 		})) {
 			return true;

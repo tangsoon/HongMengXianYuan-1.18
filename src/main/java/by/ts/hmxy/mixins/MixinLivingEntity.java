@@ -14,11 +14,11 @@ public abstract class MixinLivingEntity {
 	static {
 		HmxyHelper.ZHEN_YUAN = SynchedEntityData.defineId(LivingEntity.class,
 				EntityDataSerializers.INT);
-		/** 小境界 */
 		HmxyHelper.XIAO_JING_JIE = SynchedEntityData.defineId(LivingEntity.class,
 				EntityDataSerializers.INT);
-		/** 灵力 */
 		HmxyHelper.灵力 = SynchedEntityData.defineId(LivingEntity.class,
+				EntityDataSerializers.FLOAT);
+		HmxyHelper.STAMINA=SynchedEntityData.defineId(LivingEntity.class,
 				EntityDataSerializers.FLOAT);
 	}
 }

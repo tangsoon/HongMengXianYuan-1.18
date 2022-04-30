@@ -49,7 +49,7 @@ public class HmxyMod {
 		modLoadingContext.registerConfig(ModConfig.Type.SERVER, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
 		LOGGER.info("读取配置结束");
 		HmxyHelper.initJingJies();
-	
+		
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::setup);
 		HmxyItems.ITEMS.register(modEventBus);

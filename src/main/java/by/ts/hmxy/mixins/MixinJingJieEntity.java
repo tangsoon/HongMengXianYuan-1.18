@@ -1,7 +1,8 @@
 package by.ts.hmxy.mixins;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,11 +17,21 @@ import net.minecraft.world.level.Level;
 @Mixin(Player.class)
 public abstract class MixinJingJieEntity extends LivingEntity {
 
-	private final Logger logger = LogManager.getLogger();
+	public static final List<Predicate<LivingEntity>> IS_CONSUMMING_LingLi = new ArrayList<>();
+	static {
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isSwimming();
+		});
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isSprinting();
+		});
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isFallFlying();
+		});
+	}
 
-	protected MixinJingJieEntity(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
-		super(p_20966_, p_20967_);
-		logger.error("调用了一个不该调用的方法: " + this.getClass());
+	protected MixinJingJieEntity(EntityType<? extends LivingEntity> type, Level level) {
+		super(type, level);
 	}
 
 	@Inject(method = "defineSynchedData", at = @At("RETURN"))
@@ -29,7 +40,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		this.getEntityData().define(HmxyHelper.XIAO_JING_JIE, Integer.valueOf(0));
 		this.getEntityData().define(HmxyHelper.灵力, Float.valueOf(20.0F));
 	}
-	
+
 	@Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
 	public void onReadAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
 		HmxyHelper.setZhenYuan(this, pCompound.getInt("zhenYuan"));
@@ -44,14 +55,18 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		pCompound.putFloat("lingLi", HmxyHelper.getLingLi(this));
 	}
 
+	{
+		System.out.println("lala");
+	}
+
 	@Inject(method = "tick", at = @At("RETURN"))
 	public void onTick(CallbackInfo ci) {
 		LivingEntity living = this;
 		float lingLi = HmxyHelper.getLingLi(this);
 		if (living instanceof Player) {
-			//冲刺时消耗灵力
+			// 冲刺时消耗灵力
 			if (((Player) living).isSprinting()) {
-				float consume =(float) HmxyHelper.getLingLiConsumeWhenSprinting(this);
+				float consume = (float) HmxyHelper.getLingLiConsumeWhenSprinting(this);
 				if (lingLi > consume) {
 					HmxyHelper.setLingLi(this, lingLi - consume);
 				} else {
@@ -59,10 +74,21 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 				}
 			}
 		}
-		//灵力恢复，冲刺、在水中、飞行中不能恢复灵力
+		// 灵力恢复，冲刺、在水中、飞行中不能恢复灵力
 		float capacity;
-		if (!this.isSprinting()&&!this.isInWater()&&!this.isFallFlying()&& (capacity = ((float) HmxyHelper.getMaxLingLi(this) - lingLi)) > 0) {
-			HmxyHelper.setLingLi(this, lingLi + Math.min(capacity,(float)HmxyHelper.getLingLiResumeWhenSprinting(this)));
+		if (!this.isSprinting() && !this.swinging && !this.isFallFlying()
+				&& (capacity = ((float) HmxyHelper.getMaxLingLi(this) - lingLi)) > 0) {
+			HmxyHelper.setLingLi(this,
+					lingLi + Math.min(capacity, (float) HmxyHelper.getLingLiResumeWhenSprinting(this)));
 		}
+	}
+
+	public boolean isConsummingLingLi() {
+		if (IS_CONSUMMING_LingLi.stream().anyMatch(p -> {
+			return p.test(this);
+		})) {
+			return true;
+		}
+		return false;
 	}
 }

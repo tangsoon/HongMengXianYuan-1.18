@@ -20,4 +20,5 @@ public class Attrs {
 	/**每tick灵力恢复*/
 	public static final RegistryObject<Attribute> LING_LI_RESUME = ATTRIBUTES.register("ling_li_resume",
 			() -> new RangedAttribute("attribute.name.generic.ling_li_resume", 0.0025D, 0.0D, 1024.0D).setSyncable(true));
+	
 }

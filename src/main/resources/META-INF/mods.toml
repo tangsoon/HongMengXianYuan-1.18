@@ -8,12 +8,10 @@ version="0.0.0.1" #mandatory
 displayName="鸿蒙仙缘" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-logoFile="examplemod.png" #optional
-credits="道友、修个仙吗？" #optional
-authors="TangSoon" #optional
-description='''
-	这是一个修真模组。
-'''
+logoFile="pack.png" #optional
+credits=""
+authors="指间青春" #optional
+description="\n道友，修个仙吗？。\n"
 [[dependencies.hmxy]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
@@ -24,6 +22,6 @@ description='''
 [[dependencies.hmxy]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.17.1,1.18)"
+    versionRange="[1.18.1,1.18.2]"
     ordering="NONE"
     side="BOTH"

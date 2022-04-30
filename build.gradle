@@ -20,14 +20,11 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
-//version = property("mc_version")+"-"+property("mod_version")
-//group = property("mod_group")
-//archivesBaseName = property("mod_name") + "_" + property("version_name")
 version = property("mc_version")+"-"+property("mod_version")
 group = property("mod_group")
 archivesBaseName = property("mod_name") + "-" + property("version_name")
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
@@ -83,6 +80,9 @@ minecraft {
 
 mixin {
     add sourceSets.main, mod_id + ".refmap.json"
+   	mixin.debug=true
+   	mixin.checks=true
+   	mixin.hotSwap=true
 }
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
@@ -94,6 +94,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:$mc_version-$forge_version"
     annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'
+    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
 }
 
 jar {
@@ -101,7 +102,7 @@ jar {
         attributes([
                 "Specification-Title"     : mod_id,
                 "Specification-Vendor"    : "TangSoon",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  :"${version}",
                 "Implementation-Vendor"   : "TangSoon",
@@ -126,3 +127,6 @@ publishing {
         }
     }
 }
+
+
+

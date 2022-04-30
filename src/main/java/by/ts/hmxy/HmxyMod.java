@@ -35,6 +35,7 @@ import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 添加“精”属性，
 @Mod("hmxy")
 @EventBusSubscriber
+
 public class HmxyMod {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "hmxy";
@@ -46,6 +47,7 @@ public class HmxyMod {
 		LOGGER.info("开始读取配置");
 		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/client_config.toml");
 		modLoadingContext.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/common_config.toml");
+		
 		modLoadingContext.registerConfig(ModConfig.Type.SERVER, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
 		LOGGER.info("读取配置结束");
 		HmxyHelper.initJingJies();

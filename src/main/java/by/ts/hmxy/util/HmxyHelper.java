@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
@@ -264,5 +266,28 @@ public class HmxyHelper {
 	
 	public static double getLingLiResumeWhenSprinting(LivingEntity living) {
 		return living.getAttributeValue(Attrs.LING_LI_RESUME.get());
+	}
+	
+	private static final List<Predicate<LivingEntity>> IS_CONSUMMING_LingLi = new ArrayList<>();
+	
+	static {
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isSwimming();
+		});
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isSprinting();
+		});
+		IS_CONSUMMING_LingLi.add(living -> {
+			return living.isFallFlying();
+		});
+	}
+	
+	public static boolean isConsummingLingLi(LivingEntity living) {
+		if (IS_CONSUMMING_LingLi.stream().anyMatch(p -> {
+			return p.test(living);
+		})) {
+			return true;
+		}
+		return false;
 	}
 }

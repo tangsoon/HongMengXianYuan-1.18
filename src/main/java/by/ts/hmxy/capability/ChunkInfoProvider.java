@@ -22,7 +22,7 @@ public class ChunkInfoProvider extends CapabilityProvider<ChunkInfoProvider> imp
 		super(ChunkInfoProvider.class);
 		capability = LazyOptional.of(() -> new HmxyChunkInfo());
 	}
-
+	
 	@NotNull
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {

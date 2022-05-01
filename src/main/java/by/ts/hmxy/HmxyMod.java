@@ -34,7 +34,6 @@ import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO bug: 耐力不会消耗消耗
 @Mod("hmxy")
 @EventBusSubscriber
-
 public class HmxyMod {
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "hmxy";

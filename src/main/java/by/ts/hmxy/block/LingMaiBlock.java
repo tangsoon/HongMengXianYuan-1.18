@@ -25,11 +25,8 @@ public class LingMaiBlock extends Block {
  			    	  LevelChunk chunk= pLevel.getChunkAt(pPos);
  			    	  HmxyChunkInfo chunkInfo=chunk.getCapability(ChunkInfoProvider.CAPABILITY).orElseGet(()->new HmxyChunkInfo());
  			    	  chunkInfo.setLingQi(chunkInfo.getLingQi()+1);
- 			    	  System.out.println("lalalla");
 			      }
 			};
 		}).any());
 	}
-
-
 }

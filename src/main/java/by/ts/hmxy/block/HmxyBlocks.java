@@ -17,25 +17,28 @@ import net.minecraftforge.registries.RegistryObject;
 public class HmxyBlocks {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
 			HmxyMod.MOD_ID);
-	
 	/** 灵石矿 */
-	public static final RegistryObject<Block> REIKI_STONE_ORE = BLOCKS.register("reiki_stone_ore",
-			() -> new ReikiStoneOreBlock(
+	public static final RegistryObject<Block> REIKI_STONE_ORE = register("reiki_stone_ore",
+			new ReikiStoneOreBlock(
 					BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)
 							.sound(SoundType.DEEPSLATE).randomTicks().lightLevel(litBlockEmission(9)),
 					UniformInt.of(0, 2), ReikiStoneOreBlock.Type.ORDINARY.type));
-	public static final RegistryObject<Block> REIKI_STONE_ORE_FLICKER = BLOCKS.register("reiki_stone_ore_flicker",
-			() -> new ReikiStoneOreBlock(
-					BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)
-							.sound(SoundType.DEEPSLATE).randomTicks().lightLevel(litBlockEmission(9)),
-					UniformInt.of(0, 2), ReikiStoneOreBlock.Type.FLICKER.type));
+	/** 闪烁的灵石矿 */
+	public static final RegistryObject<Block> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker",
+			new ReikiStoneOreBlock(BlockBehaviour.Properties.copy(REIKI_STONE_ORE.get()), UniformInt.of(0, 2),
+					ReikiStoneOreBlock.Type.FLICKER.type));
+
 	/** 凡界传送门，往生泉 */
-	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = BLOCKS.register("previous_life_water",
-			() -> new PreviousLifeWaterBlock());
+	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = register("previous_life_water",
+			new PreviousLifeWaterBlock());
 
 	private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
 		return (p) -> {
 			return p.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
 		};
+	}
+
+	private static RegistryObject<Block> register(String name, Block block) {
+		return BLOCKS.register(name, () -> block);
 	}
 }

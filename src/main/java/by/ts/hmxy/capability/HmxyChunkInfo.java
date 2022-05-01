@@ -25,4 +25,12 @@ public class HmxyChunkInfo implements INBTSerializable<CompoundTag> {
 	public void deserializeNBT(CompoundTag nbt) {
 		this.lingQi = nbt.getFloat("lingQi");
 	}
+
+	public float getLingQi() {
+		return lingQi;
+	}
+
+	public void setLingQi(float lingQi) {
+		this.lingQi = lingQi;
+	}
 }

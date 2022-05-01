@@ -35,7 +35,7 @@ public class HmxyBlocks {
 
 	/** 灵脉 */
 	public static final RegistryObject<Block> LING_MAI = register("ling_mai",
-			new LingMaiBlock(Properties.copy(Blocks.STONE)));
+			new LingMaiBlock(Properties.copy(Blocks.STONE).noDrops()));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
 		return (p) -> {

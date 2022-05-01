@@ -37,6 +37,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
     	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
     	//---------------------------------------------------------------------
+    	
     	//---------------------------------品质---------------------------------
     	this.add(ElixirItem.GradeEnum.TIAN.grade, "天");
     	this.add(ElixirItem.GradeEnum.DI.grade, "地");
@@ -51,10 +52,12 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
     	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
     	//---------------------------------------------------------------------
+    	
     	//---------------------------------方块---------------------------------
     	this.add(HmxyBlocks.REIKI_STONE_ORE.get(), "灵石矿");
     	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
     	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
+    	this.add(HmxyBlocks.LING_MAI.get(),"灵脉");
     	//---------------------------------------------------------------------
     	
     	//---------------------------------实体---------------------------------

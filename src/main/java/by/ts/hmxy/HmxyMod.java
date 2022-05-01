@@ -39,15 +39,6 @@ public class HmxyMod {
 	public static final String MOD_ID = "hmxy";
 
 	public HmxyMod() {
-		FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(HmxyMod.MOD_ID),HmxyMod.MOD_ID);
-		ModLoadingContext modLoadingContext=ModLoadingContext.get();
-		LOGGER.info("开始读取配置");
-		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/client_config.toml");
-		modLoadingContext.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/common_config.toml");
-		
-		modLoadingContext.registerConfig(ModConfig.Type.SERVER, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
-		LOGGER.info("读取配置结束");
-		HmxyHelper.initJingJies();
 		
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::setup);
@@ -58,6 +49,15 @@ public class HmxyMod {
 		HmxyEntities.ITEMS.register(modEventBus);
 		Attrs.ATTRIBUTES.register(modEventBus);	
 		
+		FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(HmxyMod.MOD_ID),HmxyMod.MOD_ID);
+		ModLoadingContext modLoadingContext=ModLoadingContext.get();
+		LOGGER.info("开始读取配置");
+		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/client_config.toml");
+		modLoadingContext.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/common_config.toml");		
+		modLoadingContext.registerConfig(ModConfig.Type.SERVER, CommonConfig.CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
+		LOGGER.info("读取配置结束");
+		HmxyHelper.initJingJies();
+	
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(this);
 		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);

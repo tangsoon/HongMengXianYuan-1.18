@@ -2,8 +2,8 @@ package by.ts.hmxy.data;
 
 import java.util.function.Supplier;
 
-import by.ts.hmxy.world.item.HmxyItems;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.item.HmxyItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootPool;

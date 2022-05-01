@@ -1,6 +1,6 @@
-package by.ts.hmxy.world.entity;
+package by.ts.hmxy.entity;
 
-import by.ts.hmxy.world.item.HmxyItems;
+import by.ts.hmxy.item.HmxyItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

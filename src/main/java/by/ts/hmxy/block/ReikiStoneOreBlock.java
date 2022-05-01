@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.item.level.block;
+package by.ts.hmxy.block;
 
 import java.util.Random;
 import com.mojang.math.Vector3f;

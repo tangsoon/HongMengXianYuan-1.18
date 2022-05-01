@@ -1,7 +1,7 @@
-package by.ts.hmxy.world.item;
+package by.ts.hmxy.item;
 
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;

@@ -3,7 +3,7 @@ package by.ts.hmxy.event;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.client.hud.HmxyHud;
 import by.ts.hmxy.client.renderer.entity.MinbusOrbRenderer;
-import by.ts.hmxy.world.entity.HmxyEntities;
+import by.ts.hmxy.entity.HmxyEntities;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

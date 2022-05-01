@@ -1,10 +1,10 @@
-package by.ts.hmxy.world.item.food.elixir;
+package by.ts.hmxy.item.food.elixir;
 
 import java.util.List;
 import javax.annotation.Nullable;
 
-import by.ts.hmxy.world.item.Grade;
-import by.ts.hmxy.world.item.Tabs;
+import by.ts.hmxy.item.Grade;
+import by.ts.hmxy.item.Tabs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;

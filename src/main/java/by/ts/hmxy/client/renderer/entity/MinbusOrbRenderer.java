@@ -9,7 +9,7 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.world.entity.MinbusOrb;
+import by.ts.hmxy.entity.MinbusOrb;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;

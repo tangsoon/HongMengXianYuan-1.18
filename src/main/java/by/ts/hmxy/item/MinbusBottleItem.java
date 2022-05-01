@@ -1,6 +1,6 @@
-package by.ts.hmxy.world.item;
+package by.ts.hmxy.item;
 
-import by.ts.hmxy.world.entity.ThrownMinbusBottle;
+import by.ts.hmxy.entity.ThrownMinbusBottle;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

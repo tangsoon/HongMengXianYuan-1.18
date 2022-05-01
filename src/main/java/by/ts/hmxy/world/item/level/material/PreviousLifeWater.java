@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.ParticleOptions;
-import by.ts.hmxy.world.item.HmxyItems;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.item.HmxyItems;
 
 public abstract class PreviousLifeWater extends ForgeFlowingFluid {
 	public static final ForgeFlowingFluid.Properties PROPERTIES = new ForgeFlowingFluid.Properties(

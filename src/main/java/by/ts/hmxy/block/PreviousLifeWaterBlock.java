@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.item.level.block;
+package by.ts.hmxy.block;
 
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;

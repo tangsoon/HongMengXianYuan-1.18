@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.item;
+package by.ts.hmxy.item;
 
 import org.apache.logging.log4j.util.Supplier;
 

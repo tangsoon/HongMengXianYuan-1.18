@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.item;
+package by.ts.hmxy.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Rarity;

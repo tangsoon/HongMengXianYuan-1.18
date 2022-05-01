@@ -50,7 +50,7 @@ public abstract class LanguageProvider implements DataProvider {
 
     private void save(HashCache cache, Object object, Path target) throws IOException {
         String data = GSON.toJson(object);
-        //data = JavaUnicodeEscaper.outsideOf(0, 0x7f).translate(data);
+        //data = JavaUnicodeEscaper.outsideOf(0, 0x7f).translate(data);//TODO 为了保证兼容性，在编译发布之前，应该删除这段代码。
         String hash = DataProvider.SHA1.hashUnencodedChars(data).toString();
         if (!Objects.equals(cache.getHash(target), hash) || !Files.exists(target)) {
            Files.createDirectories(target.getParent());

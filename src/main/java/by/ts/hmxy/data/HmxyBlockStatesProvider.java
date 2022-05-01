@@ -1,7 +1,7 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
+import by.ts.hmxy.block.HmxyBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;

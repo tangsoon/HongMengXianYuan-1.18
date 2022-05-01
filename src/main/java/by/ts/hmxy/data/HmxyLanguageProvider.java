@@ -1,15 +1,15 @@
 package by.ts.hmxy.data;
 
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.entity.HmxyEntities;
+import by.ts.hmxy.item.Grade;
+import by.ts.hmxy.item.HmxyItems;
+import by.ts.hmxy.item.ReikiStoneItem;
+import by.ts.hmxy.item.Tabs;
+import by.ts.hmxy.item.food.elixir.ElixirItem;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.HmxyHelper.DaJingJie;
-import by.ts.hmxy.world.entity.HmxyEntities;
-import by.ts.hmxy.world.item.Grade;
-import by.ts.hmxy.world.item.HmxyItems;
-import by.ts.hmxy.world.item.ReikiStoneItem;
-import by.ts.hmxy.world.item.Tabs;
-import by.ts.hmxy.world.item.food.elixir.ElixirItem;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
 

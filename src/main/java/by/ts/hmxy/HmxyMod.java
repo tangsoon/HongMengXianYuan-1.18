@@ -20,13 +20,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.config.CommonConfig;
+import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.event.EntityRenderersHandler;
+import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
-import by.ts.hmxy.world.entity.HmxyEntities;
-import by.ts.hmxy.world.item.HmxyItems;
-import by.ts.hmxy.world.item.level.block.HmxyBlocks;
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？

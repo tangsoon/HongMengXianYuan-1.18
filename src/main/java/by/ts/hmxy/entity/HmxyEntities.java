@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.entity;
+package by.ts.hmxy.entity;
 
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.world.entity.EntityType;

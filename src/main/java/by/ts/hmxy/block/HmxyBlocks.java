@@ -1,12 +1,12 @@
 package by.ts.hmxy.block;
 
 import java.util.function.ToIntFunction;
-
 import by.ts.hmxy.HmxyMod;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
@@ -20,17 +20,22 @@ public class HmxyBlocks {
 	/** 灵石矿 */
 	public static final RegistryObject<Block> REIKI_STONE_ORE = register("reiki_stone_ore",
 			new ReikiStoneOreBlock(
-					BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)
+					Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F)
 							.sound(SoundType.DEEPSLATE).randomTicks().lightLevel(litBlockEmission(9)),
 					UniformInt.of(0, 2), ReikiStoneOreBlock.Type.ORDINARY.type));
+	
 	/** 闪烁的灵石矿 */
 	public static final RegistryObject<Block> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker",
-			new ReikiStoneOreBlock(BlockBehaviour.Properties.copy(REIKI_STONE_ORE.get()), UniformInt.of(0, 2),
+			new ReikiStoneOreBlock(Properties.copy(REIKI_STONE_ORE.get()), UniformInt.of(0, 2),
 					ReikiStoneOreBlock.Type.FLICKER.type));
 
 	/** 凡界传送门，往生泉 */
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = register("previous_life_water",
 			new PreviousLifeWaterBlock());
+
+	/** 灵脉 */
+	public static final RegistryObject<Block> LING_MAI = register("ling_mai",
+			new LingMaiBlock(Properties.copy(Blocks.STONE)));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
 		return (p) -> {

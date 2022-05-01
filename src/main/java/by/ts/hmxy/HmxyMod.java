@@ -30,16 +30,16 @@ import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？
-//TODO tesr；配置界面；加载GUI
+//TODO tesr；加载GUI
 //TODO bug: 耐力不会消耗消耗
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {
+	
 	private static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "hmxy";
 
 	public HmxyMod() {
-		
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::setup);
 		HmxyItems.ITEMS.register(modEventBus);

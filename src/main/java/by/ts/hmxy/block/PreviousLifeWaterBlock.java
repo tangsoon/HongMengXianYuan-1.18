@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import java.util.Random;
 import java.util.function.Function;
 
-import by.ts.hmxy.world.item.level.material.HmxyFluids;
+import by.ts.hmxy.fluid.HmxyFluids;
 
 public class PreviousLifeWaterBlock extends LiquidBlock implements ITeleporter {
 	public PreviousLifeWaterBlock() {

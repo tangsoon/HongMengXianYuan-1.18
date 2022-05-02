@@ -23,15 +23,16 @@ import by.ts.hmxy.config.ClientConfig;
 import by.ts.hmxy.config.CommonConfig;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.event.EntityRenderersHandler;
+import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
-import by.ts.hmxy.world.item.level.material.HmxyFluids;
 
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？
 //TODO tesr；
 //TODO bug: 耐力不会消耗消耗
+//TODO 绘画模组的图标，背景图标
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {

@@ -1,5 +1,6 @@
 package by.ts.hmxy.data;
 
+import java.util.List;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.entity.HmxyEntities;
@@ -12,6 +13,7 @@ import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.HmxyHelper.DaJingJie;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 public class HmxyLanguageProvider extends LanguageProvider {
 
@@ -64,11 +66,16 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
     	//---------------------------------------------------------------------
     	
+    	//---------------------------------配置---------------------------------
+    	//先不做配置汉化，不会弄
+    	//this.add(ClientConfig.isToolBarOpen,"是否显示鸿蒙仙缘物品栏");
+    	//---------------------------------------------------------------------    	
     	
-    	//大境界名字
+    	//--------------------------------大境界--------------------------------
     	HmxyHelper.JingJies.forEach(j->{
     		HmxyLanguageProvider.this.add(j);
     	});
+    	//---------------------------------------------------------------------
     }
     
     public void add(Grade grade, String name) {
@@ -84,6 +91,11 @@ public class HmxyLanguageProvider extends LanguageProvider {
     
     public void add(CreativeModeTab tab, String name) {
         add("itemGroup."+tab.getRecipeFolderName(), name);
+    }
+    
+    public void add(ConfigValue<?> config, String name) {
+    	List<String> paths=config.getPath();
+        add("configured.gui."+paths.get(paths.size()-1), name);
     }
 }
 

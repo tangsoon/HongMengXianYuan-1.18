@@ -1,4 +1,4 @@
-package by.ts.hmxy.world.item.level.material;
+package by.ts.hmxy.fluid;
 
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;

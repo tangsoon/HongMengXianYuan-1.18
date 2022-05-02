@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.config.ClientConfig;
 import by.ts.hmxy.config.CommonConfig;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.event.EntityRenderersHandler;
@@ -31,7 +32,6 @@ import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 硬山建筑不加载？
 //TODO tesr；
 //TODO bug: 耐力不会消耗消耗
-//TODO bug: 由于chunkInfo，第一次进入世界，再次进入，导致卡死
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {
@@ -52,7 +52,7 @@ public class HmxyMod {
 		FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(HmxyMod.MOD_ID), HmxyMod.MOD_ID);
 		ModLoadingContext modLoadingContext = ModLoadingContext.get();
 		LOGGER.info("开始读取配置");
-		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, CommonConfig.CONFIG,
+		modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG,
 				HmxyMod.MOD_ID + "/client_config.toml");
 		modLoadingContext.registerConfig(ModConfig.Type.COMMON, CommonConfig.CONFIG,
 				HmxyMod.MOD_ID + "/common_config.toml");

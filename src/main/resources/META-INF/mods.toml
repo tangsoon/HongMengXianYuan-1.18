@@ -4,14 +4,15 @@ license="All rights reserved"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 [[mods]] #mandatory
 modId="hmxy" #mandatory
-version="0.0.0.1" #mandatory
+version="0.0.0.2" #mandatory ${version} 
 displayName="鸿蒙仙缘" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
 logoFile="pack.png" #optional
-credits=""
-authors="指间青春" #optional
-description="\n道友，修个仙吗？。\n非 MINECRAFT 官方产品，未经 MOJANG 批准，也不与 MOJANG 关联。\nNOT OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.\n"
+credits="by 指间青春(tangsoon)"
+authors="指间青春(tangsoon)" #optional
+description="\n道友，修个仙吗？。\n"
+
 [[dependencies.hmxy]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
@@ -25,3 +26,6 @@ description="\n道友，修个仙吗？。\n非 MINECRAFT 官方产品，未经 
     versionRange="[1.18.1,1.18.2]"
     ordering="NONE"
     side="BOTH"
+[modproperties.hmxy]
+    catalogueImageIcon="catalogue.png"
+    configuredBackground="minecraft:textures/block/stone.png"

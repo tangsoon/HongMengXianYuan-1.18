@@ -15,7 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class HmxyItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HmxyMod.MOD_ID);
-	/** 天然灵石 */
+//	/** 天然灵石 */
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = ITEMS.register("nature_reiki_stone",
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)));
 	/** 标准灵石 */
@@ -42,5 +42,7 @@ public class HmxyItems {
 	/**灵气瓶*/
 	public static final RegistryObject<Item> MINBUS_BOTTLE = ITEMS.register("minbus_bottle",
 			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)));
-	
+	/**灵脉*/
+	public static final RegistryObject<Item> LING_MAI = ITEMS.register("ling_mai",
+			() -> new BlockItem(HmxyBlocks.LING_MAI.get(),new Properties().tab(Tabs.ORE)));
 }

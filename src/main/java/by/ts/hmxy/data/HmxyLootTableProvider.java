@@ -19,8 +19,8 @@ public class HmxyLootTableProvider extends AbstractLootTableProvider<Supplier<Re
 
 	@Override
 	public void addLootTables() {
-		this.addLootTable(() -> HmxyBlocks.REIKI_STONE_ORE.get().getLootTable(), LootTable.lootTable().withPool(LootPool
-				.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.0F)).add(LootItem.lootTableItem(HmxyItems.NATURE_REIKI_STONE.get()))));
+//		this.addLootTable(() -> HmxyBlocks.REIKI_STONE_ORE.get().getLootTable(), LootTable.lootTable().withPool(LootPool
+//				.lootPool().setRolls(ConstantValue.exactly(1.0F)).setBonusRolls(ConstantValue.exactly(0.0F)).add(LootItem.lootTableItem(HmxyItems.NATURE_REIKI_STONE.get()))));
 	}
 
 }

@@ -28,7 +28,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	//---------------------------------------------------------------------
     	
     	//---------------------------------物品---------------------------------
-    	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
+    	//this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
     	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
     	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");

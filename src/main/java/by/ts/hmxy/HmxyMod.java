@@ -31,6 +31,7 @@ import by.ts.hmxy.world.item.level.material.HmxyFluids;
 //TODO 硬山建筑不加载？
 //TODO tesr；
 //TODO bug: 耐力不会消耗消耗
+//TODO bug: 由于chunkInfo，第一次进入世界，再次进入，导致卡死
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {

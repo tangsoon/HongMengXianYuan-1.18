@@ -2,14 +2,8 @@ package by.ts.hmxy.data;
 
 import java.util.function.Supplier;
 
-import by.ts.hmxy.block.HmxyBlocks;
-import by.ts.hmxy.item.HmxyItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public class HmxyLootTableProvider extends AbstractLootTableProvider<Supplier<ResourceLocation>> {
 

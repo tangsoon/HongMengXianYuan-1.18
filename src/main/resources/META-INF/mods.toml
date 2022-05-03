@@ -1,17 +1,17 @@
 modLoader="javafml" #mandatory
 loaderVersion="[37,)" #mandatory
 license="All rights reserved"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/tangsoon/tangsoon.github.io/issues" #optional
 [[mods]] #mandatory
 modId="hmxy" #mandatory
-version="0.0.0.2" #mandatory ${version} 
+version="0.0.0.3" #mandatory ${version} 
 displayName="鸿蒙仙缘" #mandatory
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+updateJSONURL="https://tangsoon.github.io/updates.json" #optional
+displayURL="https://tangsoon.github.io/" #optional
 logoFile="pack.png" #optional
 credits="by 指间青春(tangsoon)"
 authors="指间青春(tangsoon)" #optional
-description="\n道友，修个仙吗？。\n"
+description="\n道友，修个仙吗？\n"
 
 [[dependencies.hmxy]] #optional
     modId="forge" #mandatory

@@ -19,12 +19,13 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.client.ClientSetupHandler;
 import by.ts.hmxy.config.ClientConfig;
 import by.ts.hmxy.config.CommonConfig;
 import by.ts.hmxy.entity.HmxyEntities;
-import by.ts.hmxy.event.EntityRenderersHandler;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.HmxyItems;
+import by.ts.hmxy.network.Messages;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
 
@@ -33,6 +34,10 @@ import by.ts.hmxy.util.HmxyHelper;
 //TODO tesr；
 //TODO bug: 耐力不会消耗消耗
 //TODO 绘画模组的图标，背景图标
+//TODO 灵石矿生成
+//TODO 灵气的流动
+//TODO 灵符
+//TODO bug:chunkinfo错误
 @Mod("hmxy")
 @EventBusSubscriber
 public class HmxyMod {
@@ -64,7 +69,7 @@ public class HmxyMod {
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(this);
-		forgeBus.addListener(EventPriority.HIGH, EntityRenderersHandler::new);
+		forgeBus.addListener(EventPriority.HIGH, ClientSetupHandler::new);
 
 		new Thread(() -> {
 			InputStream inStream = ClassLoader.getSystemResourceAsStream("data/hmxy/console_banner.txt");
@@ -98,11 +103,12 @@ public class HmxyMod {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
-		event.enqueueWork(() -> {
-		});
+		Messages.register();
 	}
 
 	public static ResourceLocation modLoc(String path) {
 		return new ResourceLocation(MOD_ID, path);
 	}
+	
+	
 }

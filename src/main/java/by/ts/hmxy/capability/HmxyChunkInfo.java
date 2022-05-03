@@ -1,27 +1,26 @@
 package by.ts.hmxy.capability;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 /**
  * 存放区块相关的数据。
  */
-public class HmxyChunkInfo implements INBTSerializable<CompoundTag> {
+public class HmxyChunkInfo{
 
 	float lingQi = 0;
+	LevelChunk chunk;
 
-	public HmxyChunkInfo() {
-
+	public HmxyChunkInfo(LevelChunk chunk) {
+		this.chunk=chunk;
 	}
-
-	@Override
+	
 	public CompoundTag serializeNBT() {
 		CompoundTag result = new CompoundTag();
 		result.putFloat("lingQi", lingQi);
 		return result;
 	}
 
-	@Override
 	public void deserializeNBT(CompoundTag nbt) {
 		this.lingQi = nbt.getFloat("lingQi");
 	}
@@ -32,5 +31,6 @@ public class HmxyChunkInfo implements INBTSerializable<CompoundTag> {
 
 	public void setLingQi(float lingQi) {
 		this.lingQi = lingQi;
+		this.chunk.setUnsaved(true);
 	}
 }

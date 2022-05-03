@@ -8,9 +8,11 @@ import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.item.ReikiStoneItem;
 import by.ts.hmxy.item.Tabs;
-import by.ts.hmxy.item.food.elixir.ElixirItem;
+import by.ts.hmxy.item.elixir.ElixirItem;
+import by.ts.hmxy.item.fulu.LingFuItem;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.HmxyHelper.DaJingJie;
+import by.ts.hmxy.util.TransMsg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -27,10 +29,11 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(Tabs.ELIXIR,"丹药(鸿蒙仙缘)");
     	this.add(Tabs.SUNDRY,"杂物(鸿蒙仙缘)");
     	this.add(Tabs.ORE,"矿石(鸿蒙仙缘)");
+    	this.add(Tabs.FU_LU,"符箓");
     	//---------------------------------------------------------------------
     	
     	//---------------------------------物品---------------------------------
-    	//this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
+    	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
     	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
     	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");
@@ -38,6 +41,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
 //    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
     	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
     	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
+    	this.add(HmxyItems.LING_FU.get(),"灵符");
     	//---------------------------------------------------------------------
     	
     	//---------------------------------品质---------------------------------
@@ -64,18 +68,17 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	
     	//---------------------------------实体---------------------------------
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
-    	//---------------------------------------------------------------------
-    	
-    	//---------------------------------配置---------------------------------
-    	//先不做配置汉化，不会弄
-    	//this.add(ClientConfig.isToolBarOpen,"是否显示鸿蒙仙缘物品栏");
-    	//---------------------------------------------------------------------    	
+    	//---------------------------------------------------------------------   	
     	
     	//--------------------------------大境界--------------------------------
     	HmxyHelper.JingJies.forEach(j->{
     		HmxyLanguageProvider.this.add(j);
     	});
     	//---------------------------------------------------------------------
+    	
+    	//---------------------------------消息---------------------------------
+    	this.add(LingFuItem.MSG,"区块 (%d,%d) 灵气: %.2f");
+    	//---------------------------------------------------------------------  
     }
     
     public void add(Grade grade, String name) {
@@ -96,6 +99,10 @@ public class HmxyLanguageProvider extends LanguageProvider {
     public void add(ConfigValue<?> config, String name) {
     	List<String> paths=config.getPath();
         add("configured.gui."+paths.get(paths.size()-1), name);
+    }
+    
+    public void add(TransMsg msg,String str) {
+    	this.add(msg.getKey(),str);
     }
 }
 

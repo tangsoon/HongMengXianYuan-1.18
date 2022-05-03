@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
@@ -18,9 +19,9 @@ public class ChunkInfoProvider extends CapabilityProvider<ChunkInfoProvider> imp
 	});
 	private final LazyOptional<HmxyChunkInfo> capability;
 
-	protected ChunkInfoProvider() {
+	protected ChunkInfoProvider(LevelChunk chunk) {
 		super(ChunkInfoProvider.class);
-		capability = LazyOptional.of(() -> new HmxyChunkInfo());
+		capability = LazyOptional.of(() -> new HmxyChunkInfo(chunk));
 	}
 	
 	@NotNull

@@ -1,17 +1,18 @@
 modLoader="javafml" #mandatory
 loaderVersion="[37,)" #mandatory
 license="All rights reserved"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/tangsoon/tangsoon.github.io/issues" #optional
 [[mods]] #mandatory
 modId="hmxy" #mandatory
-version="0.0.0.1" #mandatory
+version="0.0.0.4" #mandatory ${version} 
 displayName="鸿蒙仙缘" #mandatory
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+#updateJSONURL="https://github.com/tangsoon/tangsoon.github.io/blob/main/updates.json" #optional#https://github.com/tangsoon/tangsoon.github.io/raw/main/updates.json
+displayURL="https://tangsoon.github.io/" #optional
 logoFile="pack.png" #optional
-credits=""
-authors="指间青春" #optional
-description="\n道友，修个仙吗？。\n"
+credits="by 指间青春(tangsoon)"
+authors="指间青春(tangsoon)" #optional
+description="\n道友，修个仙吗？\n"
+
 [[dependencies.hmxy]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
@@ -25,3 +26,6 @@ description="\n道友，修个仙吗？。\n"
     versionRange="[1.18.1,1.18.2]"
     ordering="NONE"
     side="BOTH"
+[modproperties.hmxy]
+    catalogueImageIcon="catalogue.png"
+    configuredBackground="minecraft:textures/block/stone.png"

@@ -14,6 +14,6 @@ public class ClientConfig {
 	}
 
 	private static void setupConfig(ForgeConfigSpec.Builder builder) {
-		isToolBarOpen = builder.define("is_tool_bar_open", true);
+		isToolBarOpen = builder.comment("是否启用鸿蒙仙缘的物品栏").define("is_tool_bar_open", true);
 	}
 }

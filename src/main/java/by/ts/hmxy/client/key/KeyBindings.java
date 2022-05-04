@@ -1,4 +1,4 @@
-package by.ts.hmxy.key;
+package by.ts.hmxy.client.key;
 
 import com.mojang.blaze3d.platform.InputConstants;
 

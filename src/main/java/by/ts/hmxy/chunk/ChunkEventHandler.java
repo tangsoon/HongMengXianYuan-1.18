@@ -6,12 +6,10 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber
 public class ChunkEventHandler {
 	@SubscribeEvent
-	public static void onSave(ChunkDataEvent.Save event) {
+	public void onSave(ChunkDataEvent.Save event) {
 		ChunkAccess access = event.getChunk();
 		if (access instanceof LevelChunk chunk && !chunk.getLevel().isClientSide) {
 			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
@@ -21,7 +19,7 @@ public class ChunkEventHandler {
 	}
 
 	@SubscribeEvent
-	public static void onLoad(ChunkDataEvent.Load event) {
+	public void onLoad(ChunkDataEvent.Load event) {
 		ChunkAccess access = event.getChunk();
 		if (access instanceof LevelChunk chunk && !chunk.getLevel().isClientSide) {
 			if (chunk.getLevel() instanceof ServerLevel) {

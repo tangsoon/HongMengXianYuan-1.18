@@ -116,7 +116,7 @@ public class HmxyHelper {
 
 	/** 初始化境界 */
 	public static void initJingJies() {
-		LOGGER.info("开始读取大境界。。。");
+		LOGGER.info("开始读取大境界");
 		File file = new File("config\\" + HmxyMod.MOD_ID + "_da_jing_jie.json");
 		if (file.exists() && !file.isDirectory()) {
 			try {

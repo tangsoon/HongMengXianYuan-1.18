@@ -26,7 +26,7 @@ import net.minecraft.client.gui.GuiComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import by.ts.hmxy.config.ClientConfig;
+import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.util.HmxyHelper;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +41,7 @@ public class HmxyHud {
 			.of(OverlayRegistry.registerOverlayTop("horbar and properties", (gui, mStack, partialTicks, gw, gh) -> {
 				Minecraft mc = Minecraft.getInstance();
 				if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL
-						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && ClientConfig.isToolBarOpen.get()
+						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && Configs.isToolBarOpen.get()
 						&& !mc.options.hideGui) {
 					Player player = mc.player;
 
@@ -142,7 +142,7 @@ public class HmxyHud {
 	public static final IIngameOverlay ITEM_NAME_ELEMENT = OverlayRegistry.registerOverlayTop("Item Name",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui&&ClientConfig.isToolBarOpen.get()) {
+				if (!mc.options.hideGui&&Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					if (mc.options.heldItemTooltips && mc.gameMode.getPlayerMode() != GameType.SPECTATOR) {
 						renderSelectedItemName(gui, mStack);
@@ -155,7 +155,7 @@ public class HmxyHud {
 	public static final IIngameOverlay MOUNT_HEALTH_ELEMENT = OverlayRegistry.registerOverlayTop("Mount Health",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&ClientConfig.isToolBarOpen.get()) {
+				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					renderHealthMount(gui, screenWidth, screenHeight, mStack);
 				}
@@ -164,7 +164,7 @@ public class HmxyHud {
 	public static final IIngameOverlay JUMP_BAR_ELEMENT = OverlayRegistry.registerOverlayTop("Jump Bar",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&ClientConfig.isToolBarOpen.get()) {
+				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					int pX = screenWidth / 2 - 91;
 					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);

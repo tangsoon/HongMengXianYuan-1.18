@@ -1,7 +1,7 @@
 package by.ts.hmxy.client.hud;
 
 import com.google.common.collect.ImmutableList;
-import by.ts.hmxy.config.ClientConfig;
+import by.ts.hmxy.config.Configs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -21,7 +21,7 @@ public class RenderOverlayHander {
 	public static void eventHandler(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)
-				&&ClientConfig.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
+				&&Configs.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
 			event.setCanceled(true);
 		}
 	}

@@ -10,8 +10,6 @@ import by.ts.hmxy.item.ReikiStoneItem;
 import by.ts.hmxy.item.Tabs;
 import by.ts.hmxy.item.elixir.ElixirItem;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
-import by.ts.hmxy.util.HmxyHelper;
-import by.ts.hmxy.util.HmxyHelper.DaJingJie;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
@@ -70,12 +68,6 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
     	//---------------------------------------------------------------------   	
     	
-    	//--------------------------------大境界--------------------------------
-//    	HmxyHelper.JingJies.forEach(j->{
-//    		HmxyLanguageProvider.this.add(j);
-//    	});
-    	//---------------------------------------------------------------------
-    	
     	//---------------------------------消息---------------------------------
     	this.add(XunLingFuItem.MSG,"区块 (%d,%d) 灵气: %.2f");
     	//---------------------------------------------------------------------  
@@ -83,13 +75,6 @@ public class HmxyLanguageProvider extends LanguageProvider {
     
     public void add(Grade grade, String name) {
         add(grade.getName(), name);
-    }
-    public void add(DaJingJie daJingJie) {
-    	this.add(daJingJie.getName(),daJingJie.getZhName());
-    }
-    
-    public void add(DaJingJie daJingJie,String tName) {
-    	add(daJingJie.getName(),tName);
     }
     
     public void add(CreativeModeTab tab, String name) {

@@ -24,7 +24,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-
+/**
+ * 灵石矿
+ * @author tangsoon
+ *
+ */
 public class ReikiStoneOreBlock extends OreBlock {
 	public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
 	public final ReikiType type;

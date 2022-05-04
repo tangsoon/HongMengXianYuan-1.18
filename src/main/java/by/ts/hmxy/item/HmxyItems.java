@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.fluid.HmxyFluids;
-import by.ts.hmxy.item.fulu.LingFuItem;
+import by.ts.hmxy.item.fulu.XunLingFuItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -60,9 +60,9 @@ public class HmxyItems {
 	/** 灵脉 */
 	public static final RegistryObject<Item> LING_MAI = register("ling_mai",
 			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)));
-	/** 灵符 */
-	public static final RegistryObject<Item> LING_FU = register("ling_fu",
-			() -> new LingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
+	/** 寻灵符 */
+	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu",
+			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	// ---------------------------------------------------------------------------------------------------------------------
 	
 	private static final RegistryObject<Item> register(String name, Supplier<Item> s) {

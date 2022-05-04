@@ -19,11 +19,11 @@ import net.minecraft.world.level.chunk.LevelChunk;
  * @author tangsoon
  *
  */
-public class LingFuItem extends FuLuItem {
+public class XunLingFuItem extends FuLuItem {
 
 	public static final TransMsg MSG = new TransMsg("msg.ling_fu");
 
-	public LingFuItem(Properties pProperties) {
+	public XunLingFuItem(Properties pProperties) {
 		super(pProperties);
 	}
 

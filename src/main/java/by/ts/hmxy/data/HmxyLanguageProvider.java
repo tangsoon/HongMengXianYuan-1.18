@@ -9,7 +9,7 @@ import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.item.ReikiStoneItem;
 import by.ts.hmxy.item.Tabs;
 import by.ts.hmxy.item.elixir.ElixirItem;
-import by.ts.hmxy.item.fulu.LingFuItem;
+import by.ts.hmxy.item.fulu.XunLingFuItem;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.HmxyHelper.DaJingJie;
 import by.ts.hmxy.util.TransMsg;
@@ -41,7 +41,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
 //    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
     	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
     	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
-    	this.add(HmxyItems.LING_FU.get(),"灵符");
+    	this.add(HmxyItems.XUN_LING_FU.get(),"寻灵符");
     	//---------------------------------------------------------------------
     	
     	//---------------------------------品质---------------------------------
@@ -77,7 +77,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	//---------------------------------------------------------------------
     	
     	//---------------------------------消息---------------------------------
-    	this.add(LingFuItem.MSG,"区块 (%d,%d) 灵气: %.2f");
+    	this.add(XunLingFuItem.MSG,"区块 (%d,%d) 灵气: %.2f");
     	//---------------------------------------------------------------------  
     }
     

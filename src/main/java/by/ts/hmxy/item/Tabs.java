@@ -19,7 +19,7 @@ public class Tabs {
 	public static final CreativeModeTab ORE = create("ore", () -> HmxyItems.REIKI_STONE_ORE.get());
 
 	/** 符箓 */
-	public static final CreativeModeTab FU_LU = create("fu_lu", () -> HmxyItems.LING_FU.get());
+	public static final CreativeModeTab FU_LU = create("fu_lu", () -> HmxyItems.XUN_LING_FU.get());
 
 	private static CreativeModeTab create(String name, Supplier<ItemLike> s) {
 		return new CreativeModeTab(-1, name) {

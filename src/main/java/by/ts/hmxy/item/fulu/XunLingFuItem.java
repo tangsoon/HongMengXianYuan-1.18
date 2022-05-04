@@ -22,7 +22,8 @@ import net.minecraft.world.level.chunk.LevelChunk;
 public class XunLingFuItem extends FuLuItem {
 
 	public static final TransMsg MSG = new TransMsg("msg.ling_fu");
-
+	
+	
 	public XunLingFuItem(Properties pProperties) {
 		super(pProperties);
 	}

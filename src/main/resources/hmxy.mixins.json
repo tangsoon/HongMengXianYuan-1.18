@@ -4,7 +4,7 @@
 	"compatibilityLevel": "JAVA_17",
 	"refmap": "hmxy.refmap.json",
 	"mixins": [
-		"MixinJingJieEntity","MixinLivingEntity"
+		"MixinJingJieEntity","MixinLivingEntity","MixinServerLevel"
 	],
 	"client": [
 	],

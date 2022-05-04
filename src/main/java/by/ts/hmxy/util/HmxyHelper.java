@@ -178,7 +178,7 @@ public class HmxyHelper {
 				e.printStackTrace();
 			}
 		}
-		LOGGER.info("开始读取大境界完成");
+		LOGGER.info("读取大境界完成");
 	}
 
 	public static void initPlayerData() {

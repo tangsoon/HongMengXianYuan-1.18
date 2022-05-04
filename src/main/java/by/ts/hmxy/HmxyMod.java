@@ -59,11 +59,13 @@ public class HmxyMod {
 		forgeBus.register(new ChunkEventHandler());
 		forgeBus.register(new AttachCapabilitiesHandler());
 		forgeBus.register(new RenderOverlayHander());
+		
+		HmxyHelper.initJingJies();
 	}
-
+	
+	/**这个在数据生成的时候不会执行*/
 	private void setup(final FMLCommonSetupEvent event) {
 		Configs.init();
-		HmxyHelper.initJingJies();
 		Messages.register();
 		ConsoleBanner.banner();
 	}

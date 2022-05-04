@@ -71,9 +71,9 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	//---------------------------------------------------------------------   	
     	
     	//--------------------------------大境界--------------------------------
-    	HmxyHelper.JingJies.forEach(j->{
-    		HmxyLanguageProvider.this.add(j);
-    	});
+//    	HmxyHelper.JingJies.forEach(j->{
+//    		HmxyLanguageProvider.this.add(j);
+//    	});
     	//---------------------------------------------------------------------
     	
     	//---------------------------------消息---------------------------------

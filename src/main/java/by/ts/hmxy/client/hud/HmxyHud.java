@@ -114,7 +114,7 @@ public class HmxyHud {
 
 					// 境界
 					int daJingJie=HmxyHelper.getDaJingJieByXiao(xiaoJingJie);
-					String jingjie =HmxyHelper.JingJies.get(daJingJie).getLocalName(); 
+					String jingjie =HmxyHelper.JingJies.get(daJingJie).getZhName(); 
 					mc.font.draw(mStack, jingjie, px + 3, py + 3, 0xc69636);
 					// 物品栏
 					List<ItemStack> itemStacks = player.getInventory().items;

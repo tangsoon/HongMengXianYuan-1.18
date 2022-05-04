@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 @Mixin(Player.class)
 public abstract class MixinJingJieEntity extends LivingEntity {
-	//不要在Mixin类中添加费静态代码块
+	//不要在Mixin类中添加静态代码块
 
 	protected MixinJingJieEntity(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
 		super(p_20966_, p_20967_);

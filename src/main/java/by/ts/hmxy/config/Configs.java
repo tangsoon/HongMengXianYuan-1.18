@@ -17,9 +17,16 @@ public class Configs {
 	});
 	
 	public static final ForgeConfigSpec COMMON_CONFIG = create(builder -> {
+		
 	});
 	
+	public static ForgeConfigSpec.ConfigValue<Float> lingMaiDiffusion;
+	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiFlowRate;
+	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiDisappearRate;
 	public static final ForgeConfigSpec SERVER_CONFIG = create(builder -> {
+		lingMaiDiffusion= builder.comment("灵脉每个随机刻能释放多少灵气").define("ling_mai_diffusion",Float.valueOf(1.0F));
+		chunkLingQiFlowRate= builder.comment("每个tick区块灵气基于灵气差值向周围流动的比率").define("chunk_ling_qi_flow_rate",Float.valueOf(1.0F/24000.0F));
+		chunkLingQiDisappearRate= builder.comment("灵脉每个随机刻能释放多少灵气").define("ling_mai_diffusion",Float.valueOf(1.0F/24000F));
 	});
 
 	public static void init() {

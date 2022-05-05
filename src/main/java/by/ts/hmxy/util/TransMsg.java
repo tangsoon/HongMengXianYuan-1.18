@@ -1,10 +1,14 @@
 package by.ts.hmxy.util;
 
+import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class TransMsg {
+	
+	public static final TransMsg XUN_LING_FU = create("msg.xun_ling_fu","区块 (%d,%d) 灵气: %.2f");
+
 	private final String key;
-	public TransMsg(String key) {
+	private TransMsg(String key) {
 		this.key=key;
 	}
 	
@@ -14,5 +18,15 @@ public class TransMsg {
 
 	public String getKey() {
 		return key;
+	}
+	
+	public static TransMsg create(String key,String textZh) {
+		TransMsg msg=new TransMsg(key);
+		HmxyLanguageProvider.MSG_TEXT.put(msg, textZh);
+		return msg;
+	}
+	
+	public static void init() {
+		
 	}
 }

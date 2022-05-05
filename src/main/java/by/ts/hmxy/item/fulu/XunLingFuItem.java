@@ -5,7 +5,6 @@ import by.ts.hmxy.util.TransMsg;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,9 +19,6 @@ import net.minecraft.world.level.chunk.LevelChunk;
  *
  */
 public class XunLingFuItem extends FuLuItem {
-
-	public static final TransMsg MSG = new TransMsg("msg.ling_fu");
-	
 	
 	public XunLingFuItem(Properties pProperties) {
 		super(pProperties);
@@ -38,16 +34,10 @@ public class XunLingFuItem extends FuLuItem {
 			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
 				if (pPlayer instanceof ServerPlayer sPlayer
 						&& sPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE) {
-					pPlayer.sendMessage(MSG.create(chunkX, chunkZ,info.getLingQi()), Util.NIL_UUID);
+					pPlayer.sendMessage(TransMsg.XUN_LING_FU.create(chunkX, chunkZ,info.getLingQi()), Util.NIL_UUID);
 				}
 			});
 		}
 		return InteractionResultHolder.consume(pPlayer.getItemInHand(pUsedHand));
-	}
-
-	public static class LingFuMessage extends TranslatableComponent {
-		public LingFuMessage(Object[] pArgs) {
-			super("msg.ling_fu", pArgs);
-		}
 	}
 }

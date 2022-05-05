@@ -20,5 +20,5 @@
   "itemGroup.fu_lu": "符箓",
   "itemGroup.ore": "矿石",
   "itemGroup.sundry": "杂项",
-  "msg.ling_fu": "区块 (%d,%d) 灵气: %.2f"
+  "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

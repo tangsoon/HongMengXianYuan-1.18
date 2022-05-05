@@ -25,6 +25,7 @@ import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.network.Messages;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.HmxyHelper;
+import by.ts.hmxy.util.TransMsg;
 
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？
@@ -63,6 +64,7 @@ public class HmxyMod {
 		
 		HmxyHelper.initJingJies();
 		Grade.init();
+		TransMsg.init();
 	}
 	
 	/**这个在数据生成的时候不会执行*/

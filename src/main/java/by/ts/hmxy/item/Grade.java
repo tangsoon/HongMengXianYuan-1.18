@@ -1,5 +1,6 @@
 package by.ts.hmxy.item;
 
+import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,8 +17,10 @@ public final class Grade {
 		this.name = name;
 	}
 
-	public static Grade create(ChatFormatting formatting, String name) {
-		return new Grade(Rarity.create("Rarity", formatting),"grade."+ name);
+	public static Grade create(ChatFormatting formatting, String name,String nameZh) {
+		Grade grade=new Grade(Rarity.create("Rarity", formatting),"grade."+ name);
+		HmxyLanguageProvider.GRADE_NAMES.put(grade, nameZh);
+		return grade;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -27,5 +30,40 @@ public final class Grade {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+//	public static enum GradeEnum {
+//		HUANG(Grade.create(ChatFormatting.GRAY, "elixir.huang", "黄")),
+//		XUAN(Grade.create(ChatFormatting.WHITE, "elixir.xuan", "玄")),
+//		DI(Grade.create(ChatFormatting.GREEN, "elixir.di", "地")),
+//		TIAN(Grade.create(ChatFormatting.AQUA, "elixir.tian", "天")),
+//		FANG(Grade.create(ChatFormatting.AQUA, "elixir.fang", "荒")),
+//		HONG(Grade.create(ChatFormatting.AQUA, "elixir.hong", "洪")),
+//		ZHOU(Grade.create(ChatFormatting.AQUA, "elixir.zhou", "宙")),
+//		YU(Grade.create(ChatFormatting.AQUA, "elixir.yu", "宇"));
+//
+//		public final Grade grade;
+//
+//		GradeEnum(Grade grade) {
+//			this.grade = grade;
+//		}
+//	}
+	
+	public static enum ReikiStoneGrade {
+		LOW_GRADE(Grade.create(ChatFormatting.GRAY, "reiki_stone.low_grade","低级")),
+		MEDIUM_GRADE(Grade.create(ChatFormatting.WHITE, "reiki_stone.medium_grade","中级")),
+		HIGHT_GRADE(Grade.create(ChatFormatting.GREEN, "reiki_stone.high_grade","高级")),
+		TOP_GRADE(Grade.create(ChatFormatting.AQUA, "reiki_stone.top_grade","顶级"));
+
+		public final Grade grade;
+
+		ReikiStoneGrade(Grade grade) {
+			this.grade = grade;
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	public static void init() {
+		ReikiStoneGrade r=ReikiStoneGrade.LOW_GRADE;
 	}
 }

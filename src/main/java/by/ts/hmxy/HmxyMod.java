@@ -20,6 +20,7 @@ import by.ts.hmxy.client.key.KeyBindings;
 import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.fluid.HmxyFluids;
+import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.network.Messages;
 import by.ts.hmxy.util.Attrs;
@@ -61,6 +62,7 @@ public class HmxyMod {
 		forgeBus.register(new RenderOverlayHander());
 		
 		HmxyHelper.initJingJies();
+		Grade.init();
 	}
 	
 	/**这个在数据生成的时候不会执行*/

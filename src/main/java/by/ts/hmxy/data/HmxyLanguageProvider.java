@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import by.ts.hmxy.HmxyMod;
-import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.item.Grade;
-import by.ts.hmxy.item.HmxyItems;
-import by.ts.hmxy.item.ReikiStoneItem;
-import by.ts.hmxy.item.elixir.ElixirItem;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.data.DataGenerator;
@@ -27,38 +23,27 @@ public class HmxyLanguageProvider extends LanguageProvider {
 
     public static final  Map<CreativeModeTab,String> TAB_NAMES=new HashMap<>();
     public static final  Map<RegistryObject<Item>,String> ITEM_NAMES=new HashMap<>();
+    public static final Map<Grade,String> GRADE_NAMES=new HashMap<>();
+    
     @Override
     protected void addTranslations() {
     	this.add(TAB_NAMES,this::add);
     	this.addRegistryObj(ITEM_NAMES, this::add);
-    	//---------------------------------------------------------------------
-    	
-    	//---------------------------------物品---------------------------------
-    	
-//    	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
-//    	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");1
-//    	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
-//    	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");
-//    	this.add(HmxyItems.TOP_GRADE_REIKI_STONE.get(), "极品灵石");
-////    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
-//    	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
-//    	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
-//    	this.add(HmxyItems.XUN_LING_FU.get(),"寻灵符");
-    	//---------------------------------------------------------------------
-    	
-    	//---------------------------------品质---------------------------------
-    	this.add(ElixirItem.GradeEnum.TIAN.grade, "天");
-    	this.add(ElixirItem.GradeEnum.DI.grade, "地");
-    	this.add(ElixirItem.GradeEnum.XUAN.grade, "玄");
-    	this.add(ElixirItem.GradeEnum.HUANG.grade, "黄");
-    	this.add(ElixirItem.GradeEnum.YU.grade, "宇");
-    	this.add(ElixirItem.GradeEnum.ZHOU.grade, "宙");
-    	this.add(ElixirItem.GradeEnum.HONG.grade, "洪");
-    	this.add(ElixirItem.GradeEnum.FANG.grade, "荒");
-    	this.add(ReikiStoneItem.GradeEnum.LOW_GRADE.grade, "下品");
-    	this.add(ReikiStoneItem.GradeEnum.MEDIUM_GRADE.grade, "中品");
-    	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
-    	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
+    	this.add(GRADE_NAMES,this::add);
+    
+//    	//---------------------------------品质---------------------------------
+//    	this.add(ElixirItem.GradeEnum.TIAN.grade, "天");
+//    	this.add(ElixirItem.GradeEnum.DI.grade, "地");
+//    	this.add(ElixirItem.GradeEnum.XUAN.grade, "玄");
+//    	this.add(ElixirItem.GradeEnum.HUANG.grade, "黄");
+//    	this.add(ElixirItem.GradeEnum.YU.grade, "宇");
+//    	this.add(ElixirItem.GradeEnum.ZHOU.grade, "宙");
+//    	this.add(ElixirItem.GradeEnum.HONG.grade, "洪");
+//    	this.add(ElixirItem.GradeEnum.FANG.grade, "荒");
+//    	this.add(ReikiStoneItem.GradeEnum.LOW_GRADE.grade, "下品");
+//    	this.add(ReikiStoneItem.GradeEnum.MEDIUM_GRADE.grade, "中品");
+//    	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
+//    	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
 
     	
     	//---------------------------------实体---------------------------------
@@ -95,14 +80,14 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	for(Map.Entry<T, String> entry: map.entrySet()) {
     		con.accept(entry.getKey(), entry.getValue());
     	}
-    	//map.clear();
+    	map.clear();
     }
     
     public <T> void addRegistryObj(Map<RegistryObject<T>,String> map,BiConsumer<T, String> con) {
     	for(Map.Entry<RegistryObject<T>, String> entry:map.entrySet()) {
     		con.accept(entry.getKey().get(), entry.getValue());
     	}
-    	//map.clear();
+    	map.clear();
     }
 }
 

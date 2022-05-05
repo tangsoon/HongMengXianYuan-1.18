@@ -2,6 +2,7 @@ package by.ts.hmxy.util;
 
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.data.loading.DatagenModLoader;
 
 public class TransMsg {
 	
@@ -22,7 +23,9 @@ public class TransMsg {
 	
 	public static TransMsg create(String key,String textZh) {
 		TransMsg msg=new TransMsg(key);
-		HmxyLanguageProvider.MSG_TEXT.put(msg, textZh);
+		if(DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.MSG_TEXT.put(msg, textZh);	
+		}
 		return msg;
 	}
 	

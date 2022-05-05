@@ -6,6 +6,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeI18n;
+import net.minecraftforge.data.loading.DatagenModLoader;
 
 public final class Grade {
 	public final Rarity rarity;
@@ -19,7 +20,9 @@ public final class Grade {
 
 	public static Grade create(ChatFormatting formatting, String name,String nameZh) {
 		Grade grade=new Grade(Rarity.create("Rarity", formatting),"grade."+ name);
-		HmxyLanguageProvider.GRADE_NAMES.put(grade, nameZh);
+		if(DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.GRADE_NAMES.put(grade, nameZh);	
+		}
 		return grade;
 	}
 

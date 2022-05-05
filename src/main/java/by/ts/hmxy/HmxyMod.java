@@ -55,7 +55,6 @@ public class HmxyMod {
 		modEventBus.register(new EntityRenderersHandler());
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(this::clientSetUp);
-
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(this);
 		forgeBus.register(new ChunkEventHandler());

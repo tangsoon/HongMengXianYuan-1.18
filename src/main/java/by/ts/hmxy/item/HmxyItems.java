@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -57,7 +58,9 @@ public class HmxyItems {
 
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {
 		RegistryObject<Item> obj = ITEMS.register(name, s);
-		HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);
+		if(DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);	
+		}
 		return obj;
 	}
 

@@ -32,6 +32,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(GRADE_NAMES,this::add);
     	this.add(MSG_TEXT, this::add);
     	this.add(ENTITY_NAME, this::add);
+    	clearMap();
     }
     
     public void add(Grade grade, String name) {
@@ -55,14 +56,19 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	for(Map.Entry<T, String> entry: map.entrySet()) {
     		con.accept(entry.getKey(), entry.getValue());
     	}
-    	map.clear();
     }
     
     public <T> void addRegistryObj(Map<RegistryObject<T>,String> map,BiConsumer<T, String> con) {
     	for(Map.Entry<RegistryObject<T>, String> entry:map.entrySet()) {
     		con.accept(entry.getKey().get(), entry.getValue());
     	}
-    	map.clear();
+    }
+    
+    public static void clearMap() {
+    	TAB_NAMES.clear();
+    	ITEM_NAMES.clear();
+    	GRADE_NAMES.clear();
+    	MSG_TEXT.clear();
+    	ENTITY_NAME.clear();
     }
 }
-

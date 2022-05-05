@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -29,7 +30,9 @@ public class HmxyEntities {
 	public static final <T extends Entity> RegistryObject<EntityType<T>> register(String name, String nameZh,
 			Supplier<EntityType<T>> sup) {
 		RegistryObject<EntityType<T>> obj = ENTITIES.register(name, sup);
-		HmxyLanguageProvider.ENTITY_NAME.put("entity."+HmxyMod.MOD_ID+"."+name, nameZh);
+		if(DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.ENTITY_NAME.put("entity."+HmxyMod.MOD_ID+"."+name, nameZh);	
+		}
 		return obj;
 	}
 }

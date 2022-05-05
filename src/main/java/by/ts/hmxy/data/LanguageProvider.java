@@ -54,7 +54,6 @@ public abstract class LanguageProvider implements DataProvider {
         String hash = DataProvider.SHA1.hashUnencodedChars(data).toString();
         if (!Objects.equals(cache.getHash(target), hash) || !Files.exists(target)) {
            Files.createDirectories(target.getParent());
-
            try (BufferedWriter bufferedwriter = Files.newBufferedWriter(target)) {
               bufferedwriter.write(data);
            }

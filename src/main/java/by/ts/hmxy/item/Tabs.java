@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.data.loading.DatagenModLoader;
 
 public class Tabs {
 	public static final CreativeModeTab ELIXIR = create("elixir", "丹药",()->Blocks.PEONY);
@@ -21,7 +22,9 @@ public class Tabs {
 				return new ItemStack(s.get());
 			}
 		};
-		HmxyLanguageProvider.TAB_NAMES.put(tab, nameZh);
+		if(DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.TAB_NAMES.put(tab, nameZh);	
+		}
 		return tab;
 	}
 }

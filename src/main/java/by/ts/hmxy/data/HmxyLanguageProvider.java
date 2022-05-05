@@ -1,19 +1,23 @@
 package by.ts.hmxy.data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.item.ReikiStoneItem;
-import by.ts.hmxy.item.Tabs;
 import by.ts.hmxy.item.elixir.ElixirItem;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.registries.RegistryObject;
 
 public class HmxyLanguageProvider extends LanguageProvider {
 
@@ -21,16 +25,15 @@ public class HmxyLanguageProvider extends LanguageProvider {
         super(gen, HmxyMod.MOD_ID, locale);
     }
 
+    public static final  Map<CreativeModeTab,String> TAB_NAMES=new HashMap<>();
+    public static final  Map<RegistryObject<Item>,String> ITEM_NAMES=new HashMap<>();
     @Override
     protected void addTranslations() {
-    	//------------------------------创造模式表------------------------------
-    	this.add(Tabs.ELIXIR,"丹药(鸿蒙仙缘)");
-    	this.add(Tabs.SUNDRY,"杂物(鸿蒙仙缘)");
-    	this.add(Tabs.ORE,"矿石(鸿蒙仙缘)");
-    	this.add(Tabs.FU_LU,"符箓");
+    	this.add(TAB_NAMES,this::add);
     	//---------------------------------------------------------------------
     	
     	//---------------------------------物品---------------------------------
+    	
     	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
     	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
     	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
@@ -88,6 +91,12 @@ public class HmxyLanguageProvider extends LanguageProvider {
     
     public void add(TransMsg msg,String str) {
     	this.add(msg.getKey(),str);
+    }
+    
+    public <T> void add(Map<T,String> map,BiConsumer<T, String> con) {
+    	for(Map.Entry<T, String> entry: map.entrySet()) {
+    		con.accept(entry.getKey(), entry.getValue());
+    	}
     }
 }
 

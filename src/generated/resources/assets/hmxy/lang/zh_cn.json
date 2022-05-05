@@ -24,9 +24,9 @@
   "item.hmxy.previous_life_water_bucket": "桶装往生泉",
   "item.hmxy.top_grade_reiki_stone": "极品灵石",
   "item.hmxy.xun_ling_fu": "寻灵符",
-  "itemGroup.elixir": "丹药(鸿蒙仙缘)",
+  "itemGroup.elixir": "丹药",
   "itemGroup.fu_lu": "符箓",
-  "itemGroup.ore": "矿石(鸿蒙仙缘)",
-  "itemGroup.sundry": "杂物(鸿蒙仙缘)",
+  "itemGroup.ore": "矿石",
+  "itemGroup.sundry": "杂项",
   "msg.ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

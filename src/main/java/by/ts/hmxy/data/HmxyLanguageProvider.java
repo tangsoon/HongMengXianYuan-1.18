@@ -30,19 +30,20 @@ public class HmxyLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
     	this.add(TAB_NAMES,this::add);
+    	this.addRegistryObj(ITEM_NAMES, this::add);
     	//---------------------------------------------------------------------
     	
     	//---------------------------------物品---------------------------------
     	
-    	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
-    	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");
-    	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
-    	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");
-    	this.add(HmxyItems.TOP_GRADE_REIKI_STONE.get(), "极品灵石");
-//    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
-    	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
-    	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
-    	this.add(HmxyItems.XUN_LING_FU.get(),"寻灵符");
+//    	this.add(HmxyItems.NATURE_REIKI_STONE.get(), "天然灵石");
+//    	this.add(HmxyItems.LOW_GRADE_REIKI_STONE.get(), "下品灵石");1
+//    	this.add(HmxyItems.MEDIUM_GRADE_REIKI_STONE.get(), "中品灵石");
+//    	this.add(HmxyItems.HIGH_GRADE_REIKI_STONE.get(), "上品灵石");
+//    	this.add(HmxyItems.TOP_GRADE_REIKI_STONE.get(), "极品灵石");
+////    	this.add(HmxyItems.PREVIOUS_LIFE_STONE.get(), "往生石");
+//    	this.add(HmxyItems.PREVIOUS_LIFE_WATER_BUCKET.get(), "桶装往生泉");
+//    	this.add(HmxyItems.MINBUS_BOTTLE.get(), "灵气瓶");
+//    	this.add(HmxyItems.XUN_LING_FU.get(),"寻灵符");
     	//---------------------------------------------------------------------
     	
     	//---------------------------------品质---------------------------------
@@ -58,14 +59,7 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(ReikiStoneItem.GradeEnum.MEDIUM_GRADE.grade, "中品");
     	this.add(ReikiStoneItem.GradeEnum.HIGHT_GRADE.grade, "上品");
     	this.add(ReikiStoneItem.GradeEnum.TOP_GRADE.grade, "极品");
-    	//---------------------------------------------------------------------
-    	
-    	//---------------------------------方块---------------------------------
-    	this.add(HmxyBlocks.REIKI_STONE_ORE.get(), "灵石矿");
-    	this.add(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), "闪耀灵石矿");
-    	this.add(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), "往生泉");
-    	this.add(HmxyBlocks.LING_MAI.get(),"灵脉");
-    	//---------------------------------------------------------------------
+
     	
     	//---------------------------------实体---------------------------------
     	this.addEntityType(HmxyEntities.MINBUS_ORB, "灵气");
@@ -93,10 +87,22 @@ public class HmxyLanguageProvider extends LanguageProvider {
     	this.add(msg.getKey(),str);
     }
     
+//    public void add(TransMsg msg,String str) {
+//    	this.add(msg.getKey(),str);
+//    }
+    
     public <T> void add(Map<T,String> map,BiConsumer<T, String> con) {
     	for(Map.Entry<T, String> entry: map.entrySet()) {
     		con.accept(entry.getKey(), entry.getValue());
     	}
+    	//map.clear();
+    }
+    
+    public <T> void addRegistryObj(Map<RegistryObject<T>,String> map,BiConsumer<T, String> con) {
+    	for(Map.Entry<RegistryObject<T>, String> entry:map.entrySet()) {
+    		con.accept(entry.getKey().get(), entry.getValue());
+    	}
+    	//map.clear();
     }
 }
 

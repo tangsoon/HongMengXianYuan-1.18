@@ -1,16 +1,16 @@
-modLoader="javafml" #mandatory
-loaderVersion="[37,)" #mandatory
+modLoader="javafml"
+loaderVersion="[37,)"
 license="All rights reserved"
-issueTrackerURL="https://github.com/tangsoon/tangsoon.github.io/issues" #optional
+issueTrackerURL="https://github.com/tangsoon/tangsoon.github.io/issues"
 [[mods]] #mandatory
 modId="hmxy" #mandatory
-version="${file.jarVersion}" #mandatory ${version} 
-displayName="鸿蒙仙缘" #mandatory
+version="${file.jarVersion}"
+displayName="鸿蒙仙缘"
 #updateJSONURL="https://github.com/tangsoon/tangsoon.github.io/blob/main/updates.json" #optional#https://github.com/tangsoon/tangsoon.github.io/raw/main/updates.json
 displayURL="https://tangsoon.github.io/" #optional
 logoFile="pack.png" #optional
 credits="by 指间青春(tangsoon)"
-authors="指间青春(tangsoon)" #optional
+authors="指间青春(tangsoon)"
 description="\n道友，修个仙吗？\n"
 
 [[dependencies.hmxy]] #optional
@@ -19,11 +19,10 @@ description="\n道友，修个仙吗？\n"
     versionRange="[37,)" #mandatory
     ordering="NONE"
     side="BOTH"
-# Here's another dependency
 [[dependencies.hmxy]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1,1.18.2]"
+    versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
 [modproperties.hmxy]

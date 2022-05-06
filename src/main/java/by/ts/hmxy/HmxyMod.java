@@ -35,8 +35,8 @@ import by.ts.hmxy.util.TransMsg;
 //TODO 灵石矿生成
 //TODO 灵气的流动
 //TODO 灵符
-//TODO 灵植方块
-@Mod("hmxy")
+//TODO bug:chunkinfo错误
+@Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
 public class HmxyMod {
 

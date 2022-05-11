@@ -17,26 +17,26 @@ import net.minecraft.world.level.chunk.LevelChunk;
 public abstract class MixinServerLevel {
 
 	@Inject(method = "tickChunk", at = @At("HEAD"))
-	protected void onTick(LevelChunk chunk, int pRandomTickSpeed, CallbackInfo ci) {
-
-		//TODO 灵气无法向周围传播
-		chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
-			float currentLingQi = info.getLingQi() * (1.0F - Configs.chunkLingQiDisappearRate.get());
-			info.setLingQi(currentLingQi);
-			ChunkPos chunkPos = chunk.getPos();
-			BiSupplier<LevelChunk, HmxyChunkInfo> bi = getChunkInfoWithLowLingQi(chunk, info, chunkPos.x + 1,
-					chunkPos.z);
-			bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x - 1, chunkPos.z);
-			bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x, chunkPos.z + 1);
-			bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x, chunkPos.z - 1);
-			float diff = (info.getLingQi() - bi.b.getLingQi()) * Configs.chunkLingQiFlowRate.get();
-			if (diff > 0) {
-				info.setLingQi(info.getLingQi() - diff);
-				bi.b.setLingQi(bi.b.getLingQi() + diff);
-				chunk.setUnsaved(true);
-				bi.a.setUnsaved(true);
-			}
-		});
+	protected void onTickChunk(LevelChunk chunk, int pRandomTickSpeed, CallbackInfo ci) {
+		if(chunk.getLevel().getGameTime()%20==19) {
+			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+				float currentLingQi = info.getLingQi() * (1.0F - Configs.chunkLingQiDisappearRate.get());
+				info.setLingQi(currentLingQi);
+				ChunkPos chunkPos = chunk.getPos();
+				BiSupplier<LevelChunk, HmxyChunkInfo> bi = getChunkInfoWithLowLingQi(chunk, info, chunkPos.x + 1,
+						chunkPos.z);
+				bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x - 1, chunkPos.z);
+				bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x, chunkPos.z + 1);
+				bi = getChunkInfoWithLowLingQi(bi.a, bi.b, chunkPos.x, chunkPos.z - 1);
+				float diff = (info.getLingQi() - bi.b.getLingQi()) * Configs.chunkLingQiFlowRate.get();
+				if (diff > 0) {
+					info.setLingQi(info.getLingQi() - diff);
+					bi.b.setLingQi(bi.b.getLingQi() + diff);
+					chunk.setUnsaved(true);
+					bi.a.setUnsaved(true);
+				}
+			});	
+		}
 	}
 
 	/**

@@ -1,13 +1,17 @@
 package by.ts.hmxy.util.gene;
 
+import net.minecraft.world.level.block.state.properties.Property;
+
 public class GeneType<T> implements IGeneType<T> {
 
 	private final String TYPE_NAME;
 	private final Class<T> VALUE_TYPE;
+	private final Property<?> PROPERTY;
 
-	private GeneType(String tYPE_NAME, Class<T> vALUE_TYPE) {
+	private GeneType(String tYPE_NAME, Class<T> vALUE_TYPE, Property<?> property) {
 		TYPE_NAME = tYPE_NAME;
 		VALUE_TYPE = vALUE_TYPE;
+		PROPERTY = property;
 	}
 
 	@Override
@@ -20,7 +24,12 @@ public class GeneType<T> implements IGeneType<T> {
 		return VALUE_TYPE;
 	}
 
-	public static <T> GeneType<T> create(String tYPE_NAME, Class<T> vALUE_TYPE) {
-		return new GeneType<>(tYPE_NAME, vALUE_TYPE);
+	public static <T> GeneType<T> create(String tYPE_NAME, Class<T> vALUE_TYPE, Property<?> property) {
+		return new GeneType<>(tYPE_NAME, vALUE_TYPE, property);
+	}
+
+	@Override
+	public Property<?> getProperty() {
+		return PROPERTY;
 	}
 }

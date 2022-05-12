@@ -57,7 +57,6 @@ public abstract class MixinServerLevel {
 				if (info2.getLingQi() < info1.getLingQi()) {
 					bi.a = chunk2;
 					bi.b = info2;
-					System.out.println(chunkX+" "+chunkZ+" "+info2.getLingQi());
 				}
 			});
 		}

@@ -27,7 +27,7 @@ public class LingMaiBlock extends Block {
 		LevelChunk chunk = pLevel.getChunkAt(pPos);
 		if (chunk.getLevel() instanceof ServerLevel) {
 			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
-				info.setLingQi(info.getLingQi() + Configs.lingMaiDiffusion.get()+10);//TODO 删除“+10”
+				info.setLingQi(info.getLingQi() + Configs.lingMaiDiffusion.get());
 				chunk.setUnsaved(true);
 			});	
 		}

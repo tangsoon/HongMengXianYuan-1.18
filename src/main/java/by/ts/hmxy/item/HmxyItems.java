@@ -54,6 +54,9 @@ public class HmxyItems {
 			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)));
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
+//	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
+//			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)));
+	
 	// ---------------------------------------------------------------------------------------------------------------------
 
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {

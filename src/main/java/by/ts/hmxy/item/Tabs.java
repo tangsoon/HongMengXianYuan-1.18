@@ -14,6 +14,7 @@ public class Tabs {
 	public static final CreativeModeTab SUNDRY = create("sundry", "杂项",()->HmxyItems.LOW_GRADE_REIKI_STONE.get());
 	public static final CreativeModeTab ORE = create("ore", "矿石",() -> HmxyItems.REIKI_STONE_ORE.get());
 	public static final CreativeModeTab FU_LU = create("fu_lu", "符箓",() -> HmxyItems.XUN_LING_FU.get());
+	//public static final CreativeModeTab LING_ZHI = create("ling_zhi", "灵植",() -> HmxyItems.DENG_XIN_CAO.get());
 
 	private static CreativeModeTab create(String name,String nameZh, Supplier<ItemLike> s) {
 		CreativeModeTab tab=new CreativeModeTab(-1, name) {

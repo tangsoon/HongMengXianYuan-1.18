@@ -18,9 +18,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class LingZhiBlock extends BushBlock {
 
 	/** 最大生长次数 */
-	public static final IntegerProperty MAX_GROW_TIMES = IntegerProperty.create("max_grow_times", 10, 100);
+	public static final IntegerProperty MAX_GROW_TIMES = IntegerProperty.create("max_grow_times", 10, 20);
 	/** 当前生长次数，每个随机刻度增1，达到最大生长次数后成熟 */
-	public static final IntegerProperty CUREENT_GROW_TIMES = IntegerProperty.create("current_grow_times", 0, 100);
+	public static final IntegerProperty CUREENT_GROW_TIMES = IntegerProperty.create("current_grow_times", 0,20);
 	/** 决定每个随机刻药性增长量 */
 	public static final IntegerProperty GROW_SPEED = IntegerProperty.create("grow_speed", 1, 10);
 
@@ -32,15 +32,11 @@ public class LingZhiBlock extends BushBlock {
 
 	public LingZhiBlock(Properties pro) {
 		super(pro);
-		this.registerDefaultState(this.stateDefinition.any().setValue(MAX_GROW_TIMES, Integer.valueOf(10)));
-		this.registerDefaultState(this.stateDefinition.any().setValue(CUREENT_GROW_TIMES, Integer.valueOf(0)));
-		this.registerDefaultState(this.stateDefinition.any().setValue(GROW_SPEED, Integer.valueOf(1)));
+		this.registerDefaultState(this.stateDefinition.any().setValue(MAX_GROW_TIMES, Integer.valueOf(10)).setValue(CUREENT_GROW_TIMES, Integer.valueOf(0)).setValue(GROW_SPEED, Integer.valueOf(1)));
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(MAX_GROW_TIMES);
-		pBuilder.add(CUREENT_GROW_TIMES);
-		pBuilder.add(GROW_SPEED);
+		pBuilder.add(MAX_GROW_TIMES,CUREENT_GROW_TIMES,GROW_SPEED);
 	}
 
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -79,6 +75,7 @@ public class LingZhiBlock extends BushBlock {
 	/**
 	 * TODO 在这里返回对应的ItemStack，并将灵植的属性存入其中。
 	 */
+	@SuppressWarnings("deprecation")
 	public ItemStack getCloneItemStack(BlockGetter pLevel, BlockPos pPos, BlockState pState) {
 		return ItemStack.EMPTY;
 	}

@@ -44,7 +44,9 @@ public class HmxyBlocks {
 		};
 	}
 	
-	/***/
+	/**灯心草*/
+	public static final RegistryObject<Block> DENG_XIN_CAO = register("deng_xin_cao",
+			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
 
 	// 注意Supplier和直接new个的区别，Supplier只有调用的时候才创建对象，而new是直接创建对象
 	private static RegistryObject<Block> register(String name, Supplier<Block> s) {

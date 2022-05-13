@@ -85,32 +85,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock{
 		return new LingZhiBE(pPos, pState);
 	}
 	
-	
-	
-//	public int getMaxGrowTImes(BlockState pState) {
-//		return pState.getValue(MAX_GROW_TIMES);
-//	}
-//
-//	public void setMaxGrowTImes(BlockState pState, int value) {
-//		pState.setValue(MAX_GROW_TIMES, value);
-//	}
-//
-//	public void setCurrentGrowTImes(BlockState pState, int value) {
-//		pState.setValue(CUREENT_GROW_TIMES, value);
-//	}
-//
-//	public int getCurrentGrowTImes(BlockState pState) {
-//		return pState.getValue(CUREENT_GROW_TIMES);
-//	}
-//
-//	public void setGrowSpeed(BlockState pState, int value) {
-//		pState.setValue(GROW_SPEED, value);
-//	}
-//
-//	public int getGrowSpeed(BlockState pState) {
-//		return pState.getValue(GROW_SPEED);
-//	}
-	
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
 			BlockEntityType<T> type) {
 		if(!level.isClientSide()) {

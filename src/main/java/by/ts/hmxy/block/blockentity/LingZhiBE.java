@@ -57,7 +57,7 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 
 	@Override
 	public void tick(Level pLevel, BlockPos pPos, BlockState pState, LingZhiBE be) {
-		if(!pLevel.isClientSide()) {
+		if(!pLevel.isClientSide()&&pLevel.getGameTime()%20==18) {
 			LevelChunk chunk= pLevel.getChunkAt(pPos);
 			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info->{
 				float chunkLingQi=info.getLingQi();

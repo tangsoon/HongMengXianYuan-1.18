@@ -5,6 +5,7 @@ import by.ts.hmxy.config.Configs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -41,6 +42,10 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 
 	protected void saveAdditional(CompoundTag pTag) {
 		super.saveAdditional(pTag);
+		this.onDataSave(pTag);
+	}
+
+	private void onDataSave(CompoundTag pTag) {
 		pTag.putInt("maxGrowTimes", maxGrowTimes);
 		pTag.putInt("currentGrowTimes", currentGrowTimes);
 		pTag.putFloat("growSpeed", growSpeed);
@@ -49,6 +54,10 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 
 	public void load(CompoundTag pTag) {
 		super.load(pTag);
+		this.onDataLoad(pTag);
+	}
+
+	private void onDataLoad(CompoundTag pTag) {
 		this.maxGrowTimes = pTag.getInt("maxGrowTimes");
 		this.currentGrowTimes = pTag.getInt("currentGrowTimes");
 		this.growSpeed = pTag.getFloat("growSpeed");
@@ -57,16 +66,28 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 
 	@Override
 	public void tick(Level pLevel, BlockPos pPos, BlockState pState, LingZhiBE be) {
-		if(!pLevel.isClientSide()&&pLevel.getGameTime()%20==18) {
-			LevelChunk chunk= pLevel.getChunkAt(pPos);
-			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info->{
-				float chunkLingQi=info.getLingQi();
-				float grow=chunkLingQi*be.growSpeed;
-				info.setLingQi(Math.max(chunkLingQi-grow, 0.0F));
-				be.medicinal+=grow;
+		if (pLevel instanceof ServerLevel level && pLevel.getGameTime() % 20 == 18) {
+			LevelChunk chunk = pLevel.getChunkAt(pPos);
+			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
+				float chunkLingQi = info.getLingQi();
+				float grow = chunkLingQi * be.growSpeed;
+				info.setLingQi(Math.max(chunkLingQi - grow, 0.0F));
+				be.medicinal += grow;
 				be.setChanged();
+				level.sendBlockUpdated(pPos, pState, pState, 0b11);//发送到客户端
 			});
 		}
+	}
+
+	public CompoundTag getUpdateTag() {
+		CompoundTag tag = super.getUpdateTag();
+		this.onDataSave(tag);
+		return tag;
+	}
+
+	public void handleUpdateTag(CompoundTag tag) {
+		super.handleUpdateTag(tag);
+		this.onDataLoad(tag);
 	}
 
 	public int getMaxGrowTimes() {
@@ -100,5 +121,4 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 	public void setMedicinal(float medicinal) {
 		this.medicinal = medicinal;
 	}
-	
 }

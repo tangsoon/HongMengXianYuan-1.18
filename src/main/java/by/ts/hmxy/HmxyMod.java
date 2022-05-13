@@ -30,11 +30,10 @@ import by.ts.hmxy.util.TransMsg;
 
 //TODO 圆林的亭子没有对称。
 //TODO 硬山建筑不加载？
-//TODO tesr；
 //TODO bug: 耐力不会消耗消耗
-//TODO 绘画模组的图标，背景图标
 //TODO 灵石矿生成
-//TODO 灵符
+//TODO 烘培模型
+
 @Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
 public class HmxyMod {

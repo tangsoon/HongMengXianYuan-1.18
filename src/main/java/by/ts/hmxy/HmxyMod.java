@@ -44,6 +44,7 @@ public class HmxyMod {
 	public static final String MOD_ID = "hmxy";
 
 	public HmxyMod() {
+		Configs.init();
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		HmxyItems.ITEMS.register(modEventBus);
 		HmxyBlocks.BLOCKS.register(modEventBus);
@@ -68,7 +69,6 @@ public class HmxyMod {
 	
 	/**这个在数据生成的时候不会执行*/
 	private void setup(final FMLCommonSetupEvent event) {
-		Configs.init();
 		Messages.register();
 		ConsoleBanner.banner();
 	}

@@ -68,4 +68,37 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 			});
 		}
 	}
+
+	public int getMaxGrowTimes() {
+		return maxGrowTimes;
+	}
+
+	public void setMaxGrowTimes(int maxGrowTimes) {
+		this.maxGrowTimes = maxGrowTimes;
+	}
+
+	public int getCurrentGrowTimes() {
+		return currentGrowTimes;
+	}
+
+	public void setCurrentGrowTimes(int currentGrowTimes) {
+		this.currentGrowTimes = currentGrowTimes;
+	}
+
+	public float getGrowSpeed() {
+		return growSpeed;
+	}
+
+	public void setGrowSpeed(float growSpeed) {
+		this.growSpeed = growSpeed;
+	}
+
+	public float getMedicinal() {
+		return medicinal;
+	}
+
+	public void setMedicinal(float medicinal) {
+		this.medicinal = medicinal;
+	}
+	
 }

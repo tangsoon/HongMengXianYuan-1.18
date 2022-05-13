@@ -25,16 +25,16 @@ public class Configs {
 	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiFlowRate;
 	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiDisappearRate;
 	public static final ForgeConfigSpec COMMON_CONFIG = create(builder -> {
-		lingZhiGrowTimesLimit = builder.comment("灵植生长次数上限").defineInRange("ling_zhi_grow_times_limit", 10, 0, 20);
+		lingZhiGrowTimesLimit = builder.comment("灵植生长次数上限").defineInRange("ling_zhi_grow_times_limit", 100, 0, 100);
 		lingZhiDefaultMaxGrowTimes = builder.comment("灵植默认最大生长次数（这个值应该小于等于灵植生长次数上限）")
-				.defineInRange("ling_zhi_default_grow_times", 5, 0, 20);
+				.defineInRange("ling_zhi_default_grow_times", 20, 0, 100);
 		lingZhiGrowSpeedLimit = builder.comment("灵植生长生长速度上限").define("ling_zhi_grow_speed_limit", Float.valueOf(0.1F));
 		lingZhiDefaultGrowSpeed = builder.comment("灵植默认生长速度").define("ling_zhi_default_grow_speed",
 				Float.valueOf(0.01F));
 		lingMaiDiffusion = builder.comment("灵脉每个随机刻能释放多少灵气").define("ling_mai_diffusion", Float.valueOf(4096F/2400F/3F));
 		chunkLingQiFlowRate = builder.comment("区块每秒灵气向周围区块流动的比例").define("chunk_ling_qi_flow_rate",
 				Float.valueOf(1.0F / 2400.0F));
-		chunkLingQiDisappearRate = builder.comment("灵脉每秒有多少比例灵气消散").define("ling_mai_diffusion",
+		chunkLingQiDisappearRate = builder.comment("区块每秒有多少比例灵气消散").define("chunk_ling_qi_disappear_rate",
 				Float.valueOf(1.0F / 2400F));
 	});
 	// ---------------------------------------------服务端----------------------------------------
@@ -49,9 +49,9 @@ public class Configs {
 	public static void init() {
 		FileUtils.getOrCreateDirectory(FMLPaths.CONFIGDIR.get().resolve(HmxyMod.MOD_ID), HmxyMod.MOD_ID);
 		ModLoadingContext context = ModLoadingContext.get();
-		register(context, ModConfig.Type.CLIENT, CLIENT_CONFIG, HmxyMod.MOD_ID+"/client_config.toml");
-		register(context, ModConfig.Type.COMMON, COMMON_CONFIG, HmxyMod.MOD_ID+"/common_config.toml");
-		register(context, ModConfig.Type.SERVER, SERVER_CONFIG, HmxyMod.MOD_ID+"/server_config.toml");
+		register(context, ModConfig.Type.CLIENT, CLIENT_CONFIG, "client_config.toml");
+		register(context, ModConfig.Type.COMMON, COMMON_CONFIG, "common_config.toml");
+		register(context, ModConfig.Type.SERVER, SERVER_CONFIG, "server_config.toml");
 	}
 
 	private static ForgeConfigSpec create(Consumer<ForgeConfigSpec.Builder> con) {

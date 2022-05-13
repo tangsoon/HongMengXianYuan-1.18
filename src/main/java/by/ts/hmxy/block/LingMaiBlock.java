@@ -1,7 +1,7 @@
 package by.ts.hmxy.block;
 
 import java.util.Random;
-import by.ts.hmxy.capability.ChunkInfoProvider;
+import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.config.Configs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -26,7 +26,7 @@ public class LingMaiBlock extends Block {
 		super.randomTick(pState, pLevel, pPos, pRandom);
 		LevelChunk chunk = pLevel.getChunkAt(pPos);
 		if (chunk.getLevel() instanceof ServerLevel) {
-			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 				info.setLingQi(info.getLingQi() + Configs.lingMaiDiffusion.get());
 				chunk.setUnsaved(true);
 			});	

@@ -11,7 +11,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.ts.hmxy.block.HmxyBlocks;
-import by.ts.hmxy.capability.AttachCapabilitiesHandler;
+import by.ts.hmxy.block.blockentity.HmxyBEs;
+import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.chunk.ChunkEventHandler;
 import by.ts.hmxy.client.EntityRenderersHandler;
 import by.ts.hmxy.client.hud.HmxyHud;
@@ -33,9 +34,7 @@ import by.ts.hmxy.util.TransMsg;
 //TODO bug: 耐力不会消耗消耗
 //TODO 绘画模组的图标，背景图标
 //TODO 灵石矿生成
-//TODO 灵气的流动
 //TODO 灵符
-//TODO bug:chunkinfo错误
 @Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
 public class HmxyMod {
@@ -52,13 +51,14 @@ public class HmxyMod {
 		HmxyEntities.ENTITIES.register(modEventBus);
 		HmxyEntities.ITEMS.register(modEventBus);
 		Attrs.ATTRIBUTES.register(modEventBus);
+		HmxyBEs.BLOCK_ENTITIES.register(modEventBus);
 		modEventBus.register(new EntityRenderersHandler());
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(this::clientSetUp);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(this);
 		forgeBus.register(new ChunkEventHandler());
-		forgeBus.register(new AttachCapabilitiesHandler());
+		forgeBus.register(new Capabilities());
 		forgeBus.register(new RenderOverlayHander());
 		
 		HmxyHelper.initJingJies();

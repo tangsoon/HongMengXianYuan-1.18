@@ -1,12 +1,13 @@
 package by.ts.hmxy.capability;
 
+import by.ts.hmxy.util.IHasLingQi;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.chunk.LevelChunk;
 
 /**
  * 存放区块相关的数据。
  */
-public class HmxyChunkInfo{
+public class HmxyChunkInfo implements IHasLingQi{
 
 	float lingQi = 0;
 	LevelChunk chunk;

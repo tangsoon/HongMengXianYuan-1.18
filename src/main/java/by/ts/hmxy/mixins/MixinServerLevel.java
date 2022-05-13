@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import by.ts.hmxy.capability.ChunkInfoProvider;
+import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.capability.HmxyChunkInfo;
 import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.util.BiSupplier;
@@ -19,7 +19,7 @@ public abstract class MixinServerLevel {
 	@Inject(method = "tickChunk", at = @At("HEAD"))
 	protected void onTickChunk(LevelChunk chunk, int pRandomTickSpeed, CallbackInfo ci) {
 		if(chunk.getLevel().getGameTime()%20==19) {
-			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 				float currentLingQi = info.getLingQi() * (1.0F - Configs.chunkLingQiDisappearRate.get());
 				info.setLingQi(currentLingQi);
 				ChunkPos chunkPos = chunk.getPos();
@@ -53,7 +53,7 @@ public abstract class MixinServerLevel {
 		BiSupplier<LevelChunk, HmxyChunkInfo> bi = new BiSupplier<LevelChunk, HmxyChunkInfo>(chunk1, info1);
 		if (level.hasChunk(chunkX, chunkZ)) {
 			LevelChunk chunk2 = level.getChunk(chunkX, chunkZ);
-			chunk2.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info2 -> {
+			chunk2.getCapability(Capabilities.CHUNK_INFO).ifPresent(info2 -> {
 				if (info2.getLingQi() < info1.getLingQi()) {
 					bi.a = chunk2;
 					bi.b = info2;

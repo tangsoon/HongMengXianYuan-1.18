@@ -1,6 +1,6 @@
 package by.ts.hmxy.item.fulu;
 
-import by.ts.hmxy.capability.ChunkInfoProvider;
+import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -31,7 +31,7 @@ public class XunLingFuItem extends FuLuItem {
 			int chunkX = SectionPos.blockToSectionCoord(pos.getX());
 			int chunkZ = SectionPos.blockToSectionCoord(pos.getZ());
 			LevelChunk chunk = pLevel.getChunk(chunkX, chunkZ);
-			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 				if (pPlayer instanceof ServerPlayer sPlayer
 						&& sPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE) {
 					pPlayer.sendMessage(TransMsg.XUN_LING_FU.create(chunkX, chunkZ,info.getLingQi()), Util.NIL_UUID);

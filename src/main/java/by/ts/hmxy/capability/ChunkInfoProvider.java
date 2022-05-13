@@ -2,21 +2,16 @@ package by.ts.hmxy.capability;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
-import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class ChunkInfoProvider extends CapabilityProvider<ChunkInfoProvider> implements INBTSerializable<CompoundTag> {
-
-	public static final Capability<HmxyChunkInfo> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-	});
+	
 	private final LazyOptional<HmxyChunkInfo> capability;
 
 	protected ChunkInfoProvider(LevelChunk chunk) {
@@ -27,7 +22,7 @@ public class ChunkInfoProvider extends CapabilityProvider<ChunkInfoProvider> imp
 	@NotNull
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-		return CAPABILITY.orEmpty(cap, capability);
+		return Capabilities.CHUNK_INFO.orEmpty(cap, capability);
 	}
 
 	@Override

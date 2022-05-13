@@ -1,6 +1,6 @@
 package by.ts.hmxy.chunk;
 
-import by.ts.hmxy.capability.ChunkInfoProvider;
+import by.ts.hmxy.capability.Capabilities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -12,7 +12,7 @@ public class ChunkEventHandler {
 	public void onSave(ChunkDataEvent.Save event) {
 		ChunkAccess access = event.getChunk();
 		if (access instanceof LevelChunk chunk && !chunk.getLevel().isClientSide) {
-			chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 				event.getData().put("chunkInfo", info.serializeNBT());
 			});
 		}
@@ -23,7 +23,7 @@ public class ChunkEventHandler {
 		ChunkAccess access = event.getChunk();
 		if (access instanceof LevelChunk chunk && !chunk.getLevel().isClientSide) {
 			if (chunk.getLevel() instanceof ServerLevel) {
-				chunk.getCapability(ChunkInfoProvider.CAPABILITY).ifPresent(info -> {
+				chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 					info.deserializeNBT(event.getData().getCompound("chunkInfo"));
 				});
 			}

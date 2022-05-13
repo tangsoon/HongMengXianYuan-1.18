@@ -36,10 +36,6 @@ public class HmxyItems {
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)));
 	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker", "闪耀灵石",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)));
-	/** 往生石 */
-	// public static final RegistryObject<Item>
-	// PREVIOUS_LIFE_STONE=ITEMS.register("previous_life_stone", ()->new
-	// TheMortalItem());
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = register("previous_life_water", "往生泉",
 			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)));
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET = register("previous_life_water_bucket",
@@ -54,8 +50,8 @@ public class HmxyItems {
 			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)));
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
-//	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
-//			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)));
+	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
+			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)));
 	
 	// ---------------------------------------------------------------------------------------------------------------------
 

@@ -186,13 +186,39 @@ public class HmxyHud {
 					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 			});
-
+	
+	public static final IIngameOverlay STAMINA_ELEMENT = OverlayRegistry.registerOverlayTop("Stamina",
+			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
+				Minecraft mc = Minecraft.getInstance();
+				if (HmxyHelper.getStamina(mc.player)<HmxyHelper.getMaxStamina(mc.player) && !mc.options.hideGui&&Configs.isToolBarOpen.get()) {
+					gui.setupOverlayRenderState(true, false);
+					int pX = screenWidth / 2 - 91;
+					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					RenderSystem.disableBlend();
+					mc.getProfiler().push("stamina");
+					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
+					float f=(float) (HmxyHelper.getStamina(mc.player)/HmxyHelper.getMaxStamina(mc.player));
+					int yOffset=-20;
+					int j = (int) (f * 183.0F);
+					int k = gui.screenHeight - 32 + 3;
+					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);
+					if (j > 0) {
+						gui.blit(mStack, pX, k+yOffset, 0, 89, j, 5);
+					}
+					mc.getProfiler().pop();
+					RenderSystem.enableBlend();
+					mc.getProfiler().pop();
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+				}
+			});
+	
 	public static void init() {
 
 	}
 	
-	private final static int yOffset = 10;
-
+	private final static int SELECTED_ITEM_NAME_OFFSET = 10;
+	
 	// Copy from the villain and do some change.
 	private static void renderSelectedItemName(Gui gui, PoseStack pPoseStack) {
 		Minecraft mc = Minecraft.getInstance();
@@ -207,7 +233,7 @@ public class HmxyHud {
 			Component highlightTip = gui.lastToolHighlight.getHighlightTip(mutablecomponent);
 			int i = gui.getFont().width(highlightTip);
 			int j = (gui.screenWidth - i) / 2;
-			int k = gui.screenHeight - 59 + yOffset;
+			int k = gui.screenHeight - 59 + SELECTED_ITEM_NAME_OFFSET;
 			int l = (int) ((float) gui.toolHighlightTimer * 256.0F / 10.0F);
 			if (l > 255) {
 				l = 255;

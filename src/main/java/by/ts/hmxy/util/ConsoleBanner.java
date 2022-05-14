@@ -1,4 +1,4 @@
-package by.ts.hmxy;
+package by.ts.hmxy.util;
 
 import java.io.IOException;
 import java.io.InputStream;

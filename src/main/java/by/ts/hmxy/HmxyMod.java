@@ -11,6 +11,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.block.RenderTypes;
 import by.ts.hmxy.block.blockentity.HmxyBEs;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.chunk.ChunkEventHandler;
@@ -25,6 +26,7 @@ import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.network.Messages;
 import by.ts.hmxy.util.Attrs;
+import by.ts.hmxy.util.ConsoleBanner;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.TransMsg;
 
@@ -32,7 +34,7 @@ import by.ts.hmxy.util.TransMsg;
 //TODO 硬山建筑不加载？
 //TODO bug: 耐力不会消耗消耗
 //TODO 灵石矿生成
-//TODO 烘培模型
+
 
 @Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
@@ -60,7 +62,6 @@ public class HmxyMod {
 		forgeBus.register(new ChunkEventHandler());
 		forgeBus.register(new Capabilities());
 		forgeBus.register(new RenderOverlayHander());
-		
 		HmxyHelper.initJingJies();
 		Grade.init();
 		TransMsg.init();
@@ -70,6 +71,7 @@ public class HmxyMod {
 	private void setup(final FMLCommonSetupEvent event) {
 		Messages.register();
 		ConsoleBanner.banner();
+		RenderTypes.handle();
 	}
 
 	public void clientSetUp(FMLClientSetupEvent event) {

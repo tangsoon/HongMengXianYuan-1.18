@@ -32,7 +32,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		HmxyHelper.setZhenYuan(this, pCompound.getInt("zhenYuan"));
 		HmxyHelper.setXiaoJingJie(this, pCompound.getInt("xiaoJingJie"));
 		HmxyHelper.setLingLi(this, pCompound.getFloat("lingLi"));
-		
+		HmxyHelper.setStamina(this, pCompound.getFloat("stamina"));
 	}
 
 	@Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
@@ -40,6 +40,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		pCompound.putInt("zhenYuan", HmxyHelper.getZhenYuan(this));
 		pCompound.putInt("xiaoJingJie", HmxyHelper.getXiaoJingJie(this));
 		pCompound.putFloat("lingLi", HmxyHelper.getLingLi(this));
+		pCompound.putFloat("stamina", HmxyHelper.getStamina(this));
 	}
 
 	@Inject(method = "tick", at = @At("RETURN"))
@@ -51,7 +52,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		if (HmxyHelper.isConsummingStamina(living)) {
 			float consume = (float) HmxyHelper.getStaminaConsume(this);
 			if (stamina > consume) {
-				HmxyHelper.setStamina(living, stamina);
+				HmxyHelper.setStamina(living, stamina-consume);
 			} else {
 				this.setSprinting(false);
 			}
@@ -61,7 +62,7 @@ public abstract class MixinJingJieEntity extends LivingEntity {
 		float capacity;
 		if (!HmxyHelper.isConsummingStamina(living)
 				&& (capacity = ((float) HmxyHelper.getMaxStamina(this) - stamina)) > 0) {
-			HmxyHelper.setLingLi(this,
+			HmxyHelper.setStamina(this,
 					stamina + Math.min(capacity, (float) HmxyHelper.getStaminaResume(this)));
 		}
 	}

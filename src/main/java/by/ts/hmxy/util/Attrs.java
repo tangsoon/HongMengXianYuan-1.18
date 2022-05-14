@@ -29,9 +29,9 @@ public class Attrs {
 	public static final RegistryObject<Attribute> MAX_STAMINA = ATTRIBUTES.register("max_stamina",
 			() -> new RangedAttribute("attribute.name.generic.ling_li_resume", 20.0D, 1.0D, 1024.0D).setSyncable(true));
 
-	/** 每tick灵力恢复 */
+	/** 每tick灵力耐力 */
 	public static final RegistryObject<Attribute> STAMINA_RESUME = ATTRIBUTES.register("stamina_resume",
-			() -> new RangedAttribute("attribute.name.generic.stamina_resume", 0.0025D, 0.0D, 1024.0D)
+			() -> new RangedAttribute("attribute.name.generic.stamina_resume", 0.05, 0.0D, 1024.0D)
 					.setSyncable(true));
 	
 	

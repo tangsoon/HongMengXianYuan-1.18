@@ -1,9 +1,11 @@
 package by.ts.hmxy.item;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
@@ -23,7 +25,7 @@ public class HmxyItems {
 	// -----------------------------------------------注册--------------------------------------------------------------
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HmxyMod.MOD_ID);
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
-			() -> new Item(new Properties().tab(Tabs.SUNDRY)));
+			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::defaultTexture);
 	public static final RegistryObject<Item> LOW_GRADE_REIKI_STONE = register("low_grade_reiki_stone", "低级灵石",
 			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0));
 	public static final RegistryObject<Item> MEDIUM_GRADE_REIKI_STONE = register("medium_grade_reiki_stone", "中级灵石",
@@ -52,13 +54,19 @@ public class HmxyItems {
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)));
-	
-	// ---------------------------------------------------------------------------------------------------------------------
 
+	// ---------------------------------------------------------------------------------------------------------------------
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {
+		return register(name, nameZh, s, (h, i) -> {
+		});
+	}
+
+	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s,
+			BiConsumer<HmxyBlockStatesProvider, Item> modelHandler) {
 		RegistryObject<Item> obj = ITEMS.register(name, s);
-		if(DatagenModLoader.isRunningDataGen()) {
-			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);	
+		if (DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);
+			HmxyBlockStatesProvider.MODEL_HANDLERS.put(obj, modelHandler);
 		}
 		return obj;
 	}

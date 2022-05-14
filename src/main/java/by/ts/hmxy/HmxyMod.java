@@ -20,6 +20,7 @@ import by.ts.hmxy.client.hud.HmxyHud;
 import by.ts.hmxy.client.hud.RenderOverlayHander;
 import by.ts.hmxy.client.key.KeyBindings;
 import by.ts.hmxy.config.Configs;
+import by.ts.hmxy.data.DataGenEvent;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.Grade;
@@ -34,7 +35,6 @@ import by.ts.hmxy.util.TransMsg;
 //TODO 硬山建筑不加载？
 //TODO bug: 耐力不会消耗消耗
 //TODO 灵石矿生成
-
 
 @Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
@@ -55,6 +55,7 @@ public class HmxyMod {
 		Attrs.ATTRIBUTES.register(modEventBus);
 		HmxyBEs.BLOCK_ENTITIES.register(modEventBus);
 		modEventBus.register(new EntityRenderersHandler());
+		modEventBus.register(new DataGenEvent());
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(this::clientSetUp);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;

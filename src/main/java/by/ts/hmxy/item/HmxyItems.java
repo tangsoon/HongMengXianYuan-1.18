@@ -5,6 +5,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.block.LingZhiBlock;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
@@ -25,7 +26,7 @@ public class HmxyItems {
 	// -----------------------------------------------注册--------------------------------------------------------------
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HmxyMod.MOD_ID);
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
-			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::defaultTexture);
+			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> LOW_GRADE_REIKI_STONE = register("low_grade_reiki_stone", "低级灵石",
 			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0));
 	public static final RegistryObject<Item> MEDIUM_GRADE_REIKI_STONE = register("medium_grade_reiki_stone", "中级灵石",
@@ -35,9 +36,10 @@ public class HmxyItems {
 	public static final RegistryObject<Item> TOP_GRADE_REIKI_STONE = register("top_grade_reiki_stone", "顶级灵石",
 			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3));
 	public static final RegistryObject<Item> REIKI_STONE_ORE = register("reiki_stone_ore", "灵石矿",
-			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)));
+			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker", "闪耀灵石",
-			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)));
+			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)),
+			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = register("previous_life_water", "往生泉",
 			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)));
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET = register("previous_life_water_bucket",
@@ -53,7 +55,9 @@ public class HmxyItems {
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
-			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)));
+			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)),(h,i)->{
+				h.itemWithProperty(i,LingZhiBlock.AGE);
+			});
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {

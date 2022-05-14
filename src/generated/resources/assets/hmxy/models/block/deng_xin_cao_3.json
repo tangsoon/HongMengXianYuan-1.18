@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "hmxy:block/deng_xin_cao_3"
+  }
+}

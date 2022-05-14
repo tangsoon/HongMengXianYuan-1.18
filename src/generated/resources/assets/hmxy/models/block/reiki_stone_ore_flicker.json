@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hmxy:block/reiki_stone_ore_flicker"
+  }
+}

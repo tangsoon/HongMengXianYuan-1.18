@@ -1,5 +1,6 @@
 {
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hmxy:item/default"
+    "layer0": "hmxy:item/nature_reiki_stone"
   }
 }

@@ -26,7 +26,7 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D),
 			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D),
 			Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D) };
-
+ 
 	public LingZhiBlock(Properties pro) {
 		super(pro);
 	}

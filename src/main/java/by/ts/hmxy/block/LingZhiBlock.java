@@ -3,11 +3,15 @@ package by.ts.hmxy.block;
 import java.util.Random;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.capability.Capabilities;
+import by.ts.hmxy.item.HmxyItems;
+import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,27 +20,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
-public class LingZhiBlock extends BushBlock implements EntityBlock {
+public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace ,ItemStackCreator,Break{
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public LingZhiBlock(Properties pro) {
 		super(pro);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0)));
-	}
-
-	/**
-	 * 可以种植在耕土上，只有在耕土上才能生长
-	 * 
-	 * @param pState
-	 * @param pLevel
-	 * @param pPos
-	 * @return
-	 */
-	// TODO 修改成自己的土壤
-	protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-		return pState.is(Blocks.FARMLAND) || pState.is(Blocks.DIRT);
 	}
 
 	public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
@@ -55,7 +48,7 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 					info.setLingQi(Math.max(0, info.getLingQi() - grow));
 					be.setMedicinal(be.getMedicinal() + grow);
 					be.setCurrentGrowTimes(be.getCurrentGrowTimes() + 1);
-					int newAge = (int) ((float) be.getCurrentGrowTimes() / be.getMaxGrowTimes()*4-1);
+					int newAge = (int) ((float) be.getCurrentGrowTimes() / be.getMaxGrowTimes() * 4 - 1);
 					if (newAge != this.getAge(pState)) {
 						BlockState newState = this.getStateForAge(newAge);
 						pLevel.setBlock(pPos, newState, 0b11);
@@ -87,5 +80,34 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(AGE);
+	}
+
+	@Override
+	public void onEntityPlace(EntityPlaceEvent event) {
+		event.setCanceled(true);
+	}
+
+	public ItemStack createItemStack(BlockGetter blockGetter, BlockPos pPos, BlockState pState) {
+		ItemStack lingZhi=new ItemStack(this);
+		LingZhiBE lingZhiBe=(LingZhiBE) blockGetter.getBlockEntity(pPos);
+		lingZhi.addTagElement("lingZhi", lingZhiBe.serializeNBT());
+		return lingZhi;
+	}
+
+	/**
+	 * 只在服务端调用
+	 */
+	@Override
+	public void onBreak(BreakEvent event) {
+		Player player=event.getPlayer();
+		ItemStack tool=player.getMainHandItem();
+		if(tool.getItem()==HmxyItems.HERB_HOE.get()&&event.getWorld() instanceof Level level) {
+			ItemStack lingZhi=this.createItemStack(level, event.getPos(), event.getState());
+			BlockPos pos=event.getPos();
+			HmxyHelper.dropItem(lingZhi, level,pos.getX()+0.5 , pos.getY()+0.5, pos.getZ()+0.5);
+		}
+		else {
+			event.setCanceled(true);
+		}
 	}
 }

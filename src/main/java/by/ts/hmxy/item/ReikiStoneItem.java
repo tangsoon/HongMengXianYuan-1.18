@@ -1,23 +1,19 @@
 package by.ts.hmxy.item;
 
+import by.ts.hmxy.util.IHasLingQi;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
-public class ReikiStoneItem extends Item implements IReiki {
+public class ReikiStoneItem extends Item implements IHasLingQi {
 
-	private final float reiki;
+	private final float lingQi;
 	public final int grade;
 
-	public ReikiStoneItem(Properties pProperties, float reiki, int grade) {
+	public ReikiStoneItem(Properties pProperties, float lingQi, int grade) {
 		super(pProperties);
-		this.reiki = reiki;
+		this.lingQi = lingQi;
 		this.grade = grade;
-	}
-
-	@Override
-	public float getRiki() {
-		return this.reiki;
 	}
 
 	public Rarity getRarity(ItemStack pStack) {
@@ -26,5 +22,15 @@ public class ReikiStoneItem extends Item implements IReiki {
 
 	public boolean isFoil(ItemStack pStack) {
 		return grade>=2?true:false;
+	}
+
+	@Override
+	public float getLingQi() {
+		return lingQi;
+	}
+
+	@Override
+	public void setLingQi(float lingQi) {
+		
 	}
 }

@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
@@ -19,10 +18,14 @@ import by.ts.hmxy.HmxyMod;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeI18n;
@@ -280,7 +283,7 @@ public class HmxyHelper {
 	public static double getStaminaResume(LivingEntity living) {
 		return living.getAttributeValue(Attrs.STAMINA_RESUME.get());
 	}
-	
+
 	public static double getMaxStamina(LivingEntity living) {
 		return living.getAttributeValue(Attrs.MAX_STAMINA.get());
 	}
@@ -306,5 +309,15 @@ public class HmxyHelper {
 			return true;
 		}
 		return false;
+	}
+
+	public static void dropItem(ItemStack pDroppedItem, Level level, double x, double y, double z) {
+		if (!pDroppedItem.isEmpty()) {
+			ItemEntity itementity = new ItemEntity(level, x, y, z, pDroppedItem);
+			float f = level.random.nextFloat() * 0.5F;
+			float f1 = level.random.nextFloat() * ((float) Math.PI * 2F);
+			itementity.setDeltaMovement((double) (-Mth.sin(f1) * f), (double) 0.2F, (double) (Mth.cos(f1) * f));
+	        level.addFreshEntity(itementity);
+		}
 	}
 }

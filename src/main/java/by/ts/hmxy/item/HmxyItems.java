@@ -11,11 +11,13 @@ import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.data.loading.DatagenModLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,13 +29,13 @@ public class HmxyItems {
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> LOW_GRADE_REIKI_STONE = register("low_grade_reiki_stone", "低级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0),HmxyBlockStatesProvider::item);
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> MEDIUM_GRADE_REIKI_STONE = register("medium_grade_reiki_stone", "中级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10, 1),HmxyBlockStatesProvider::item);
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10, 1), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> HIGH_GRADE_REIKI_STONE = register("high_grade_reiki_stone", "高级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1000, 2),HmxyBlockStatesProvider::item);
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1000, 2), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> TOP_GRADE_REIKI_STONE = register("top_grade_reiki_stone", "顶级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3),HmxyBlockStatesProvider::item);
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> REIKI_STONE_ORE = register("reiki_stone_ore", "灵石矿",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),
 			HmxyBlockStatesProvider::itemAndBlock);
@@ -41,9 +43,12 @@ public class HmxyItems {
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)),
 			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = register("previous_life_water", "往生泉",
-			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)),HmxyBlockStatesProvider::liquid);
-	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_FLOWING = register("previous_life_water_flowing", "流动往生泉",
-			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER_FLOWING.get(), new Properties().tab(Tabs.SUNDRY)),HmxyBlockStatesProvider::liquid);
+			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)),
+			HmxyBlockStatesProvider::liquid);
+	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_FLOWING = register("previous_life_water_flowing",
+			"流动往生泉",
+			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER_FLOWING.get(), new Properties().tab(Tabs.SUNDRY)),
+			HmxyBlockStatesProvider::liquid);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET = register("previous_life_water_bucket",
 			"桶装往生泉", () -> {
 				return new BucketItem(() -> {
@@ -51,14 +56,19 @@ public class HmxyItems {
 				}, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.EPIC).tab(Tabs.SUNDRY));
 			});
 	public static final RegistryObject<Item> MINBUS_BOTTLE = register("minbus_bottle", "灵气瓶",
-			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)),HmxyBlockStatesProvider::item);
+			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)),
+			HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> LING_MAI = register("ling_mai", "灵脉",
 			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)),
 			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
-			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),HmxyBlockStatesProvider::lingZhi);
+			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
+			HmxyBlockStatesProvider::lingZhi);
+	//TODO
+	public static final RegistryObject<Item> HERB_HOE = register("herb_hoe", "药锄",
+			() -> new HerbHoeItem(Tiers.DIAMOND, -3, 0.0F, (new Item.Properties()).tab(CreativeModeTab.TAB_TOOLS)));
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {

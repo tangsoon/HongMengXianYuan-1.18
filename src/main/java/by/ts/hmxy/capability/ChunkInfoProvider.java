@@ -14,7 +14,7 @@ public class ChunkInfoProvider extends CapabilityProvider<ChunkInfoProvider> imp
 	
 	private final LazyOptional<HmxyChunkInfo> capability;
 
-	protected ChunkInfoProvider(LevelChunk chunk) {
+	public ChunkInfoProvider(LevelChunk chunk) {
 		super(ChunkInfoProvider.class);
 		capability = LazyOptional.of(() -> new HmxyChunkInfo(chunk));
 	}

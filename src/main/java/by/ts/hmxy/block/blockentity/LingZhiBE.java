@@ -1,19 +1,14 @@
 package by.ts.hmxy.block.blockentity;
 
-import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.config.Configs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.LevelChunk;
 
-public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiBE> {
+public class LingZhiBE extends BlockEntity{
 	/** 生长次数上限 */
 	public static final int GROW_TIMES_LIMIT = Configs.lingZhiGrowTimesLimit.get();
 	/** 生长速度上限 */
@@ -64,20 +59,21 @@ public class LingZhiBE extends BlockEntity implements BlockEntityTicker<LingZhiB
 		this.medicinal = pTag.getFloat("medicinal");
 	}
 
-	@Override
-	public void tick(Level pLevel, BlockPos pPos, BlockState pState, LingZhiBE be) {
-		if (pLevel instanceof ServerLevel level && pLevel.getGameTime() % 20 == 18) {
-			LevelChunk chunk = pLevel.getChunkAt(pPos);
-			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
-				float chunkLingQi = info.getLingQi();
-				float grow = chunkLingQi * be.growSpeed;
-				info.setLingQi(Math.max(chunkLingQi - grow, 0.0F));
-				be.medicinal += grow;
-				be.setChanged();
-				level.sendBlockUpdated(pPos, pState, pState, 0b11);//发送到客户端
-			});
-		}
-	}
+	//TODO 删除
+//	@Override
+//	public void tick(Level pLevel, BlockPos pPos, BlockState pState, LingZhiBE be) {
+//		if (pLevel instanceof ServerLevel level && pLevel.getGameTime() % 20 == 18) {
+//			LevelChunk chunk = pLevel.getChunkAt(pPos);
+//			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
+//				float chunkLingQi = info.getLingQi();
+//				float grow = chunkLingQi * be.growSpeed;
+//				info.setLingQi(Math.max(chunkLingQi - grow, 0.0F));
+//				be.medicinal += grow;
+//				be.setChanged();
+//				level.sendBlockUpdated(pPos, pState, pState, 0b11);//发送到客户端
+//			});
+//		}
+//	}
 
 	public CompoundTag getUpdateTag() {
 		CompoundTag tag = super.getUpdateTag();

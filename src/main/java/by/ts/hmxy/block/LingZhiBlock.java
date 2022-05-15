@@ -55,7 +55,7 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 					info.setLingQi(Math.max(0, info.getLingQi() - grow));
 					be.setMedicinal(be.getMedicinal() + grow);
 					be.setCurrentGrowTimes(be.getCurrentGrowTimes() + 1);
-					int newAge = (int) ((float) be.getCurrentGrowTimes() / be.getMaxGrowTimes() * 3-1);
+					int newAge = (int) ((float) be.getCurrentGrowTimes() / be.getMaxGrowTimes()*4-1);
 					if (newAge != this.getAge(pState)) {
 						BlockState newState = this.getStateForAge(newAge);
 						pLevel.setBlock(pPos, newState, 0b11);

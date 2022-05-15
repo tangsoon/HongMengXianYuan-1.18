@@ -5,7 +5,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
-import by.ts.hmxy.block.LingZhiBlock;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
@@ -59,10 +58,7 @@ public class HmxyItems {
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
-			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			(h, i) -> {
-				h.itemWithProperty(i, LingZhiBlock.AGE);
-			});
+			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),HmxyBlockStatesProvider::lingZhi);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {

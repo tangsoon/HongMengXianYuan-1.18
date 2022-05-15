@@ -5,7 +5,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.block.LingZhiBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +27,7 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class HmxyBlockStatesProvider extends BlockStateProvider {
 
-	public static final Map<RegistryObject<Item>, BiConsumer<HmxyBlockStatesProvider,Item>> MODEL_HANDLERS = new HashMap<>();
+	public static final Map<RegistryObject<Item>, BiConsumer<HmxyBlockStatesProvider, Item>> MODEL_HANDLERS = new HashMap<>();
 
 	public HmxyBlockStatesProvider(DataGenerator gen, ExistingFileHelper helper) {
 		super(gen, HmxyMod.MOD_ID, helper);
@@ -33,21 +35,11 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		for (Map.Entry<RegistryObject<Item>, BiConsumer<HmxyBlockStatesProvider,Item>> entry : MODEL_HANDLERS.entrySet()) {
+		for (Map.Entry<RegistryObject<Item>, BiConsumer<HmxyBlockStatesProvider, Item>> entry : MODEL_HANDLERS
+				.entrySet()) {
 			entry.getValue().accept(this, entry.getKey().get());
 		}
 		MODEL_HANDLERS.clear();
-	}
-
-	/**
-	 * 注册的Item对应的Block应该含有Property并且会影响方块模型
-	 * 
-	 * @param <C>  Property的属性类型
-	 * @param item
-	 * @param pro
-	 */
-	public <C extends Comparable<C>> void itemWithProperty(Item item, Property<C> pro) {
-		this.itemWithProperty(item, pro, item.getRegistryName().getPath());
 	}
 
 	/**
@@ -58,7 +50,7 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	 * @param pro
 	 * @param texture 方块材质的地址，会自动包裹上"modId:block/"
 	 */
-	public <C extends Comparable<C>> void itemWithProperty(Item item, Property<C> pro, String texture) {
+	public <C extends Comparable<C>> void itemWithProperty(Item item, Property<C> pro,String textureKey,String texture,ResourceLocation parant) {
 		if (item instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
 			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(block);
@@ -67,13 +59,18 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			while (it.hasNext()) {
 				c = it.next();
 				varBuilder.addModels(varBuilder.partialState().with(pro, c), new ConfiguredModel(models()
-						.cross(block.getRegistryName().toString() + "_" + c, modLoc("block/" + texture + "_" + c))));
+						.withExistingParent(block.getRegistryName().toString() + "_"+c, parant).texture(textureKey, modLoc("block/" + texture + "_" + c))));
 			}
 			if (c != null) {
 				itemModels().withExistingParent(block.getRegistryName().toString(),
-						block.getRegistryName().getNamespace() + ":block/" + block.getRegistryName().getPath()+"_" + c);
+						block.getRegistryName().getNamespace() + ":block/" + block.getRegistryName().getPath() + "_"
+								+ c);
 			}
 		}
+	}
+	
+	public <C extends Comparable<C>> void lingZhi(Item item) {
+		this.itemWithProperty(item, LingZhiBlock.AGE, "cross", item.getRegistryName().getPath(), mcLoc("block/tinted_cross"));
 	}
 
 	/**
@@ -83,7 +80,7 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	 * @param texture item材质的地址，会自动包裹上"modId:item/"
 	 */
 	public void item(Item item, String texture) {
-		itemModels().getBuilder(item.getRegistryName().toString()).texture("layer0",modLoc("item/"+texture));
+		itemModels().getBuilder(item.getRegistryName().toString()).texture("layer0", modLoc("item/" + texture));
 		itemModels().withExistingParent(item.getRegistryName().toString(), mcLoc("item/generated"));
 	}
 
@@ -93,36 +90,38 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	 * @param item材质的地址，会自动包裹上"modId:item/"
 	 */
 	public void item(Item item) {
-		item(item,item.getRegistryName().getPath());
+		item(item, item.getRegistryName().getPath());
 	}
-	
+
 	/**
 	 * 自动创建Item对应的Block的简单模型，并将其设置为Item的父模型
 	 */
 	public void itemAndBlock(Item item) {
-		if(item instanceof BlockItem blockItem) {
-			Block block= blockItem.getBlock();
-			String path=block.getRegistryName().getPath();
+		if (item instanceof BlockItem blockItem) {
+			Block block = blockItem.getBlock();
+			String path = block.getRegistryName().getPath();
 			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(block);
-			varBuilder.partialState().addModels(new ConfiguredModel(models().cubeAll(path, modLoc("block/"+path))));
-			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/")+path);
+			varBuilder.partialState().addModels(new ConfiguredModel(models().cubeAll(path, modLoc("block/" + path))));
+			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/") + path);
 		}
 	}
-	
-	public static void defaultTexture(HmxyBlockStatesProvider b,Item i) {
-		b.item(i,"default");
+
+	public static void defaultTexture(HmxyBlockStatesProvider b, Item i) {
+		b.item(i, "default");
 	}
-	
+
 	/**
 	 * 创建流体方块和物品的模型
+	 * 
 	 * @param liquid
 	 */
 	public void liquid(Item liquid) {
-		if(liquid instanceof BlockItem blockItem&&blockItem.getBlock() instanceof LiquidBlock liquidBlock) {
-			String path=liquid.getRegistryName().getPath();
+		if (liquid instanceof BlockItem blockItem && blockItem.getBlock() instanceof LiquidBlock liquidBlock) {
+			String path = liquid.getRegistryName().getPath();
 			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(liquidBlock);
-			varBuilder.partialState().addModels(new ConfiguredModel(models().getBuilder(path).texture("particle",modLoc("block/"+path))));
-			itemModels().getBuilder(liquid.getRegistryName().toString()).texture("layer0",modLoc("block/"+path));
+			varBuilder.partialState().addModels(
+					new ConfiguredModel(models().getBuilder(path).texture("particle", modLoc("block/" + path))));
+			itemModels().getBuilder(liquid.getRegistryName().toString()).texture("layer0", modLoc("block/" + path));
 			itemModels().withExistingParent(liquid.getRegistryName().toString(), mcLoc("item/generated"));
 		}
 	}

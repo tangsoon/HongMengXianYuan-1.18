@@ -21,6 +21,7 @@
   "item.hmxy.xun_ling_fu": "寻灵符",
   "itemGroup.elixir": "丹药",
   "itemGroup.fu_lu": "符箓",
+  "itemGroup.ling_zhi": "灵植",
   "itemGroup.ore": "矿石",
   "itemGroup.sundry": "杂项",
   "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"

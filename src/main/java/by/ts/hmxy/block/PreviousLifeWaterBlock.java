@@ -20,12 +20,13 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import by.ts.hmxy.fluid.HmxyFluids;
 
 public class PreviousLifeWaterBlock extends LiquidBlock implements ITeleporter {
-	public PreviousLifeWaterBlock() {
-		super(() -> (FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER.get(),
+	public PreviousLifeWaterBlock(Supplier<? extends FlowingFluid> pFluid) {
+		super(pFluid,
 				BlockBehaviour.Properties.of(Material.WATER).strength(100f).hasPostProcess((bs, br, bp) -> true)
 						.emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 15));
 	}
@@ -86,5 +87,16 @@ public class PreviousLifeWaterBlock extends LiquidBlock implements ITeleporter {
 		BlockPos pos= destWorld.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,new BlockPos(entity.position()));
 		newEntity.moveTo(new Vec3(pos.getX(), pos.getY(), pos.getZ()));
 		return newEntity;
+	}
+	
+	public static class Source extends PreviousLifeWaterBlock{
+		public Source() {
+			super(() -> (FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER.get());
+		}
+	}
+	public static class Flowing extends PreviousLifeWaterBlock{
+		public Flowing() {
+			super(() -> (FlowingFluid) HmxyFluids.PREVIOUS_LIFE_WATER_FLOWING.get());
+		}	
 	}
 }

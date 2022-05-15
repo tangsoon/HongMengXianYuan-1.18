@@ -9,6 +9,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -82,7 +83,7 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	 * @param texture item材质的地址，会自动包裹上"modId:item/"
 	 */
 	public void item(Item item, String texture) {
-		itemModels().getBuilder(item.getRegistryName().toString()).texture("layer0",modLoc("item/"+texture));//minecraft:item/generated
+		itemModels().getBuilder(item.getRegistryName().toString()).texture("layer0",modLoc("item/"+texture));
 		itemModels().withExistingParent(item.getRegistryName().toString(), mcLoc("item/generated"));
 	}
 
@@ -108,8 +109,21 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 		}
 	}
 	
-	
 	public static void defaultTexture(HmxyBlockStatesProvider b,Item i) {
 		b.item(i,"default");
+	}
+	
+	/**
+	 * 创建流体方块和物品的模型
+	 * @param liquid
+	 */
+	public void liquid(Item liquid) {
+		if(liquid instanceof BlockItem blockItem&&blockItem.getBlock() instanceof LiquidBlock liquidBlock) {
+			String path=liquid.getRegistryName().getPath();
+			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(liquidBlock);
+			varBuilder.partialState().addModels(new ConfiguredModel(models().getBuilder(path).texture("particle",modLoc("block/"+path))));
+			itemModels().getBuilder(liquid.getRegistryName().toString()).texture("layer0",modLoc("block/"+path));
+			itemModels().withExistingParent(liquid.getRegistryName().toString(), mcLoc("item/generated"));
+		}
 	}
 }

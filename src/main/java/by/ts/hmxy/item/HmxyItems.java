@@ -28,20 +28,23 @@ public class HmxyItems {
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> LOW_GRADE_REIKI_STONE = register("low_grade_reiki_stone", "低级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0));
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0),HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> MEDIUM_GRADE_REIKI_STONE = register("medium_grade_reiki_stone", "中级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10, 1));
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10, 1),HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> HIGH_GRADE_REIKI_STONE = register("high_grade_reiki_stone", "高级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1000, 2));
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1000, 2),HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> TOP_GRADE_REIKI_STONE = register("top_grade_reiki_stone", "顶级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3));
+			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3),HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> REIKI_STONE_ORE = register("reiki_stone_ore", "灵石矿",
-			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),HmxyBlockStatesProvider::itemAndBlock);
+			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),
+			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker", "闪耀灵石",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)),
 			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = register("previous_life_water", "往生泉",
-			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)));
+			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)),HmxyBlockStatesProvider::liquid);
+	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_FLOWING = register("previous_life_water_flowing", "流动往生泉",
+			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER_FLOWING.get(), new Properties().tab(Tabs.SUNDRY)),HmxyBlockStatesProvider::liquid);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER_BUCKET = register("previous_life_water_bucket",
 			"桶装往生泉", () -> {
 				return new BucketItem(() -> {
@@ -49,14 +52,16 @@ public class HmxyItems {
 				}, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.EPIC).tab(Tabs.SUNDRY));
 			});
 	public static final RegistryObject<Item> MINBUS_BOTTLE = register("minbus_bottle", "灵气瓶",
-			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)));
+			() -> new MinbusBottleItem(new Properties().tab(Tabs.SUNDRY).rarity(Rarity.UNCOMMON)),HmxyBlockStatesProvider::item);
 	public static final RegistryObject<Item> LING_MAI = register("ling_mai", "灵脉",
-			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)));
+			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)),
+			HmxyBlockStatesProvider::itemAndBlock);
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)));
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
-			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.SUNDRY).stacksTo(64)),(h,i)->{
-				h.itemWithProperty(i,LingZhiBlock.AGE);
+			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
+			(h, i) -> {
+				h.itemWithProperty(i, LingZhiBlock.AGE);
 			});
 
 	// ---------------------------------------------------------------------------------------------------------------------

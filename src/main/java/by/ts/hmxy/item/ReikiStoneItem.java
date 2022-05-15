@@ -23,4 +23,8 @@ public class ReikiStoneItem extends Item implements IReiki {
 	public Rarity getRarity(ItemStack pStack) {
 		return Grade.ReikiStoneGrade.values()[grade].grade.rarity;
 	}
+
+	public boolean isFoil(ItemStack pStack) {
+		return grade>=2?true:false;
+	}
 }

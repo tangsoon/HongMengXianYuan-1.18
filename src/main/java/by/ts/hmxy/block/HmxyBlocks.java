@@ -30,9 +30,12 @@ public class HmxyBlocks {
 			() -> new ReikiStoneOreBlock(Properties.copy(REIKI_STONE_ORE.get()), UniformInt.of(0, 2),
 					ReikiStoneOreBlock.Type.FLICKER.type));
 
-	/** 凡界传送门，往生泉 */
+	/** 往生泉 */
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = register("previous_life_water",
-			() -> new PreviousLifeWaterBlock());
+			() -> new PreviousLifeWaterBlock.Source());
+	/**流动的往生泉*/
+	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER_FLOWING = register("previous_life_water_flowing",
+			() -> new PreviousLifeWaterBlock.Flowing());
 
 	/** 灵脉 */
 	public static final RegistryObject<Block> LING_MAI = register("ling_mai",

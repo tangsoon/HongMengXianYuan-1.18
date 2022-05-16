@@ -125,4 +125,12 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			itemModels().withExistingParent(liquid.getRegistryName().toString(), mcLoc("item/generated"));
 		}
 	}
+	
+	/**
+	 * 不会创建任何模型和材质
+	 * @param item
+	 */
+	public void noModel(Item item) {
+		
+	}
 }

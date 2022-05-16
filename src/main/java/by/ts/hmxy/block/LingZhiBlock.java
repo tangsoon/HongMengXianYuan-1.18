@@ -3,6 +3,7 @@ package by.ts.hmxy.block;
 import java.util.Random;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.capability.Capabilities;
+import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.core.BlockPos;
@@ -61,7 +62,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace 
 				});
 			}
 		}
-
 	}
 
 	public BlockState getStateForAge(int pAge) {
@@ -118,35 +118,13 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace 
 		}
 	}
 	
-	/**
-	 * 记录灵植种子的数据
-	 * @author tangsoon
-	 *
-	 */
-	public class Seed implements INBTSerializable<CompoundTag>{
-		
-		private int maxGrowTimes=0;
-		private int growSpeed=0;
-		
-		public Seed(int maxGrowTimes, int growSpeed) {
-			this.maxGrowTimes = maxGrowTimes;
-			this.growSpeed = growSpeed;
-		}
+	public class Gene implements INBTSerializable<CompoundTag>{
 
-		@Override
-		public CompoundTag serializeNBT() {
-			CompoundTag result=new CompoundTag();
-			result.putInt("maxGrowTimes", maxGrowTimes);
-			result.putInt("growSpeed", growSpeed);
-			return result;
-		}
+		/** 最大生长次数，产籽时随机增减并遗传给种子 */
+		private int maxGrowTimes = Configs.lingZhiDefaultMaxGrowTimes.get();
+		/** 生长速度 */
+		private float growSpeed = Configs.lingZhiDefaultGrowSpeed.get();
 		
-		@Override
-		public void deserializeNBT(CompoundTag nbt) {
-			this.setMaxGrowTimes(nbt.getInt("maxGrowTimes"));
-			this.setGrowSpeed(nbt.getInt("growSpeed"));
-		}
-
 		public int getMaxGrowTimes() {
 			return maxGrowTimes;
 		}
@@ -155,23 +133,83 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace 
 			this.maxGrowTimes = maxGrowTimes;
 		}
 
-		public int getGrowSpeed() {
+		public float getGrowSpeed() {
 			return growSpeed;
 		}
 
-		public void setGrowSpeed(int growSpeed) {
+		public void setGrowSpeed(float growSpeed) {
 			this.growSpeed = growSpeed;
+		}
+
+		@Override
+		public CompoundTag serializeNBT() {
+			CompoundTag nbt=new CompoundTag();
+			nbt.putInt("maxGrowTimes", maxGrowTimes);
+			nbt.putFloat("growSpeed", growSpeed);
+			return nbt;
+		}
+
+		@Override
+		public void deserializeNBT(CompoundTag nbt) {
+			this.maxGrowTimes=nbt.getInt("maxGrowTimes");
+			this.growSpeed=nbt.getFloat("growSpeed");
 		}
 	}
 	
-	/**
-	 * 灵植种子
-	 * @author tangsoon
-	 *
-	 */
-	public class SeedItem extends Item{
-		public SeedItem(Properties pProperties) {
-			super(pProperties);
-		}
-	}
+//	/**
+//	 * 记录灵植种子的数据
+//	 * @author tangsoon
+//	 *
+//	 */
+//	public static class  Seed implements INBTSerializable<CompoundTag>{
+//		
+//		private int maxGrowTimes=0;
+//		private float growSpeed=0;
+//		
+//		public Seed(int maxGrowTimes, float growSpeed2) {
+//			this.maxGrowTimes = maxGrowTimes;
+//			this.growSpeed = growSpeed2;
+//		}
+//
+//		@Override
+//		public CompoundTag serializeNBT() {
+//			CompoundTag result=new CompoundTag();
+//			result.putInt("maxGrowTimes", maxGrowTimes);
+//			result.putFloat("growSpeed", growSpeed);
+//			return result;
+//		}
+//		
+//		@Override
+//		public void deserializeNBT(CompoundTag nbt) {
+//			this.setMaxGrowTimes(nbt.getInt("maxGrowTimes"));
+//			this.setGrowSpeed(nbt.getInt("growSpeed"));
+//		}
+//
+//		public int getMaxGrowTimes() {
+//			return maxGrowTimes;
+//		}
+//
+//		public void setMaxGrowTimes(int maxGrowTimes) {
+//			this.maxGrowTimes = maxGrowTimes;
+//		}
+//
+//		public float getGrowSpeed() {
+//			return growSpeed;
+//		}
+//
+//		public void setGrowSpeed(int growSpeed) {
+//			this.growSpeed = growSpeed;
+//		}
+//	}
+	
+//	/**
+//	 * 灵植种子
+//	 * @author tangsoon
+//	 *
+//	 */
+//	public class SeedItem extends Item{
+//		public SeedItem(Properties pProperties) {
+//			super(pProperties);
+//		}
+//	}
 }

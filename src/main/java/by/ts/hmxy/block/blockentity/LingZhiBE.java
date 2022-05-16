@@ -1,6 +1,6 @@
 package by.ts.hmxy.block.blockentity;
 
-import by.ts.hmxy.block.LingZhiBlock.Seed;
+import by.ts.hmxy.block.LingZhiBlock.Gene;
 import by.ts.hmxy.config.Configs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +14,6 @@ public class LingZhiBE extends BlockEntity{
 	public static final int GROW_TIMES_LIMIT = Configs.lingZhiGrowTimesLimit.get();
 	/** 生长速度上限 */
 	public static final float GROW_SPEED_LIMIT = Configs.lingZhiGrowSpeedLimit.get();
-
 	/** 最大生长次数，产籽时随机增减并遗传给种子 */
 	private int maxGrowTimes = Configs.lingZhiDefaultMaxGrowTimes.get();
 	/** 当前生长次数，每个随机刻减一 */
@@ -23,13 +22,14 @@ public class LingZhiBE extends BlockEntity{
 	private float growSpeed = Configs.lingZhiDefaultGrowSpeed.get();
 	/** 药性，每个随机刻药性+=区块灵气*生长速度 */
 	private float medicinal = 0.0F;
-	/**该灵植是否拥有种子*/
-	private boolean hasSeed;
-	/**灵植种子*/
-	private Seed seed;
 
+	private Gene[] genes=new Gene[2];
+
+	
+	
 	public LingZhiBE(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
 		super(pType, pWorldPosition, pBlockState);
+		
 	}
 
 	public LingZhiBE(BlockPos pWorldPosition, BlockState pBlockState) {
@@ -50,10 +50,9 @@ public class LingZhiBE extends BlockEntity{
 		pTag.putInt("currentGrowTimes", currentGrowTimes);
 		pTag.putFloat("growSpeed", growSpeed);
 		pTag.putFloat("medicinal", medicinal);
-		pTag.putBoolean("hasSeed", hasSeed);
-		if(hasSeed) {
-			pTag.put("seed", seed.serializeNBT());
-		}
+//		if(seed!=null) {
+//			pTag.put("seed", seed.serializeNBT());
+//		}
 	}
 
 	public void load(CompoundTag pTag) {
@@ -65,11 +64,7 @@ public class LingZhiBE extends BlockEntity{
 		this.maxGrowTimes = pTag.getInt("maxGrowTimes");
 		this.currentGrowTimes = pTag.getInt("currentGrowTimes");
 		this.growSpeed = pTag.getFloat("growSpeed");
-		this.medicinal = pTag.getFloat("medicinal");
-		this.hasSeed=pTag.getBoolean("hasSeed");
-		if(hasSeed) {
-			
-		}
+		this.medicinal = pTag.getFloat("medicinal");	
 	}
 
 	public CompoundTag getUpdateTag() {

@@ -15,6 +15,7 @@ public class Tabs {
 	public static final CreativeModeTab ORE = create("ore", "矿石",() -> HmxyItems.REIKI_STONE_ORE.get());
 	public static final CreativeModeTab FU_LU = create("fu_lu", "符箓",() -> HmxyItems.XUN_LING_FU.get());
 	public static final CreativeModeTab LING_ZHI = create("ling_zhi", "灵植",() -> HmxyItems.DENG_XIN_CAO.get());
+	public static final CreativeModeTab TOOL = create("tool", "工具",() -> HmxyItems.HERB_HOE.get());
 
 	private static CreativeModeTab create(String name,String nameZh, Supplier<ItemLike> s) {
 		CreativeModeTab tab=new CreativeModeTab(-1, name) {
@@ -24,7 +25,7 @@ public class Tabs {
 			}
 		};
 		if(DatagenModLoader.isRunningDataGen()) {
-			HmxyLanguageProvider.TAB_NAMES.put(tab, nameZh);	
+			HmxyLanguageProvider.TAB_NAMES.put(tab, "鸿蒙仙缘："+nameZh);	
 		}
 		return tab;
 	}

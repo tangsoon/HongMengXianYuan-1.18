@@ -20,10 +20,11 @@
   "item.hmxy.previous_life_water_bucket": "桶装往生泉",
   "item.hmxy.top_grade_reiki_stone": "顶级灵石",
   "item.hmxy.xun_ling_fu": "寻灵符",
-  "itemGroup.elixir": "丹药",
-  "itemGroup.fu_lu": "符箓",
-  "itemGroup.ling_zhi": "灵植",
-  "itemGroup.ore": "矿石",
-  "itemGroup.sundry": "杂项",
+  "itemGroup.elixir": "鸿蒙仙缘：丹药",
+  "itemGroup.fu_lu": "鸿蒙仙缘：符箓",
+  "itemGroup.ling_zhi": "鸿蒙仙缘：灵植",
+  "itemGroup.ore": "鸿蒙仙缘：矿石",
+  "itemGroup.sundry": "鸿蒙仙缘：杂项",
+  "itemGroup.tool": "鸿蒙仙缘：工具",
   "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

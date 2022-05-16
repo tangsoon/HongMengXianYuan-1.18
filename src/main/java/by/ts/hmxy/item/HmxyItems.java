@@ -11,7 +11,6 @@ import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
@@ -66,9 +65,8 @@ public class HmxyItems {
 	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
 			HmxyBlockStatesProvider::lingZhi);
-	//TODO
-	public static final RegistryObject<Item> HERB_HOE = register("herb_hoe", "药锄",
-			() -> new HerbHoeItem(Tiers.DIAMOND, -3, 0.0F, (new Item.Properties()).tab(CreativeModeTab.TAB_TOOLS)));
+	public static final RegistryObject<Item> HERB_HOE = register("herb_hoe", "药锄", () -> new HerbHoeItem(Tiers.DIAMOND,
+			-3, 0.0F, (new Item.Properties()).tab(Tabs.TOOL).defaultDurability(256)), HmxyBlockStatesProvider::item);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> s) {

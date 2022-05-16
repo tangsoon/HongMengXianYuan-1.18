@@ -1,5 +1,6 @@
 package by.ts.hmxy.block.blockentity;
 
+import by.ts.hmxy.block.LingZhiBlock.Seed;
 import by.ts.hmxy.config.Configs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +23,10 @@ public class LingZhiBE extends BlockEntity{
 	private float growSpeed = Configs.lingZhiDefaultGrowSpeed.get();
 	/** 药性，每个随机刻药性+=区块灵气*生长速度 */
 	private float medicinal = 0.0F;
+	/**该灵植是否拥有种子*/
+	private boolean hasSeed;
+	/**灵植种子*/
+	private Seed seed;
 
 	public LingZhiBE(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
 		super(pType, pWorldPosition, pBlockState);
@@ -45,6 +50,10 @@ public class LingZhiBE extends BlockEntity{
 		pTag.putInt("currentGrowTimes", currentGrowTimes);
 		pTag.putFloat("growSpeed", growSpeed);
 		pTag.putFloat("medicinal", medicinal);
+		pTag.putBoolean("hasSeed", hasSeed);
+		if(hasSeed) {
+			pTag.put("seed", seed.serializeNBT());
+		}
 	}
 
 	public void load(CompoundTag pTag) {
@@ -57,23 +66,11 @@ public class LingZhiBE extends BlockEntity{
 		this.currentGrowTimes = pTag.getInt("currentGrowTimes");
 		this.growSpeed = pTag.getFloat("growSpeed");
 		this.medicinal = pTag.getFloat("medicinal");
+		this.hasSeed=pTag.getBoolean("hasSeed");
+		if(hasSeed) {
+			
+		}
 	}
-
-	//TODO 删除
-//	@Override
-//	public void tick(Level pLevel, BlockPos pPos, BlockState pState, LingZhiBE be) {
-//		if (pLevel instanceof ServerLevel level && pLevel.getGameTime() % 20 == 18) {
-//			LevelChunk chunk = pLevel.getChunkAt(pPos);
-//			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
-//				float chunkLingQi = info.getLingQi();
-//				float grow = chunkLingQi * be.growSpeed;
-//				info.setLingQi(Math.max(chunkLingQi - grow, 0.0F));
-//				be.medicinal += grow;
-//				be.setChanged();
-//				level.sendBlockUpdated(pPos, pState, pState, 0b11);//发送到客户端
-//			});
-//		}
-//	}
 
 	public CompoundTag getUpdateTag() {
 		CompoundTag tag = super.getUpdateTag();

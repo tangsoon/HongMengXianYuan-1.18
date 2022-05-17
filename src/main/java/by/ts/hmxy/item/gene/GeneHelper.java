@@ -44,29 +44,6 @@ public abstract class GeneHelper<T extends IGeneContanier> {
 		return null;
 	}
 
-	/**
-	 * 生成随机基因序列
-	 * 
-	 * @param t
-	 * @return
-	 */
-//	public T initContainer(T t) {
-////		GeneItem<?>[] genesA = new GeneItem<?>[this.geneTypeCounter];
-////		GeneItem<?>[] genesB = new GeneItem<?>[this.geneTypeCounter];
-////		Random ran = new Random();
-////		for (int i = 0; i < this.GENE_TYPES.size(); i++) {
-////			GeneType<?> geneType = GENE_TYPES.get(i);
-////			int size = geneType.size();
-////			if (size > 0) {
-////				genesA[i] = geneType.getGene(ran.nextInt(size)).get();
-////				genesB[i] = geneType.getGene(ran.nextInt(size)).get();
-////			}
-////		}
-////		t.setGenesA(genesA);
-////		t.setGenesB(genesB);
-////		return t;
-//	}
-
 	protected abstract void init();
 
 	public List<GeneType<?>> getGeneTypes() {

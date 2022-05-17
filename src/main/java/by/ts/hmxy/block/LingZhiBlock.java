@@ -77,7 +77,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
 		LingZhiBE be=new LingZhiBE(pPos, pState);
-		//GENE_HELPER.initContainer(be);
 		return be;
 	}
 
@@ -89,7 +88,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 		state.setValue(AGE, value);
 	}
 
-	// TODO 确认这个是否只在服务器调用
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
 		pBuilder.add(AGE);
 	}

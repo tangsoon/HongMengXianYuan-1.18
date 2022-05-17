@@ -21,6 +21,7 @@ import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.network.Messages;
+import by.ts.hmxy.registry.HmxyRegistries;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.ConsoleBanner;
 import by.ts.hmxy.util.HmxyHelper;
@@ -50,6 +51,7 @@ public class HmxyMod {
 		Attrs.ATTRIBUTES.register(modEventBus);
 		HmxyBEs.BLOCK_ENTITIES.register(modEventBus);
 		modEventBus.register(new ModBusHandler());
+		modEventBus.register(new HmxyRegistries());
 		modEventBus.addListener(this::setup);
 		modEventBus.addListener(this::clientSetUp);
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;

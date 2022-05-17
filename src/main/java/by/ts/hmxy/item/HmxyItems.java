@@ -7,11 +7,15 @@ import java.util.function.Supplier;
 import org.apache.logging.log4j.util.TriConsumer;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.block.LingZhiBlock;
+import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
+import by.ts.hmxy.item.gene.GeneHelper;
+import by.ts.hmxy.item.gene.GeneType;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BlockItem;
@@ -84,10 +88,20 @@ public class HmxyItems {
 				h.builder(i, 0).define('A', Items.IRON_INGOT).define('B', Items.IRON_INGOT).pattern("BB ")
 						.pattern(" A ").pattern(" A ").unlockedBy("has_iron_ingot", h.hasItem(ItemTags.PLANKS)).save(f);
 			});
+	static {
+		GeneHelper<LingZhiBE> helper = LingZhiBlock.GENE_HELPER;
+		for (GeneType<?> type : helper.getGeneTypes()) {
+			for (int i = 0; i < type.GENES.size(); i++) {
+				type.GENES_REGISTRY.add(ITEMS.register(type.NAME + "_" + i, type.GENES.get(i)));
+//				register(type.NAME + "_" + i, type.NAME + "_" + i, type.GENES.get(i), HmxyBlockStatesProvider::noModel,
+//						HmxyRecipeProvider::noRecipe);
+			}
+		}
+	}
 
 	// ---------------------------------------------------------------------------------------------------------------------
 
-	private static final RegistryObject<Item> register(String name, String nameZh, Supplier<Item> itemSupplier,
+	public static  final <T extends Item> RegistryObject<Item> register(String name, String nameZh, Supplier<T> itemSupplier,
 			BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
 		RegistryObject<Item> obj = ITEMS.register(name, itemSupplier);

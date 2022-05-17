@@ -35,9 +35,8 @@ import by.ts.hmxy.util.TransMsg;
 @Mod(HmxyMod.MOD_ID)
 @EventBusSubscriber
 public class HmxyMod {
-
-	@SuppressWarnings("unused")
-	private static final Logger LOGGER = LogManager.getLogger();
+	
+	public static final Logger LOGGER = LogManager.getLogger();
 	public static final String MOD_ID = "hmxy";
 
 	public HmxyMod() {

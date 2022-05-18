@@ -21,7 +21,6 @@ public class GeneHelper<T extends IDNA> {
 		GENE_TYPES=new ArrayList<>();
 	}
 	
-
 	public <V> GeneType<V> createGeneType(String name,Class<V> clazz, V value) {
 			GeneType<V> geneType = new GeneType<V>(name,clazz, value, GENE_TYPES.size());
 			GENE_TYPES.add(geneType);
@@ -40,7 +39,7 @@ public class GeneHelper<T extends IDNA> {
 		return (V) (geneA.INDEX > geneB.INDEX ? geneA.VALUE : geneB.VALUE);
 	}
 
-	public void createChild(T containerA, T containerB, T containerChild) {
+	public T createChild(T containerA, T containerB, T containerChild) {
 		Random ran = new Random();
 		GeneItem<?>[] geneA1 = Arrays.copyOf(containerChild.getGenesA(), this.getGeneTypes().size());
 		GeneItem<?>[] geneA2 = Arrays.copyOf(containerChild.getGenesB(), this.getGeneTypes().size());
@@ -50,17 +49,31 @@ public class GeneHelper<T extends IDNA> {
 		this.cross(geneB1, geneB2);
 		containerChild.setGenesA(ran.nextBoolean() ? geneA1 : geneA2);
 		containerChild.setGenesB(ran.nextBoolean() ? geneB1 : geneB2);
-		//TODO 变异
+		this.mutate(containerChild.getGenesA());
+		this.mutate(containerChild.getGenesB());
+		return containerChild;
 	}
 
 	protected void cross(GeneItem<?>[] gene1, GeneItem<?>[] gene2) {
 		Random ran = new Random();
 		int crossTimes = ran.nextInt(gene1.length / 4 + 1);
-		while (crossTimes-- > 1) {
+		while (crossTimes-- > 0) {
 			int index = ran.nextInt(gene1.length);
 			GeneItem<?> temp = gene1[index];
 			gene1[index] = gene2[index];
 			gene2[index] = temp;
+		}
+	}
+	
+	protected void mutate(GeneItem<?>[] genes) {
+		if(genes.length>0) {
+			Random ran = new Random();
+			int times=ran.nextInt(genes.length/4+1);
+			GeneType<?> type=genes[0].GENE_TYPE; 
+			while(times-->0) {
+				int index=ran.nextInt(genes.length);
+				genes[index]=type.getGene(ran.nextInt(type.size())).get();
+			}	
 		}
 	}
 	

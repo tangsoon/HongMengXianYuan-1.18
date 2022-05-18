@@ -17,17 +17,17 @@ public class Configs {
 	});
 	// -------------------------------------------通用--------------------------------------------
 
-	public static ForgeConfigSpec.IntValue lingZhiGrowTimesLimit;
-	public static ForgeConfigSpec.IntValue lingZhiDefaultMaxGrowTimes;
+//	public static ForgeConfigSpec.IntValue lingZhiGrowTimesLimit;
+//	public static ForgeConfigSpec.IntValue lingZhiDefaultMaxGrowTimes;
 	public static ForgeConfigSpec.ConfigValue<Float> lingZhiGrowSpeedLimit;
 	public static ForgeConfigSpec.ConfigValue<Float> lingZhiDefaultGrowSpeed;
 	public static ForgeConfigSpec.ConfigValue<Float> lingMaiDiffusion;
 	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiFlowRate;
 	public static ForgeConfigSpec.ConfigValue<Float> chunkLingQiDisappearRate;
 	public static final ForgeConfigSpec COMMON_CONFIG = create(builder -> {
-		lingZhiGrowTimesLimit = builder.comment("灵植生长次数上限").defineInRange("ling_zhi_grow_times_limit", 100, 0, 100);
-		lingZhiDefaultMaxGrowTimes = builder.comment("灵植默认最大生长次数（这个值应该小于等于灵植生长次数上限）")
-				.defineInRange("ling_zhi_default_grow_times", 20, 0, 100);
+//		lingZhiGrowTimesLimit = builder.comment("灵植生长次数上限").defineInRange("ling_zhi_grow_times_limit", 100, 0, 100);
+//		lingZhiDefaultMaxGrowTimes = builder.comment("灵植默认最大生长次数（这个值应该小于等于灵植生长次数上限）")
+//				.defineInRange("ling_zhi_default_grow_times", 20, 0, 100);
 		lingZhiGrowSpeedLimit = builder.comment("灵植生长生长速度上限").define("ling_zhi_grow_speed_limit", Float.valueOf(0.1F));
 		lingZhiDefaultGrowSpeed = builder.comment("灵植默认生长速度").define("ling_zhi_default_grow_speed",
 				Float.valueOf(0.01F));

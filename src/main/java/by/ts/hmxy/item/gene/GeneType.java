@@ -31,10 +31,8 @@ public class GeneType<T> {
 	 * @param value
 	 * @return
 	 */
-	public Supplier<GeneItem<T>> createGene(T value){
-		Supplier<GeneItem<T>> gene;
-		this.tempGemeItems.add(gene=()->new GeneItem<T>(this, value,geneCounter++));
-		return gene;
+	public void createGene(T value){
+		this.tempGemeItems.add(()->new GeneItem<T>(this, value,geneCounter++));
 	}
 	
 	public RegistryObject<GeneItem<?>> getGene(int index){

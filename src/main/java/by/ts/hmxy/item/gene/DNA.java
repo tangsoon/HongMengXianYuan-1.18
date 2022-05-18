@@ -2,6 +2,7 @@ package by.ts.hmxy.item.gene;
 
 import java.util.List;
 import java.util.Random;
+import org.apache.logging.log4j.LogManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -51,6 +52,7 @@ public class DNA implements IDNA{
 		this.genesB=genes;
 	}
 
+	//FIXME 更改基因Type的数量后，存取数据时可能会出错
 	@Override
 	public CompoundTag serializeNBT() {
 		CompoundTag genes = new CompoundTag();
@@ -67,16 +69,22 @@ public class DNA implements IDNA{
 		return genes;
 	}
 
+	//FIXME 更改基因Type的数量后，存取数据时可能会出错
 	@Override
 	public void deserializeNBT(CompoundTag nbt) {
 		ListTag genesListA = nbt.getList("genesA", Tag.TAG_STRING);
-		for (int i = 0; i < genesA.length; i++) {
-			genesA[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListA.getString(i)));
-		}
-		GeneItem<?>[] genesB = this.getGenesB();
 		ListTag genesListB = nbt.getList("genesB", Tag.TAG_STRING);
-		for (int i = 0; i < genesB.length; i++) {
-			genesB[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListB.getString(i)));
+		try {
+			for (int i = 0; i < genesA.length; i++) {
+				genesA[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListA.getString(i)));
+			}
+			for (int i = 0; i < genesB.length; i++) {
+				this.genesB[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListB.getString(i)));
+			}
+		}
+		catch(Exception e) {
+			LogManager.getLogger().error("读取DNA时出错");
 		}
 	}
+	
 }

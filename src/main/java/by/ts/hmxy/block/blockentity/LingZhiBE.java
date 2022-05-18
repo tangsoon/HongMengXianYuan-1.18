@@ -8,10 +8,9 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class LingZhiBE extends BlockEntity{
-	
+public class LingZhiBE extends BlockEntity {
+
 	public final DNA DNA;
-	
 	/** 当前生长次数，每个随机刻减一 */
 	private int currentGrowTimes = 0;
 
@@ -22,7 +21,7 @@ public class LingZhiBE extends BlockEntity{
 	public LingZhiBE(BlockPos pWorldPosition, BlockState pBlockState) {
 		super(HmxyBEs.LING_ZHI.get(), pWorldPosition, pBlockState);
 		this.lingZhi = (LingZhiBlock) pBlockState.getBlock();
-		DNA=new DNA(lingZhi.GENE_HELPER.getGeneTypes());
+		DNA = new DNA(LingZhiBlock.GENE_HELPER.getGeneTypes());
 	}
 
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {

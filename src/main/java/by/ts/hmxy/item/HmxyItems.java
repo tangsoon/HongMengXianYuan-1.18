@@ -13,7 +13,6 @@ import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
-import by.ts.hmxy.item.gene.LingZhiGeneHelper;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BlockItem;
@@ -30,7 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class HmxyItems {
-	//-----------------------------------------------注册--------------------------------------------------------------
+	// -----------------------------------------------注册--------------------------------------------------------------
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HmxyMod.MOD_ID);
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item,
@@ -86,15 +85,19 @@ public class HmxyItems {
 				h.builder(i, 0).define('A', Items.IRON_INGOT).define('B', Items.IRON_INGOT).pattern("BB ")
 						.pattern(" A ").pattern(" A ").unlockedBy("has_iron_ingot", h.hasItem(ItemTags.PLANKS)).save(f);
 			});
+	public static final RegistryObject<Item> SEED = register("seed", "种子",
+			() -> new SeedItem(new Item.Properties().stacksTo(64)), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+
 	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
-
 	// ---------------------------------------------------------------------------------------------------------------------
 
-	public static  final <T extends Item> RegistryObject<Item> register(String name, String nameZh, Supplier<T> itemSupplier,
-			BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
+	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,
+			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
+		// TODO 改成泛型参数
 		RegistryObject<Item> obj = ITEMS.register(name, itemSupplier);
 		if (DatagenModLoader.isRunningDataGen()) {
 			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);

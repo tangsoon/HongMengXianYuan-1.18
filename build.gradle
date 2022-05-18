@@ -94,8 +94,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:$mc_version-$forge_version"
     annotationProcessor 'org.spongepowered:mixin:0.8.3:processor'
-    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
-    implementation group: 'gov.nist.math', name: 'jama', version: '1.0.3'
+//    implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.1.0.202203080745-r'
+    //implementation group: 'gov.nist.math', name: 'jama', version: '1.0.3'
 }
 
 jar {
@@ -113,7 +113,7 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
+//jar.finalizedBy('reobfJar')
 //publish.dependsOn('reobfJar')
 
 publishing {

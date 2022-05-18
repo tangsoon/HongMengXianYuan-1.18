@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import org.apache.logging.log4j.util.TriConsumer;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
+import by.ts.hmxy.block.LingZhiBlock;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
@@ -86,7 +87,7 @@ public class HmxyItems {
 						.pattern(" A ").pattern(" A ").unlockedBy("has_iron_ingot", h.hasItem(ItemTags.PLANKS)).save(f);
 			});
 	static {
-		LingZhiGeneHelper.INSTANCE.registerGeneItems();
+		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------

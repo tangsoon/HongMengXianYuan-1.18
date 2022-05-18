@@ -1,17 +1,10 @@
 package by.ts.hmxy.item.gene;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import org.apache.logging.log4j.LogManager;
-import com.google.common.collect.ImmutableList;
 import by.ts.hmxy.item.HmxyItems;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * 封装基因相关的操作
@@ -20,31 +13,20 @@ import net.minecraftforge.registries.ForgeRegistries;
  *
  * @param <T> 存放基因的类
  */
-public abstract class GeneHelper<T extends IGeneContanier> {
+public class GeneHelper<T extends IDNA> {
 
-	private final ImmutableList<GeneType<?>> GENE_TYPES;
-	private ImmutableList.Builder<GeneType<?>> builder = ImmutableList.builder();
-	private int geneTypeCounter = 0;
+	private final List<GeneType<?>> GENE_TYPES;
 	
 	public GeneHelper() {
-		init();
-		GENE_TYPES = builder.build();
-		builder = null;// gc时释放内存
+		GENE_TYPES=new ArrayList<>();
 	}
 	
 
-	protected <V> GeneType<V> createGeneType(String name,Class<V> clazz, V value) {
-		if (this.builder == null) {
-			LogManager.getLogger().info("GeneHelper#createGeneType(Class<V> clazz,V value)只能在GeneHleper#init()中调用");
-		} else {
-			GeneType<V> geneType = new GeneType<V>(name,clazz, value, geneTypeCounter++);
-			builder.add(geneType);
+	public <V> GeneType<V> createGeneType(String name,Class<V> clazz, V value) {
+			GeneType<V> geneType = new GeneType<V>(name,clazz, value, GENE_TYPES.size());
+			GENE_TYPES.add(geneType);
 			return geneType;
-		}
-		return null;
 	}
-
-	protected abstract void init();
 
 	public List<GeneType<?>> getGeneTypes() {
 		return this.GENE_TYPES;
@@ -79,42 +61,6 @@ public abstract class GeneHelper<T extends IGeneContanier> {
 			GeneItem<?> temp = gene1[index];
 			gene1[index] = gene2[index];
 			gene2[index] = temp;
-		}
-	}
-
-	/**
-	 * 
-	 * @param t
-	 * @return
-	 */
-	public CompoundTag serialize(T t) {
-		CompoundTag genes = new CompoundTag();
-		ListTag genesA = new ListTag();
-		for (GeneItem<?> gene : t.getGenesA()) {
-			genesA.add(StringTag.valueOf(gene.getRegistryName().toString()));
-		}
-		genes.put("genesA", genesA);
-		ListTag genesB = new ListTag();
-		for (GeneItem<?> gene : t.getGenesB()) {
-			genesB.add(StringTag.valueOf(gene.getRegistryName().toString()));
-		}
-		genes.put("genesB", genesB);
-		return genes;
-	}
-
-	/**
-	 * 尽量少调用这个方法，它会消耗一些性能
-	 */
-	public void deserialize(CompoundTag tag, T t) {
-		GeneItem<?>[] genesA = t.getGenesA();
-		ListTag genesListA = tag.getList("genesA", Tag.TAG_STRING);
-		for (int i = 0; i < genesA.length; i++) {
-			genesA[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListA.getString(i)));
-		}
-		GeneItem<?>[] genesB = t.getGenesB();
-		ListTag genesListB = tag.getList("genesB", Tag.TAG_STRING);
-		for (int i = 0; i < genesB.length; i++) {
-			genesB[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListB.getString(i)));
 		}
 	}
 	

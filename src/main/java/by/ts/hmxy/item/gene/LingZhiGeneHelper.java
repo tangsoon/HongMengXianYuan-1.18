@@ -7,6 +7,12 @@ public class LingZhiGeneHelper extends GeneHelper<LingZhiBE> {
 	private GeneType<Integer> maxGrowTimes;
 	private GeneType<Float> growSpeed;
 
+	public static final LingZhiGeneHelper INSTANCE=new LingZhiGeneHelper();
+	
+	private LingZhiGeneHelper() {
+		super();
+	}
+	
 	@Override
 	protected void init() {
 		maxGrowTimes=this.createGeneType("max_grow_times",Integer.class, 0);

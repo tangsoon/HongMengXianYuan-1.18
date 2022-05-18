@@ -28,8 +28,7 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	
-
-	public static final LingZhiGeneHelper GENE_HELPER=new LingZhiGeneHelper();
+	public static final LingZhiGeneHelper GENE_HELPER=LingZhiGeneHelper.INSTANCE;
 
 	public LingZhiBlock(Properties pro) {
 		super(pro);

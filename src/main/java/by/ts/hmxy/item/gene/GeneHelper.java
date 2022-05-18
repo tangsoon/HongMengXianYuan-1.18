@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import com.google.common.collect.ImmutableList;
-
 import by.ts.hmxy.item.HmxyItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -26,12 +25,13 @@ public abstract class GeneHelper<T extends IGeneContanier> {
 	private final ImmutableList<GeneType<?>> GENE_TYPES;
 	private ImmutableList.Builder<GeneType<?>> builder = ImmutableList.builder();
 	private int geneTypeCounter = 0;
-
+	
 	public GeneHelper() {
 		init();
 		GENE_TYPES = builder.build();
 		builder = null;// gc时释放内存
 	}
+	
 
 	protected <V> GeneType<V> createGeneType(String name,Class<V> clazz, V value) {
 		if (this.builder == null) {
@@ -118,8 +118,15 @@ public abstract class GeneHelper<T extends IGeneContanier> {
 		}
 	}
 	
-	public void onRegisterItem() {
-		
-		HmxyItems.register(null, null, null, null, null);
+	/**
+	 * 在物品注册阶段调用，注册基因对应的物品
+	 */
+	public void registerGeneItems() {
+		for (GeneType<?> type : this.getGeneTypes()) {
+			for (int i = 0; i < type.tempGemeItems.size(); i++) {
+				type.GENES_REGISTRY.add(HmxyItems.ITEMS.register(type.NAME + "_" + i, type.tempGemeItems.get(i)));
+			}
+			type.tempGemeItems=null;
+		}
 	}
 }

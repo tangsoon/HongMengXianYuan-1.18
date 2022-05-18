@@ -7,15 +7,12 @@ import java.util.function.Supplier;
 import org.apache.logging.log4j.util.TriConsumer;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.HmxyBlocks;
-import by.ts.hmxy.block.LingZhiBlock;
-import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
-import by.ts.hmxy.item.gene.GeneHelper;
-import by.ts.hmxy.item.gene.GeneType;
+import by.ts.hmxy.item.gene.LingZhiGeneHelper;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BlockItem;
@@ -32,7 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class HmxyItems {
-	// -----------------------------------------------注册--------------------------------------------------------------
+	//-----------------------------------------------注册--------------------------------------------------------------
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HmxyMod.MOD_ID);
 	public static final RegistryObject<Item> NATURE_REIKI_STONE = register("nature_reiki_stone", "天然灵石",
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item,
@@ -89,14 +86,7 @@ public class HmxyItems {
 						.pattern(" A ").pattern(" A ").unlockedBy("has_iron_ingot", h.hasItem(ItemTags.PLANKS)).save(f);
 			});
 	static {
-		GeneHelper<LingZhiBE> helper = LingZhiBlock.GENE_HELPER;
-		for (GeneType<?> type : helper.getGeneTypes()) {
-			for (int i = 0; i < type.GENES.size(); i++) {
-				type.GENES_REGISTRY.add(ITEMS.register(type.NAME + "_" + i, type.GENES.get(i)));
-//				register(type.NAME + "_" + i, type.NAME + "_" + i, type.GENES.get(i), HmxyBlockStatesProvider::noModel,
-//						HmxyRecipeProvider::noRecipe);
-			}
-		}
+		LingZhiGeneHelper.INSTANCE.registerGeneItems();
 	}
 
 	// ---------------------------------------------------------------------------------------------------------------------

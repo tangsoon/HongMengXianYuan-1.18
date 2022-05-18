@@ -3,7 +3,6 @@ package by.ts.hmxy.item.gene;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
-
 import net.minecraftforge.registries.RegistryObject;
 
 /**
@@ -16,7 +15,7 @@ public class GeneType<T> {
 	public final String NAME;
 	public final Class<T> VALUE_TYPE;
 	public final T DEFAULT_VALUE;
-	public final List<Supplier<GeneItem<T>>> GENES=new ArrayList<>();
+	public List<Supplier<GeneItem<T>>> tempGemeItems=new ArrayList<>();
 	public final List<RegistryObject<GeneItem<?>>> GENES_REGISTRY=new ArrayList<>();
 	public final int INDEX;
 	public GeneType(String NAME,Class<T> VALUE_TYPE,T DEFAULT_VALUE,int INDEX) {
@@ -26,6 +25,7 @@ public class GeneType<T> {
 		this.INDEX=INDEX;
 		this.createGene(DEFAULT_VALUE);
 	}
+	private int geneCounter=0;
 	/**
 	 * 通过这里创造一个基因
 	 * @param value
@@ -33,7 +33,7 @@ public class GeneType<T> {
 	 */
 	public Supplier<GeneItem<T>> createGene(T value){
 		Supplier<GeneItem<T>> gene;
-		this.GENES.add(gene=()->new GeneItem<T>(this, value,this.GENES.size()));
+		this.tempGemeItems.add(gene=()->new GeneItem<T>(this, value,geneCounter++));
 		return gene;
 	}
 	

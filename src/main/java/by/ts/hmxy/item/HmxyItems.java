@@ -97,7 +97,18 @@ public class HmxyItems {
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,
 			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
-		// TODO 改成泛型参数
+		RegistryObject<Item> obj = ITEMS.register(name, itemSupplier);
+		if (DatagenModLoader.isRunningDataGen()) {
+			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);
+			HmxyBlockStatesProvider.MODEL_HANDLERS.put(obj, modelGen);
+			HmxyRecipeProvider.RECIPE_GENS.put(obj, recipeGen);
+		}
+		return obj;
+	}
+	
+	public static final <T extends Item> RegistryObject<Item> registerGene (String name, String nameZh,
+			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
+			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
 		RegistryObject<Item> obj = ITEMS.register(name, itemSupplier);
 		if (DatagenModLoader.isRunningDataGen()) {
 			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);

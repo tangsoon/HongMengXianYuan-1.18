@@ -89,13 +89,13 @@ public class GeneHelper<T extends IDNA> {
 	/**
 	 * 在物品注册阶段调用，注册基因对应的物品
 	 */
+	@SuppressWarnings("unchecked")
 	public void registerGeneItems() {
 		for (GeneType<?> type : this.getGeneTypes()) {
 			for (int i = 0; i < type.tempGemeItems.size(); i++) {
-				//TODO
-				type.GENES_REGISTRY.add(HmxyItems.ITEMS.register(type.NAME_ZH + "_" + i, type.tempGemeItems.get(i)));
+				RegistryObject<?> g= HmxyItems.register(type.NAME+"_"+i, type.NAME_ZH+"_"+i, type.tempGemeItems.get(i), (a,b)->{}, (c,d,e)->{});
+				type.GENES_REGISTRY.add((RegistryObject<GeneItem<?>>) g);
 			}
-			type.tempGemeItems = null;
 		}
 	}
 
@@ -111,7 +111,7 @@ public class GeneHelper<T extends IDNA> {
 		//TODO 更优雅地展示基因
 		for (GeneItem<?> gene : genes) {
 			StringBuilder sb = new StringBuilder();
-			sb.append(gene.GENE_TYPE.NAME).append(":").append(gene.getName(null)).append(":")
+			sb.append(TransMsg.itemLocallizedName(gene)).append(":").append(gene.getName(null)).append(":")
 					.append(gene.VALUE);
 			pTooltip.add(new TextComponent(sb.toString()));
 		}

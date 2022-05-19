@@ -134,7 +134,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 		pBuilder.add(AGE);
 	}
 
-	//TODO 需要测试
 	@Override
 	public void onEntityPlace(EntityPlaceEvent event) {
 		if(event.getEntity() instanceof ServerPlayer player&&player.gameMode.getGameModeForPlayer()==GameType.SURVIVAL) {

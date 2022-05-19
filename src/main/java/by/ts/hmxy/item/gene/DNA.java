@@ -2,7 +2,6 @@ package by.ts.hmxy.item.gene;
 
 import java.util.List;
 import java.util.Random;
-import org.apache.logging.log4j.LogManager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -14,11 +13,13 @@ public class DNA implements IDNA{
 
 	private GeneItem<?>[] genesA = null;
 	private GeneItem<?>[] genesB = null;
+	private List<GeneType<?>> genTypes;
 	
 	public DNA(List<GeneType<?>> genTypes) {
 		int lenth=genTypes.size();
 		GeneItem<?>[] genesA = new GeneItem<?>[lenth];
 		GeneItem<?>[] genesB = new GeneItem<?>[lenth];
+		this.genTypes=genTypes;
 		Random ran = new Random();
 		for (int i = 0; i < lenth; i++) {
 			GeneType<?> geneType = genTypes.get(i);
@@ -52,38 +53,36 @@ public class DNA implements IDNA{
 		this.genesB=genes;
 	}
 
-	//FIXME 更改基因Type的数量后，存取数据时可能会出错
 	@Override
 	public CompoundTag serializeNBT() {
 		CompoundTag genes = new CompoundTag();
-		ListTag genesA = new ListTag();
-		for (GeneItem<?> gene : this.getGenesA()) {
-			genesA.add(StringTag.valueOf(gene.getRegistryName().toString()));
-		}
-		genes.put("genesA", genesA);
-		ListTag genesB = new ListTag();
-		for (GeneItem<?> gene : this.getGenesB()) {
-			genesB.add(StringTag.valueOf(gene.getRegistryName().toString()));
-		}
-		genes.put("genesB", genesB);
+		genes.put("genesA", serializeNBT(this.genesA));
+		genes.put("genesB", serializeNBT(this.genesB));
 		return genes;
 	}
+	
+	private ListTag serializeNBT(GeneItem<?>[] genes) {
+		ListTag genesTag = new ListTag();
+		for (GeneItem<?> gene : genes) {
+			genesTag.add(StringTag.valueOf(gene.getRegistryName().toString()));
+		}
+		return genesTag;
+	}
 
-	//FIXME 更改基因Type的数量后，存取数据时可能会出错
 	@Override
 	public void deserializeNBT(CompoundTag nbt) {
-		ListTag genesListA = nbt.getList("genesA", Tag.TAG_STRING);
-		ListTag genesListB = nbt.getList("genesB", Tag.TAG_STRING);
-		try {
-			for (int i = 0; i < genesA.length; i++) {
-				genesA[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListA.getString(i)));
+		this.deserializeNBT(nbt.getList("genesA", Tag.TAG_STRING),this.genesA);
+		this.deserializeNBT(nbt.getList("genesB", Tag.TAG_STRING),this.genesB);
+	}
+	
+	private void deserializeNBT(ListTag genesList,GeneItem<?>[] genes) {
+		for (int i = 0; i < genTypes.size();i++) {			
+			if(ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesList.getString(i))) instanceof GeneItem<?> gene) {
+				genes[i] = gene;	
 			}
-			for (int i = 0; i < genesB.length; i++) {
-				this.genesB[i] = (GeneItem<?>) ForgeRegistries.ITEMS.getValue(new ResourceLocation(genesListB.getString(i)));
+			else {
+				genes[i]=genTypes.get(i).getGene(0).get();
 			}
-		}
-		catch(Exception e) {
-			LogManager.getLogger().error("读取DNA时出错");
 		}
 	}
 	

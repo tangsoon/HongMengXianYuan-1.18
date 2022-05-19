@@ -4,7 +4,7 @@
 d62e5658e02d41d9b962435b6bf1ad1e53e9ea75 assets/hmxy/blockstates/previous_life_water_flowing.json
 5f300fef666f60c58824c253d01852cf919f4a42 assets/hmxy/blockstates/reiki_stone_ore.json
 339d6db125d33cb4509b023d8a8b1410a30defc7 assets/hmxy/blockstates/reiki_stone_ore_flicker.json
-d5849c52d76a5df3fcd7588570a3ad0a58bc9d09 assets/hmxy/lang/zh_cn.json
+af9c068080ffe89fd047d203872eff560b036fbf assets/hmxy/lang/zh_cn.json
 69b99dd5c76e2701a1f3c2833683819b440435b6 assets/hmxy/models/block/deng_xin_cao_0.json
 1bfac5c0724c7f9d592f3db6e0eeffecd4c662ab assets/hmxy/models/block/deng_xin_cao_1.json
 3ee5b5ef7f6fcdc5f1362945402b94d6588978d1 assets/hmxy/models/block/deng_xin_cao_2.json
@@ -28,7 +28,7 @@ b4a943f2f6248c85c34694f6cd96af56a41727a1 assets/hmxy/models/item/previous_life_w
 735a95ecc1e583e2a552c02acedc021c64d7faf2 assets/hmxy/models/item/reiki_stone_ore_flicker.json
 e941f4578c5fc6609e37412cd9c52743db6fafd7 assets/hmxy/models/item/top_grade_reiki_stone.json
 3c899d52808c13a66e191f7765305b7bf3a12634 data/hmxy/advancements/recipes/tool/herb_hoe.json
-7047c978682992d7f3ad40412b195f0f678ae500 data/hmxy/recipes/herb_hoe.json
+e80d76070c358cf2245690507aa7ceabf9bd9e84 data/hmxy/recipes/herb_hoe.json
 ad0b93333a707ec2e27fef992e47493676313ef9 data/minecraft/advancements/recipes/misc/leather.json
 e8e95b30587de714158ca6a814008f1cc260746c data/minecraft/recipes/leather.json
 181b9e921721e3f12467e7f79955414a3fad7dfd data/minecraft/tags/blocks/mineable/pickaxe.json

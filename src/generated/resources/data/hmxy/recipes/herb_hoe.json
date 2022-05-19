@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "hmxy",
+  "group": "hmxy:herb_hoe",
   "pattern": [
     "BB ",
     " A ",

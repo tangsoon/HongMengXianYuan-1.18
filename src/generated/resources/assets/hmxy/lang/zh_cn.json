@@ -28,5 +28,7 @@
   "itemGroup.ore": "鸿蒙仙缘：矿石",
   "itemGroup.sundry": "鸿蒙仙缘：杂项",
   "itemGroup.tool": "鸿蒙仙缘：工具",
-  "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
+  "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f",
+  "str.genes_a": "基因序列A",
+  "str.genes_b": "基因序列B"
 }

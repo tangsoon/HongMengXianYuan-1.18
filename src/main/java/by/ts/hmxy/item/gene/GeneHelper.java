@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.Nullable;
 import by.ts.hmxy.item.HmxyItems;
+import by.ts.hmxy.util.TransMsg;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * 封装基因相关的操作
@@ -28,8 +30,8 @@ public class GeneHelper<T extends IDNA> {
 		GENE_TYPES = new ArrayList<>();
 	}
 
-	public <V> GeneType<V> createGeneType(String name, Class<V> clazz, V value) {
-		GeneType<V> geneType = new GeneType<V>(name, clazz, value, GENE_TYPES.size());
+	public <V> GeneType<V> createGeneType(String name,String nameZh, Class<V> clazz, V value) {
+		GeneType<V> geneType = new GeneType<V>(name,nameZh, clazz, value, GENE_TYPES.size());
 		GENE_TYPES.add(geneType);
 		return geneType;
 	}
@@ -90,7 +92,8 @@ public class GeneHelper<T extends IDNA> {
 	public void registerGeneItems() {
 		for (GeneType<?> type : this.getGeneTypes()) {
 			for (int i = 0; i < type.tempGemeItems.size(); i++) {
-				type.GENES_REGISTRY.add(HmxyItems.ITEMS.register(type.NAME + "_" + i, type.tempGemeItems.get(i)));
+				//TODO
+				type.GENES_REGISTRY.add(HmxyItems.ITEMS.register(type.NAME_ZH + "_" + i, type.tempGemeItems.get(i)));
 			}
 			type.tempGemeItems = null;
 		}
@@ -98,9 +101,9 @@ public class GeneHelper<T extends IDNA> {
 
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(DNA dna, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-		pTooltip.add(new TextComponent("DNA序列A"));
+		pTooltip.add(TransMsg.GENES_A.create());
 		this.appendHoverText(dna.getGenesA(), pLevel, pTooltip, pFlag);
-		pTooltip.add(new TextComponent("DNA序列B"));
+		pTooltip.add(TransMsg.GENES_B.create());
 		this.appendHoverText(dna.getGenesB(), pLevel, pTooltip, pFlag);
 	}
 	@OnlyIn(Dist.CLIENT)

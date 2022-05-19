@@ -13,13 +13,15 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class GeneType<T> {
 	public final String NAME;
+	public final String NAME_ZH;
 	public final Class<T> VALUE_TYPE;
 	public final T DEFAULT_VALUE;
 	public List<Supplier<GeneItem<T>>> tempGemeItems=new ArrayList<>();
 	public final List<RegistryObject<GeneItem<?>>> GENES_REGISTRY=new ArrayList<>();
 	public final int INDEX;
-	public GeneType(String NAME,Class<T> VALUE_TYPE,T DEFAULT_VALUE,int INDEX) {
+	public GeneType(String NAME,String NAME_ZH,Class<T> VALUE_TYPE,T DEFAULT_VALUE,int INDEX) {
 		this.NAME=NAME;
+		this.NAME_ZH=NAME_ZH;
 		this.VALUE_TYPE = VALUE_TYPE;
 		this.DEFAULT_VALUE=DEFAULT_VALUE;
 		this.INDEX=INDEX;

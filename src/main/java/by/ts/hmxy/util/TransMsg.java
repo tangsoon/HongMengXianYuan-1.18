@@ -1,12 +1,16 @@
 package by.ts.hmxy.util;
 
+import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.data.loading.DatagenModLoader;
 
 public class TransMsg {
 	
 	public static final TransMsg XUN_LING_FU = create("msg.xun_ling_fu","区块 (%d,%d) 灵气: %.2f");
+	public static final TransMsg GENES_A = create("str.genes_a","基因序列A");
+	public static final TransMsg GENES_B = create("str.genes_b","基因序列B");
 
 	private final String key;
 	private TransMsg(String key) {
@@ -27,6 +31,10 @@ public class TransMsg {
 			HmxyLanguageProvider.MSG_TEXT.put(msg, textZh);	
 		}
 		return msg;
+	}
+	
+	public static TranslatableComponent itemLocallizedName(Item item) {
+		return new TranslatableComponent("item."+HmxyMod.MOD_ID+"."+item.getRegistryName().getPath());
 	}
 	
 	public static void init() {

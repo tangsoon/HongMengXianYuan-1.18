@@ -39,11 +39,11 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public static final GeneHelper<DNA> GENE_HELPER = new GeneHelper<DNA>();
-	private static final GeneType<Integer> MAX_GROW_TIMES = GENE_HELPER.createGeneType("max_grow_times", Integer.class,
+	private static final GeneType<Integer> MAX_GROW_TIMES = GENE_HELPER.createGeneType("max_grow_times","生长次数", Integer.class,
 			Integer.valueOf(0));
-	private static final GeneType<Float> GROW_SPEED = GENE_HELPER.createGeneType("grow_speed", Float.class,
+	private static final GeneType<Float> GROW_SPEED = GENE_HELPER.createGeneType("grow_speed","生长速度", Float.class,
 			Float.valueOf(0F));
-	private static final GeneType<Integer> SEED_COUNT = GENE_HELPER.createGeneType("seed_count", Integer.class,
+	private static final GeneType<Integer> SEED_COUNT = GENE_HELPER.createGeneType("seed_count","产籽数量", Integer.class,
 			Integer.valueOf(0));;
 	static {
 		for (int i = 0; i < 10; i++) {

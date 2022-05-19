@@ -1,9 +1,7 @@
 package by.ts.hmxy.item;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import by.ts.hmxy.block.LingZhiBlock;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.item.gene.DNA;

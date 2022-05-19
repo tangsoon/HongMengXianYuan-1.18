@@ -105,6 +105,7 @@ public class GeneHelper<T extends IDNA> {
 	}
 	@OnlyIn(Dist.CLIENT)
 	private void  appendHoverText(GeneItem<?>[] genes,@Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+		//TODO 更优雅地展示基因
 		for (GeneItem<?> gene : genes) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(gene.GENE_TYPE.NAME).append(":").append(gene.getName(null)).append(":")

@@ -1,8 +1,6 @@
 package by.ts.hmxy;
 
 import com.google.common.collect.ImmutableList;
-
-import by.ts.hmxy.block.Break;
 import by.ts.hmxy.block.EntityPlace;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.capability.ChunkInfoProvider;
@@ -19,7 +17,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -78,13 +75,6 @@ public class ForgeBusHandler {
 	public void onEntityPlace(EntityPlaceEvent event) {
 		if(event.getPlacedBlock().getBlock() instanceof EntityPlace block) {
 			block.onEntityPlace(event);
-		}
-	}
-
-	@SubscribeEvent
-	public void onBreak(BreakEvent event) {
-		if(event.getState().getBlock() instanceof Break block) {
-			block.onBreak(event);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package by.ts.hmxy.item;
 
 import by.ts.hmxy.block.LingZhiBlock;
-import by.ts.hmxy.block.blockentity.HmxyBEs;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.item.gene.DNA;
 import net.minecraft.core.BlockPos;
@@ -14,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -53,6 +51,7 @@ public class SeedItem extends Item {
 				if (dna != null) {
 					be.DNA.deserializeNBT(dna);
 					stack.shrink(1);
+					be.setChanged();
 					interactionresult = InteractionResult.SUCCESS;
 				}
 			}

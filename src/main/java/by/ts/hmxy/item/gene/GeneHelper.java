@@ -72,7 +72,7 @@ public class GeneHelper<T extends IDNA> {
 			GeneType<?> type=genes[0].GENE_TYPE; 
 			while(times-->0) {
 				int index=ran.nextInt(genes.length);
-				genes[index]=type.getGene(ran.nextInt(type.size())).get();
+				genes[index]=type.getGene(Math.min(Math.max(0, ran.nextInt(3)-1), type.size())).get();
 			}	
 		}
 	}

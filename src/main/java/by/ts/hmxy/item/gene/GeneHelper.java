@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.annotation.Nullable;
 import by.ts.hmxy.item.HmxyItems;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * 封装基因相关的操作
@@ -16,15 +23,15 @@ import by.ts.hmxy.item.HmxyItems;
 public class GeneHelper<T extends IDNA> {
 
 	private final List<GeneType<?>> GENE_TYPES;
-	
+
 	public GeneHelper() {
-		GENE_TYPES=new ArrayList<>();
+		GENE_TYPES = new ArrayList<>();
 	}
-	
-	public <V> GeneType<V> createGeneType(String name,Class<V> clazz, V value) {
-			GeneType<V> geneType = new GeneType<V>(name,clazz, value, GENE_TYPES.size());
-			GENE_TYPES.add(geneType);
-			return geneType;
+
+	public <V> GeneType<V> createGeneType(String name, Class<V> clazz, V value) {
+		GeneType<V> geneType = new GeneType<V>(name, clazz, value, GENE_TYPES.size());
+		GENE_TYPES.add(geneType);
+		return geneType;
 	}
 
 	public List<GeneType<?>> getGeneTypes() {
@@ -64,19 +71,19 @@ public class GeneHelper<T extends IDNA> {
 			gene2[index] = temp;
 		}
 	}
-	
+
 	protected void mutate(GeneItem<?>[] genes) {
-		if(genes.length>0) {
+		if (genes.length > 0) {
 			Random ran = new Random();
-			int times=ran.nextInt(genes.length/4+1);
-			GeneType<?> type=genes[0].GENE_TYPE; 
-			while(times-->0) {
-				int index=ran.nextInt(genes.length);
-				genes[index]=type.getGene(Math.min(Math.max(0, ran.nextInt(3)-1), type.size())).get();
-			}	
+			int times = ran.nextInt(genes.length / 4 + 1);
+			GeneType<?> type = genes[0].GENE_TYPE;
+			while (times-- > 0) {
+				int index = ran.nextInt(genes.length);
+				genes[index] = type.getGene(Math.min(Math.max(0, ran.nextInt(3) - 1), type.size())).get();
+			}
 		}
 	}
-	
+
 	/**
 	 * 在物品注册阶段调用，注册基因对应的物品
 	 */
@@ -85,7 +92,24 @@ public class GeneHelper<T extends IDNA> {
 			for (int i = 0; i < type.tempGemeItems.size(); i++) {
 				type.GENES_REGISTRY.add(HmxyItems.ITEMS.register(type.NAME + "_" + i, type.tempGemeItems.get(i)));
 			}
-			type.tempGemeItems=null;
+			type.tempGemeItems = null;
+		}
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	public void appendHoverText(DNA dna, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+		pTooltip.add(new TextComponent("DNA序列A"));
+		this.appendHoverText(dna.getGenesA(), pLevel, pTooltip, pFlag);
+		pTooltip.add(new TextComponent("DNA序列B"));
+		this.appendHoverText(dna.getGenesB(), pLevel, pTooltip, pFlag);
+	}
+	@OnlyIn(Dist.CLIENT)
+	private void  appendHoverText(GeneItem<?>[] genes,@Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+		for (GeneItem<?> gene : genes) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(gene.GENE_TYPE.NAME).append(":").append(gene.getName(null)).append(":")
+					.append(gene.VALUE);
+			pTooltip.add(new TextComponent(sb.toString()));
 		}
 	}
 }

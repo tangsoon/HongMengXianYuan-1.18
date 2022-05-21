@@ -75,9 +75,9 @@ public class HmxyItems {
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	public static final RegistryObject<Item> DENG_XIN_CAO = register("deng_xin_cao", "灯心草",
+	public static final RegistryObject<Item> DENG_XIN_CAO = registerLingZhi("deng_xin_cao", "灯芯草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			HmxyBlockStatesProvider::lingZhi, HmxyRecipeProvider::noRecipe);
+			()->new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get()),HmxyBlockStatesProvider::lingZhi, HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> HERB_HOE = register("herb_hoe", "药锄",
 			() -> new HerbHoeItem(Tiers.DIAMOND, -3, 0.0F,
 					(new Item.Properties()).tab(Tabs.TOOL).defaultDurability(256)),
@@ -88,12 +88,14 @@ public class HmxyItems {
 	public static final RegistryObject<Item> SEED = register("seed", "种子",
 			() -> new SeedItem(new Item.Properties().stacksTo(64)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-
+	public static final RegistryObject<Item> MEDICINE_BOTTLE = register("medicine_bottle", "药瓶",
+			() -> new MedicineBottleItem(new Properties().tab(Tabs.SUNDRY).stacksTo(1)),
+			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
-	// ---------------------------------------------------------------------------------------------------------------------
 
+	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,
 			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
@@ -105,16 +107,24 @@ public class HmxyItems {
 		}
 		return obj;
 	}
-	
-	public static final <T extends Item> RegistryObject<Item> registerGene (String name, String nameZh,
-			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
+
+	/**
+	 * 自动注册灵植对应的BLockItem和LingZhiItem
+	 * 
+	 * @param <T>
+	 * @param name
+	 * @param nameZh
+	 * @param itemSupplier
+	 * @param modelGen
+	 * @param recipeGen
+	 * @return
+	 */
+	public static final <T extends Item> RegistryObject<Item> registerLingZhi(String name, String nameZh,
+			Supplier<T> itemSupplier, Supplier<LingZhiItem> lingZhiSupplier,
+			BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
-		RegistryObject<Item> obj = ITEMS.register(name, itemSupplier);
-		if (DatagenModLoader.isRunningDataGen()) {
-			HmxyLanguageProvider.ITEM_NAMES.put(obj, nameZh);
-			HmxyBlockStatesProvider.MODEL_HANDLERS.put(obj, modelGen);
-			HmxyRecipeProvider.RECIPE_GENS.put(obj, recipeGen);
-		}
+		RegistryObject<Item> obj = register(name, nameZh, itemSupplier, modelGen, HmxyRecipeProvider::noRecipe);
+		register(name + "_drop", nameZh, lingZhiSupplier, modelGen, HmxyRecipeProvider::noRecipe);
 		return obj;
 	}
 

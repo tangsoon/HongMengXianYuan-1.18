@@ -1,5 +1,5 @@
 {
-  "block.hmxy.deng_xin_cao": "灯心草",
+  "block.hmxy.deng_xin_cao": "灯芯草",
   "block.hmxy.ling_mai": "灵脉",
   "block.hmxy.previous_life_water": "往生泉",
   "block.hmxy.previous_life_water_flowing": "流动往生泉",
@@ -11,6 +11,7 @@
   "grade.reiki_stone.low_grade": "低级",
   "grade.reiki_stone.medium_grade": "中级",
   "grade.reiki_stone.top_grade": "顶级",
+  "item.hmxy.deng_xin_cao_drop": "灯芯草",
   "item.hmxy.grow_speed_0": "生长速度_0",
   "item.hmxy.grow_speed_1": "生长速度_1",
   "item.hmxy.grow_speed_10": "生长速度_10",
@@ -36,6 +37,7 @@
   "item.hmxy.max_grow_times_7": "生长次数_7",
   "item.hmxy.max_grow_times_8": "生长次数_8",
   "item.hmxy.max_grow_times_9": "生长次数_9",
+  "item.hmxy.medicine_bottle": "药瓶",
   "item.hmxy.medium_grade_reiki_stone": "中级灵石",
   "item.hmxy.minbus_bottle": "灵气瓶",
   "item.hmxy.nature_reiki_stone": "天然灵石",
@@ -43,8 +45,6 @@
   "item.hmxy.seed": "种子",
   "item.hmxy.seed_count_0": "产籽数量_0",
   "item.hmxy.seed_count_1": "产籽数量_1",
-  "item.hmxy.seed_count_2": "产籽数量_2",
-  "item.hmxy.seed_count_3": "产籽数量_3",
   "item.hmxy.top_grade_reiki_stone": "顶级灵石",
   "item.hmxy.xun_ling_fu": "寻灵符",
   "itemGroup.elixir": "鸿蒙仙缘：丹药",
@@ -54,7 +54,9 @@
   "itemGroup.ore": "鸿蒙仙缘：矿石",
   "itemGroup.sundry": "鸿蒙仙缘：杂项",
   "itemGroup.tool": "鸿蒙仙缘：工具",
-  "msg.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f",
   "str.genes_a": "基因序列A",
-  "str.genes_b": "基因序列B"
+  "str.genes_b": "基因序列B",
+  "str.medicine_bottle_effective": "有效成分: %.2f",
+  "str.medicine_bottle_quality": "质量: %d",
+  "str.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

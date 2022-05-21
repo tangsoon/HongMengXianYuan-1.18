@@ -1,28 +1,19 @@
 package by.ts.hmxy.block;
 
-import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import by.ts.hmxy.block.blockentity.HmxyBEs;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.item.HmxyItems;
+import by.ts.hmxy.item.LingZhiItem;
 import by.ts.hmxy.item.SeedItem;
 import by.ts.hmxy.item.gene.DNA;
 import by.ts.hmxy.item.gene.GeneHelper;
 import by.ts.hmxy.item.gene.GeneType;
 import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -32,9 +23,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 
-public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace, ItemStackCreator {
+public class LingZhiBlock extends BushBlock implements EntityBlock{
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
@@ -50,14 +40,15 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i));
 			GROW_SPEED.createGene(Float.valueOf(i / 100F));
 		}
-		for (int i = 0; i < 3; i++) {
-			SEED_COUNT.createGene(Integer.valueOf(i));
-		}
+		SEED_COUNT.createGene(Integer.valueOf(1));
 	}
-
+	
+	private LingZhiItem item;
+	
 	public LingZhiBlock(Properties pro) {
 		super(pro);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0)));
+		
 	}
 
 	public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
@@ -70,7 +61,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 		return 3;
 	}
 
-	// TODO 测试种子结果是否正确
 	public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
 		if (pLevel.isLoaded(pPos) && pLevel.getRawBrightness(pPos, 0) >= 9) {
 			if (pLevel.getBlockEntity(pPos) instanceof LingZhiBE be
@@ -134,20 +124,6 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 		pBuilder.add(AGE);
 	}
 
-	@Override
-	public void onEntityPlace(EntityPlaceEvent event) {
-		if(event.getEntity() instanceof ServerPlayer player&&player.gameMode.getGameModeForPlayer()==GameType.SURVIVAL) {
-			event.setCanceled(true);
-		}
-	}
-
-	public ItemStack createItemStack(BlockGetter blockGetter, BlockPos pPos, BlockState pState) {
-		ItemStack lingZhi = new ItemStack(this);
-		LingZhiBE lingZhiBe = (LingZhiBE) blockGetter.getBlockEntity(pPos);
-		lingZhi.addTagElement("lingZhi", lingZhiBe.serializeNBT());
-		return lingZhi;
-	}
-
 	public int getMaxGrowTimes(DNA dna) {
 		return GENE_HELPER.getValue(MAX_GROW_TIMES, dna);
 	}
@@ -160,17 +136,11 @@ public class LingZhiBlock extends BushBlock implements EntityBlock, EntityPlace,
 		return GENE_HELPER.getValue(SEED_COUNT, dna);
 	}
 
-	public LingZhiBE getLingZhiBE(ItemStack stack) {
-		LingZhiBE be=new LingZhiBE(BlockPos.ZERO, this.defaultBlockState());
-		CompoundTag beTag=stack.getTagElement("lingZhi");
-		if(beTag!=null) {
-			be.deserializeNBT(beTag);	
-		}
-		return be;
+	public LingZhiItem getItem() {
+		return item;
 	}
-	
-	public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip,
-			TooltipFlag pFlag) {
-		GENE_HELPER.appendHoverText(this.getLingZhiBE(pStack).DNA, pLevel, pTooltip, pFlag);
+
+	public void setItem(LingZhiItem item) {
+		this.item = item;
 	}
 }

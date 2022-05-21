@@ -4,13 +4,16 @@ import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.data.loading.DatagenModLoader;
 
 public class TransMsg {
 	
-	public static final TransMsg XUN_LING_FU = create("msg.xun_ling_fu","区块 (%d,%d) 灵气: %.2f");
+	public static final TransMsg XUN_LING_FU = create("str.xun_ling_fu","区块 (%d,%d) 灵气: %.2f");
 	public static final TransMsg GENES_A = create("str.genes_a","基因序列A");
 	public static final TransMsg GENES_B = create("str.genes_b","基因序列B");
+	public static final TransMsg MEDICINE_BOTTLE_QUALITY = create("str.medicine_bottle_quality","质量: %d");
+	public static final TransMsg MEDICINE_BOTTLE_EFFECTIVE = create("str.medicine_bottle_effective","有效成分: %.2f");
 
 	private final String key;
 	private TransMsg(String key) {
@@ -35,6 +38,10 @@ public class TransMsg {
 	
 	public static TranslatableComponent itemLocallizedName(Item item) {
 		return new TranslatableComponent("item."+HmxyMod.MOD_ID+"."+item.getRegistryName().getPath());
+	}
+	
+	public static TranslatableComponent blockLocallizedName(Block block) {
+		return new TranslatableComponent("block."+HmxyMod.MOD_ID+"."+block.getRegistryName().getPath());
 	}
 	
 	public static void init() {

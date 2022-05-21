@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.api.distmarker.Dist;
@@ -108,12 +107,8 @@ public class GeneHelper<T extends IDNA> {
 	}
 	@OnlyIn(Dist.CLIENT)
 	private void  appendHoverText(GeneItem<?>[] genes,@Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-		//TODO 更优雅地展示基因
 		for (GeneItem<?> gene : genes) {
-			StringBuilder sb = new StringBuilder();
-			sb.append(TransMsg.itemLocallizedName(gene)).append(":").append(gene.getName(null)).append(":")
-					.append(gene.VALUE);
-			pTooltip.add(new TextComponent(sb.toString()));
+			pTooltip.add(TransMsg.itemLocallizedName(gene));
 		}
 	}
 }

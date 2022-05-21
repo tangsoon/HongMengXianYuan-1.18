@@ -1,7 +1,5 @@
 package by.ts.hmxy;
-
 import com.google.common.collect.ImmutableList;
-import by.ts.hmxy.block.EntityPlace;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.capability.ChunkInfoProvider;
 import by.ts.hmxy.config.Configs;
@@ -17,7 +15,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.world.BlockEvent.EntityPlaceEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -43,11 +40,11 @@ public class ForgeBusHandler {
 			}
 		}
 	}
-
+	
 	@SubscribeEvent
-	public void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<LevelChunk> event) {
+	public void onChunkAtcCapa(AttachCapabilitiesEvent<LevelChunk> event) {
 		if (!event.getObject().getCapability(Capabilities.CHUNK_INFO).isPresent()
-				&& !event.getObject().getLevel().isClientSide) {
+				) {
 			event.addCapability(new ResourceLocation(HmxyMod.MOD_ID, "chunk_info"),
 					new ChunkInfoProvider(event.getObject()));
 		}
@@ -68,13 +65,6 @@ public class ForgeBusHandler {
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)
 				&& Configs.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
 			event.setCanceled(true);
-		}
-	}
-	
-	@SubscribeEvent
-	public void onEntityPlace(EntityPlaceEvent event) {
-		if(event.getPlacedBlock().getBlock() instanceof EntityPlace block) {
-			block.onEntityPlace(event);
 		}
 	}
 }

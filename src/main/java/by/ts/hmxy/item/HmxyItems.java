@@ -87,7 +87,7 @@ public class HmxyItems {
 				h.herbHoe(i, f, Items.IRON_INGOT);
 			});
 
-	public static final RegistryObject<Item>	GOLDEN_HERB_HOE = register("golden_herb_hoe", "金药锄",
+	public static final RegistryObject<Item> GOLDEN_HERB_HOE = register("golden_herb_hoe", "金药锄",
 			() -> new HerbHoeItem(Tiers.GOLD, 0, 0.0F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {
 				h.herbHoe(i, f, Items.GOLD_INGOT);
@@ -99,17 +99,18 @@ public class HmxyItems {
 	public static final RegistryObject<Item> MEDICINE_BOTTLE = register("medicine_bottle", "药瓶",
 			() -> new MedicineBottleItem(new Properties().tab(Tabs.SUNDRY).stacksTo(1)),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
-	
-	public static final List<RegistryObject<Item>> PESTLES=new ArrayList<>();
+
+	public static final List<RegistryObject<Item>> PESTLES = new ArrayList<>();
 	static {
-		for(PestleTier tier:PestleItem.PESTLE_TIERS) {
-			RegistryObject<Item> pe=register(tier.PREFIX_NAME+"_pestle", tier.PREFIX_NAME_ZH+"杵", ()->new PestleItem(tier), HmxyBlockStatesProvider::noModel, (h,i,f)->{
-				h.pestle(i, f, tier.BOTTOM.get(), tier.STICK.get());
-			});
+		for (PestleTier tier : PestleItem.PESTLE_TIERS) {
+			RegistryObject<Item> pe = register(tier.PREFIX_NAME + "_pestle", tier.PREFIX_NAME_ZH + "杵",
+					() -> new PestleItem(tier), HmxyBlockStatesProvider::item, (h, i, f) -> {
+						h.pestle(i, f, tier.BOTTOM.get(), tier.STICK.get());
+					});
 			PESTLES.add(pe);
 		}
 	}
-	
+
 	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
@@ -147,7 +148,7 @@ public class HmxyItems {
 		return obj;
 	}
 
-	//TODO delete
+	// TODO delete
 	/** 复制一个Item的Properties */
 	@SuppressWarnings({ "deprecation", "unused" })
 	private static Properties clonePro(Item item) {

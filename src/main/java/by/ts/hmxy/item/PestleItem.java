@@ -26,7 +26,7 @@ public class PestleItem extends DiggerItem {
 			,new PestleTier(Tiers.IRON, ()->Items.IRON_BLOCK,()-> Items.IRON_INGOT, "iron","铁")
 			,new PestleTier(Tiers.GOLD, ()->Items.GOLD_BLOCK, ()->Items.GOLD_INGOT, "golden","金")
 			,new PestleTier(Tiers.DIAMOND, ()->Items.DIAMOND_BLOCK, ()->Items.DIAMOND, "diamond","钻石")
-			,new PestleTier(Tiers.NETHERITE, ()->Items.NETHERITE_BLOCK, ()->Items.NETHERITE_INGOT, "neitherite","下界合金")
+			,new PestleTier(Tiers.NETHERITE, ()->Items.NETHERITE_BLOCK, ()->Items.NETHERITE_INGOT, "netherite","下界合金")
 			).build();
 	
 	public static class PestleTier extends HmxyTier {

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hmxy:neitherite_pestle"
+      "hmxy:netherite_pestle"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hmxy:neitherite_pestle"
+        "recipe": "hmxy:netherite_pestle"
       }
     }
   },

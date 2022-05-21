@@ -77,14 +77,20 @@ public class HmxyItems {
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> DENG_XIN_CAO = registerLingZhi("deng_xin_cao", "灯芯草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			()->new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get()),HmxyBlockStatesProvider::lingZhi, HmxyRecipeProvider::noRecipe);
-	public static final RegistryObject<Item> HERB_HOE = register("herb_hoe", "药锄",
-			() -> new HerbHoeItem(Tiers.IRON, 1, 0.0F,
-					(new Item.Properties()).tab(Tabs.TOOL).durability(256)),
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get()), HmxyBlockStatesProvider::lingZhi,
+			HmxyRecipeProvider::noRecipe);
+	public static final RegistryObject<Item> IRON_HERB_HOE = register("iron_herb_hoe", "铁药锄",
+			() -> new HerbHoeItem(Tiers.IRON, 0, 0.0F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {
-				h.builder(i, 0).define('A', Items.IRON_INGOT).define('B', Items.IRON_INGOT).pattern("BB ")
-						.pattern(" A ").pattern(" A ").unlockedBy("has_iron_ingot", h.hasItem(ItemTags.PLANKS)).save(f);
+				h.herbHoe(i, f, Items.IRON_INGOT);
 			});
+
+	public static final RegistryObject<Item>	GOLDEN_HERB_HOE = register("golden_herb_hoe", "金药锄",
+			() -> new HerbHoeItem(Tiers.GOLD, 0, 0.0F, (new Item.Properties()).tab(Tabs.TOOL)),
+			HmxyBlockStatesProvider::item, (h, i, f) -> {
+				h.herbHoe(i, f, Items.GOLD_INGOT);
+			});
+
 	public static final RegistryObject<Item> SEED = register("seed", "种子",
 			() -> new SeedItem(new Item.Properties().stacksTo(64)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);

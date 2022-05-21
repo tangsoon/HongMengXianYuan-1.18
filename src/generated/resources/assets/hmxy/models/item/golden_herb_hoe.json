@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hmxy:item/herb_hoe"
+    "layer0": "hmxy:item/golden_herb_hoe"
   }
 }

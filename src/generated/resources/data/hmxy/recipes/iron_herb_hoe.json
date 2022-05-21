@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "hmxy:iron_herb_hoe",
+  "pattern": [
+    "BB ",
+    " A ",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:planks"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "hmxy:iron_herb_hoe"
+  }
+}

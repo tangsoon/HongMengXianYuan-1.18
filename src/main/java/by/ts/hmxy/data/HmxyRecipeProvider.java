@@ -10,6 +10,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -70,5 +71,10 @@ public class HmxyRecipeProvider extends RecipeProvider {
 	public <T extends ItemLike & IForgeRegistryEntry<?>> ShapedRecipeBuilder builder(T result,int count) {
 			ShapedRecipeBuilder builder= ShapedRecipeBuilder.shaped(result, count).group(result.getRegistryName().toString());			
 			return builder;
+	}
+	
+	public void herbHoe(Item resultItem,Consumer<FinishedRecipe> finished,ItemLike material) {
+		this.builder(resultItem, 1).define('A', ItemTags.PLANKS).define('B', material).pattern("BB ")
+		.pattern(" A ").pattern(" A ").unlockedBy("has_item", has(material)).save(finished);
 	}
 }

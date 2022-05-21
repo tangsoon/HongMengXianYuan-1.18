@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "hmxy:herb_hoe",
+  "group": "hmxy:golden_herb_hoe",
   "pattern": [
     "BB ",
     " A ",
@@ -8,13 +8,13 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:iron_ingot"
+      "tag": "minecraft:planks"
     },
     "B": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {
-    "item": "hmxy:herb_hoe"
+    "item": "hmxy:golden_herb_hoe"
   }
 }

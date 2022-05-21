@@ -14,7 +14,7 @@ public class HmxyTier implements Tier {
 
 	@SuppressWarnings("deprecation")
 	public HmxyTier(Tier tier) {
-		this(tier.getLevel(), tier.getUses(), -tier.getSpeed()+tier.getSpeed()/3, tier.getAttackDamageBonus(), tier.getEnchantmentValue(),
+		this(tier.getLevel(), tier.getUses(),tier.getSpeed(), tier.getAttackDamageBonus(), tier.getEnchantmentValue(),
 				tier.getRepairIngredient());
 	}
 

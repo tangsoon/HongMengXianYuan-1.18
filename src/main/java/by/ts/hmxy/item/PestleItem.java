@@ -22,27 +22,31 @@ public class PestleItem extends DiggerItem {
 		super(0F, 0F, pTier, BlockTags.ANVIL, new Properties().tab(Tabs.TOOL).fireResistant());
 	}
 
-	public static final ImmutableList<PestleTier> PESTLE_TIERS=new ImmutableList.Builder<PestleTier>().add(new PestleTier(Tiers.STONE, ()->Items.STONE, ()->Items.STONE, "stone","石")
-			,new PestleTier(Tiers.IRON, ()->Items.IRON_BLOCK,()-> Items.IRON_INGOT, "iron","铁")
-			,new PestleTier(Tiers.GOLD, ()->Items.GOLD_BLOCK, ()->Items.GOLD_INGOT, "golden","金")
-			,new PestleTier(Tiers.DIAMOND, ()->Items.DIAMOND_BLOCK, ()->Items.DIAMOND, "diamond","钻石")
-			,new PestleTier(Tiers.NETHERITE, ()->Items.NETHERITE_BLOCK, ()->Items.NETHERITE_INGOT, "netherite","下界合金")
-			).build();
-	
+	public static final ImmutableList<PestleTier> PESTLE_TIERS = new ImmutableList.Builder<PestleTier>()
+			.add(new PestleTier(Tiers.STONE, () -> Items.STONE, () -> Items.STONE, "stone", "石"),
+					new PestleTier(Tiers.IRON, () -> Items.IRON_BLOCK, () -> Items.IRON_INGOT, "iron", "铁"),
+					new PestleTier(Tiers.GOLD, () -> Items.GOLD_BLOCK, () -> Items.GOLD_INGOT, "golden", "金"),
+					new PestleTier(Tiers.DIAMOND, () -> Items.DIAMOND_BLOCK, () -> Items.DIAMOND, "diamond", "钻石"),
+					new PestleTier(Tiers.NETHERITE, () -> Items.NETHERITE_BLOCK, () -> Items.NETHERITE_INGOT,
+							"netherite", "下界合金"))
+			.build();
+
 	public static class PestleTier extends HmxyTier {
-		
+
 		public final Supplier<ItemLike> BOTTOM;
 		public final Supplier<ItemLike> STICK;
 		public final String PREFIX_NAME;
 		public final String PREFIX_NAME_ZH;
-		
-		public PestleTier(Tier tier,Supplier<ItemLike> BOTTOM,Supplier<ItemLike> STICK,String prefixName,String prefixNameZh) {
-			super(tier);
-			this.BOTTOM=BOTTOM;
-			this.STICK=STICK;
-			this.PREFIX_NAME=prefixName;
-			this.PREFIX_NAME_ZH=prefixNameZh;
-		}
 
+		@SuppressWarnings("deprecation")
+		public PestleTier(Tier tier, Supplier<ItemLike> BOTTOM, Supplier<ItemLike> STICK, String prefixName,
+				String prefixNameZh) {
+			super(tier.getLevel(), tier.getUses(), -tier.getSpeed() + tier.getSpeed() / 6, tier.getAttackDamageBonus(),
+					tier.getEnchantmentValue(), tier.getRepairIngredient());
+			this.BOTTOM = BOTTOM;
+			this.STICK = STICK;
+			this.PREFIX_NAME = prefixName;
+			this.PREFIX_NAME_ZH = prefixNameZh;
+		}
 	}
 }

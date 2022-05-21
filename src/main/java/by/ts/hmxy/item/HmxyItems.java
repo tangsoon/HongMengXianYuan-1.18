@@ -1,5 +1,7 @@
 package by.ts.hmxy.item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -12,9 +14,9 @@ import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
+import by.ts.hmxy.item.PestleItem.PestleTier;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -97,6 +99,21 @@ public class HmxyItems {
 	public static final RegistryObject<Item> MEDICINE_BOTTLE = register("medicine_bottle", "药瓶",
 			() -> new MedicineBottleItem(new Properties().tab(Tabs.SUNDRY).stacksTo(1)),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
+	
+	public static final List<RegistryObject<Item>> PESTLES=new ArrayList<>();
+	static {
+		for(PestleTier tier:PestleItem.PESTLE_TIERS) {
+			RegistryObject<Item> pe=register(tier.PREFIX_NAME+"_pestle", tier.PREFIX_NAME_ZH+"杵", ()->new PestleItem(tier), HmxyBlockStatesProvider::noModel, (h,i,f)->{
+				h.pestle(i, f, tier.BOTTOM.get(), tier.STICK.get());
+			});
+			PESTLES.add(pe);
+		}
+	}
+	
+//	public static final RegistryObject<Item> STONE_PESTLE=register("stone_pestle", "石杵", ()->new PestleItem(Tiers.STONE), HmxyBlockStatesProvider::noModel, (h,i,f)->{
+//		h.pestle(i, f, Items.STONE, Items.STONE);
+//	});
+	
 	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
@@ -134,6 +151,7 @@ public class HmxyItems {
 		return obj;
 	}
 
+	//TODO delete
 	/** 复制一个Item的Properties */
 	@SuppressWarnings({ "deprecation", "unused" })
 	private static Properties clonePro(Item item) {

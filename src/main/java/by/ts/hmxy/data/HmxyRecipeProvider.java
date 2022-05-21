@@ -73,8 +73,26 @@ public class HmxyRecipeProvider extends RecipeProvider {
 			return builder;
 	}
 	
+	/**
+	 * 药锄
+	 * @param resultItem
+	 * @param finished
+	 * @param material
+	 */
 	public void herbHoe(Item resultItem,Consumer<FinishedRecipe> finished,ItemLike material) {
 		this.builder(resultItem, 1).define('A', ItemTags.PLANKS).define('B', material).pattern("BB ")
 		.pattern(" A ").pattern(" A ").unlockedBy("has_item", has(material)).save(finished);
+	}
+	
+	/**
+	 * 杵
+	 * @param resultItem
+	 * @param finished
+	 * @param bottom
+	 * @param stick
+	 */
+	public void pestle(Item resultItem,Consumer<FinishedRecipe> finished,ItemLike bottom,ItemLike stick) {
+		this.builder(resultItem, 1).define('A', stick).define('B', bottom).pattern(" A ")
+		.pattern(" A ").pattern(" B ").unlockedBy("has_item", has(stick)).save(finished);
 	}
 }

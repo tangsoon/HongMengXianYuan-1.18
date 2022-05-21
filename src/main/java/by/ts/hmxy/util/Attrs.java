@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class Attrs {
 	public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES,
 			HmxyMod.MOD_ID);
-	//----------------------------------------拥有境界的生物的属性----------------------------------------
+	// ----------------------------------------拥有境界的生物的属性----------------------------------------
 	/** 灵力上限 */
 	public static final RegistryObject<Attribute> MAX_LING_LI = ATTRIBUTES.register("max_ling_li",
 			() -> new RangedAttribute("attribute.name.generic.max_ling_li", 20.0D, 1.0D, 1024.0D).setSyncable(true));
@@ -31,8 +31,6 @@ public class Attrs {
 
 	/** 每tick灵力耐力 */
 	public static final RegistryObject<Attribute> STAMINA_RESUME = ATTRIBUTES.register("stamina_resume",
-			() -> new RangedAttribute("attribute.name.generic.stamina_resume", 0.05, 0.0D, 1024.0D)
-					.setSyncable(true));
-	
-	
+			() -> new RangedAttribute("attribute.name.generic.stamina_resume", 0.05, 0.0D, 1024.0D).setSyncable(true));
+
 }

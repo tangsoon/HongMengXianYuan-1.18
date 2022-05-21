@@ -17,6 +17,7 @@ public class HerbHoeItem extends HoeItem {
 
 	public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos,
 			LivingEntity pMiningEntity) {
+		super.mineBlock(pStack, pLevel, pState, pPos, pMiningEntity);
 		if (pState.getBlock() instanceof LingZhiBlock lingZhiBlock && lingZhiBlock.getAge(pState) == 3) {
 			ItemStack lingZhi=lingZhiBlock.getItem().createItemStack(pLevel, pPos, pState);
 			HmxyHelper.dropItem(lingZhi, pLevel, pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5);

@@ -17,6 +17,7 @@ public class GeneType<T> {
 	public final Class<T> VALUE_TYPE;
 	public final T DEFAULT_VALUE;
 	public List<Supplier<GeneItem<T>>> tempGemeItems=new ArrayList<>();
+	public List<String> postfixs=new ArrayList<>();
 	public final List<RegistryObject<GeneItem<?>>> GENES_REGISTRY=new ArrayList<>();
 	public final int INDEX;
 	public GeneType(String NAME,String NAME_ZH,Class<T> VALUE_TYPE,T DEFAULT_VALUE,int INDEX) {
@@ -25,7 +26,7 @@ public class GeneType<T> {
 		this.VALUE_TYPE = VALUE_TYPE;
 		this.DEFAULT_VALUE=DEFAULT_VALUE;
 		this.INDEX=INDEX;
-		this.createGene(DEFAULT_VALUE);
+		this.createGene(DEFAULT_VALUE,"defualt");
 	}
 	private int geneCounter=0;
 	/**
@@ -33,8 +34,9 @@ public class GeneType<T> {
 	 * @param value
 	 * @return
 	 */
-	public void createGene(T value){
-		this.tempGemeItems.add(()->new GeneItem<T>(this, value,geneCounter++));
+	public void createGene(T value,String postfix){
+		this.tempGemeItems.add(()->new GeneItem<T>(this, value,geneCounter++,postfix));
+		postfixs.add(postfix);
 	}
 	
 	public RegistryObject<GeneItem<?>> getGene(int index){

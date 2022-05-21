@@ -92,9 +92,12 @@ public class GeneHelper<T extends IDNA> {
 	public void registerGeneItems() {
 		for (GeneType<?> type : this.getGeneTypes()) {
 			for (int i = 0; i < type.tempGemeItems.size(); i++) {
-				RegistryObject<?> g= HmxyItems.register(type.NAME+"_"+i, type.NAME_ZH+"_"+i, type.tempGemeItems.get(i), (a,b)->{}, (c,d,e)->{});
+				String postfix=type.postfixs.get(i);
+				RegistryObject<?> g= HmxyItems.register(type.NAME+"_"+postfix, type.NAME_ZH+"_"+postfix, type.tempGemeItems.get(i), (a,b)->{}, (c,d,e)->{});
 				type.GENES_REGISTRY.add((RegistryObject<GeneItem<?>>) g);
 			}
+			type.tempGemeItems=null;
+			type.postfixs=null;
 		}
 	}
 
@@ -108,7 +111,7 @@ public class GeneHelper<T extends IDNA> {
 	@OnlyIn(Dist.CLIENT)
 	private void  appendHoverText(GeneItem<?>[] genes,@Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
 		for (GeneItem<?> gene : genes) {
-			pTooltip.add(TransMsg.itemLocallizedName(gene));
+			pTooltip.add(TransMsg.geneDetail(gene));
 		}
 	}
 }

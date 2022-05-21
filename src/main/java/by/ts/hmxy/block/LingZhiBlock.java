@@ -37,10 +37,10 @@ public class LingZhiBlock extends BushBlock implements EntityBlock{
 			Integer.valueOf(0));;
 	static {
 		for (int i = 0; i < 10; i++) {
-			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i));
-			GROW_SPEED.createGene(Float.valueOf(i / 100F));
+			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i),""+i);
+			GROW_SPEED.createGene(Float.valueOf(i / 100F),""+i);
 		}
-		SEED_COUNT.createGene(Integer.valueOf(1));
+		SEED_COUNT.createGene(Integer.valueOf(1),"1");
 	}
 	
 	private LingZhiItem item;

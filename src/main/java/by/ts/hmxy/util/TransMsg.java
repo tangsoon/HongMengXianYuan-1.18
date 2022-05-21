@@ -2,6 +2,9 @@ package by.ts.hmxy.util;
 
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.data.HmxyLanguageProvider;
+import by.ts.hmxy.item.gene.GeneItem;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -14,7 +17,7 @@ public class TransMsg {
 	public static final TransMsg GENES_B = create("str.genes_b","基因序列B");
 	public static final TransMsg MEDICINE_BOTTLE_QUALITY = create("str.medicine_bottle_quality","质量: %d");
 	public static final TransMsg MEDICINE_BOTTLE_EFFECTIVE = create("str.medicine_bottle_effective","有效成分: %.2f");
-
+	
 	private final String key;
 	private TransMsg(String key) {
 		this.key=key;
@@ -42,6 +45,10 @@ public class TransMsg {
 	
 	public static TranslatableComponent blockLocallizedName(Block block) {
 		return new TranslatableComponent("block."+HmxyMod.MOD_ID+"."+block.getRegistryName().getPath());
+	}
+	
+	public static MutableComponent geneDetail(GeneItem<?> gene) {
+		return itemLocallizedName(gene).append(new TextComponent("( "+gene.VALUE+" )"));
 	}
 	
 	public static void init() {

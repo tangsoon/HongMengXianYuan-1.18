@@ -6,12 +6,14 @@ import net.minecraft.world.item.Item;
 public class GeneItem<T> extends Item{
 	public final T VALUE;
 	public final GeneType<T> GENE_TYPE;
+	public final String POSTFIX;
 	/**该基因在GeneType中的序号*/
 	public final int INDEX;
-	public GeneItem(GeneType<T> geneType,T value,int INDEX) {
+	public GeneItem(GeneType<T> geneType,T value,int INDEX,String POSTFIX) {
 		super(new Item.Properties().stacksTo(64).tab(Tabs.GENE));
 		this.VALUE=value;
 		this.GENE_TYPE=geneType;
 		this.INDEX=INDEX;
+		this.POSTFIX=POSTFIX;
 	}
 }

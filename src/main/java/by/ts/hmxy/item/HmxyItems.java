@@ -110,10 +110,6 @@ public class HmxyItems {
 		}
 	}
 	
-//	public static final RegistryObject<Item> STONE_PESTLE=register("stone_pestle", "石杵", ()->new PestleItem(Tiers.STONE), HmxyBlockStatesProvider::noModel, (h,i,f)->{
-//		h.pestle(i, f, Items.STONE, Items.STONE);
-//	});
-	
 	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}

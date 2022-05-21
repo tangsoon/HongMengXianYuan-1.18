@@ -60,7 +60,7 @@ public class ForgeBusHandler {
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
-	public void eventHandler(RenderGameOverlayEvent.PreLayer event) {
+	public void onRenderGameOverlayPre(RenderGameOverlayEvent.PreLayer event) {
 		Minecraft mc = Minecraft.getInstance();
 		if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL || mc.gameMode.getPlayerMode() == GameType.CREATIVE)
 				&& Configs.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {

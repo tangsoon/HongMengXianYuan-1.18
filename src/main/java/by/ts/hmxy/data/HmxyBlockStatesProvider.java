@@ -69,8 +69,9 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 		}
 	}
 	
-	public <C extends Comparable<C>> void lingZhi(Item item) {
+	public void lingZhi(Item item) {
 		this.itemWithProperty(item, LingZhiBlock.AGE, "cross", item.getRegistryName().getPath(), mcLoc("block/tinted_cross"));
+		itemModels().withExistingParent(item.getRegistryName().toString()+"_drop", item.getRegistryName().getNamespace()+":item/"+item.getRegistryName().getPath());
 	}
 
 	/**

@@ -2,7 +2,6 @@ package by.ts.hmxy.item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -20,7 +19,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
@@ -101,6 +99,7 @@ public class HmxyItems {
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 
 	public static final List<RegistryObject<Item>> PESTLES = new ArrayList<>();
+
 	static {
 		for (PestleTier tier : PestleItem.PESTLE_TIERS) {
 			RegistryObject<Item> pe = register(tier.PREFIX_NAME + "_pestle", tier.PREFIX_NAME_ZH + "杵",
@@ -109,11 +108,12 @@ public class HmxyItems {
 					});
 			PESTLES.add(pe);
 		}
-	}
 
-	static {
 		LingZhiBlock.GENE_HELPER.registerGeneItems();
 	}
+
+	public static final RegistryObject<Item> MORTAR = register("mortar", "臼", () -> new MortarItem(),
+			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,
@@ -144,32 +144,8 @@ public class HmxyItems {
 			BiConsumer<HmxyBlockStatesProvider, Item> modelGen,
 			TriConsumer<HmxyRecipeProvider, Item, Consumer<FinishedRecipe>> recipeGen) {
 		RegistryObject<Item> obj = register(name, nameZh, itemSupplier, modelGen, HmxyRecipeProvider::noRecipe);
-		register(name + "_drop", nameZh, lingZhiSupplier, modelGen, HmxyRecipeProvider::noRecipe);
+		register(name + "_drop", nameZh, lingZhiSupplier, HmxyBlockStatesProvider::noModel,
+				HmxyRecipeProvider::noRecipe);// 不用再注册模型，因为上一步已经顺便注册
 		return obj;
-	}
-
-	// TODO delete
-	/** 复制一个Item的Properties */
-	@SuppressWarnings({ "deprecation", "unused" })
-	private static Properties clonePro(Item item) {
-		Properties pro = new Properties().craftRemainder(item.getCraftingRemainingItem());
-		if (item.getMaxDamage() == 0) {
-			pro.stacksTo(item.getMaxStackSize());
-		} else {
-			pro.defaultDurability(item.getMaxDamage());
-		}
-		if (item.isFireResistant()) {
-			pro.fireResistant();
-		}
-		if (item.getFoodProperties() != null) {
-			pro.food(item.getFoodProperties());
-		}
-		pro.rarity(item.getRarity(ItemStack.EMPTY));
-		if (!item.isRepairable(new ItemStack(item))) {
-			pro.setNoRepair();
-		}
-		pro.tab(Optional.ofNullable(item.getCreativeTabs().isEmpty() ? null : item.getCreativeTabs().iterator().next())
-				.orElseGet(() -> Tabs.SUNDRY));
-		return pro;
 	}
 }

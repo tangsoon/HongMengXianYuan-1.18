@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * 灵植
+ * 灵植种子
  * 
  * @author tangsoon
  *
@@ -80,5 +80,4 @@ public class SeedItem extends Item {
 			TooltipFlag pIsAdvanced) {
 		LingZhiBlock.GENE_HELPER.appendHoverText(this.getDna(pStack), pLevel, pTooltipComponents, pIsAdvanced);
 	}
-
 }

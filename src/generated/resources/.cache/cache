@@ -4,7 +4,7 @@
 d62e5658e02d41d9b962435b6bf1ad1e53e9ea75 assets/hmxy/blockstates/previous_life_water_flowing.json
 5f300fef666f60c58824c253d01852cf919f4a42 assets/hmxy/blockstates/reiki_stone_ore.json
 339d6db125d33cb4509b023d8a8b1410a30defc7 assets/hmxy/blockstates/reiki_stone_ore_flicker.json
-5bda349f269e231ed68eb1ea32474fdceba646b4 assets/hmxy/lang/zh_cn.json
+56f07e1b7ec0789e81c61c6157464b249ac880e9 assets/hmxy/lang/zh_cn.json
 69b99dd5c76e2701a1f3c2833683819b440435b6 assets/hmxy/models/block/deng_xin_cao_0.json
 1bfac5c0724c7f9d592f3db6e0eeffecd4c662ab assets/hmxy/models/block/deng_xin_cao_1.json
 3ee5b5ef7f6fcdc5f1362945402b94d6588978d1 assets/hmxy/models/block/deng_xin_cao_2.json
@@ -15,6 +15,7 @@ d62e5658e02d41d9b962435b6bf1ad1e53e9ea75 assets/hmxy/blockstates/previous_life_w
 08ccaea692e1c47aad18648e26c305252d422945 assets/hmxy/models/block/reiki_stone_ore.json
 48a594d9540aaabf0a5407ba166512433383ffef assets/hmxy/models/block/reiki_stone_ore_flicker.json
 6ae9b5c116c52f01710412e83642b4fc629bf307 assets/hmxy/models/item/deng_xin_cao.json
+e849b4c6b48d91adc0868a6f4e1d371f5f38658f assets/hmxy/models/item/deng_xin_cao_drop.json
 f57621d29ccb6eb8ece3777b4caabb30ff4df9a8 assets/hmxy/models/item/diamond_pestle.json
 399aad4345374631abaad454bbdf9aad06c5e3f1 assets/hmxy/models/item/golden_herb_hoe.json
 5d500d074786aa3e60bf61e2ca7eb395f9f98b6a assets/hmxy/models/item/golden_pestle.json

@@ -1,11 +1,10 @@
 package by.ts.hmxy.item;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import by.ts.hmxy.block.LingZhiBlock;
 import by.ts.hmxy.block.blockentity.LingZhiBE;
+import by.ts.hmxy.util.TransMsg;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
@@ -39,9 +39,12 @@ public class LingZhiItem extends Item{
 		return be;
 	}
 	
-	public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip,
-			TooltipFlag pFlag) {
-		LingZhiBlock.GENE_HELPER.appendHoverText(this.getLingZhiBE(pStack).DNA, pLevel, pTooltip, pFlag);
+	
+	public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents,
+			TooltipFlag pIsAdvanced) {
+		LingZhiBE be=this.getLingZhiBE(pStack);
+		LingZhiBlock.GENE_HELPER.appendHoverText(be.DNA, pLevel, pTooltipComponents, pIsAdvanced);
+		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.create(be.getMedicinal()));
 	}
 	
 	public ItemStack createItemStack(BlockGetter blockGetter, BlockPos pPos, BlockState pState) {

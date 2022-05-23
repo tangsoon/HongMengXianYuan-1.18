@@ -15,10 +15,15 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -33,6 +38,7 @@ import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.network.NetworkHooks;
 
 /**
  * 玩家境界相关的操作
@@ -319,5 +325,37 @@ public class HmxyHelper {
 			itementity.setDeltaMovement((double) (-Mth.sin(f1) * f), (double) 0.2F, (double) (Mth.cos(f1) * f));
 	        level.addFreshEntity(itementity);
 		}
+	}
+	
+	
+	public static void openGui(Player pPlayer,MenuProvider menu) {
+		NetworkHooks.openGui((ServerPlayer) pPlayer, menu);
+	}
+	
+	/**
+	 * 通过给定的ItemStack 列表创建ListTag
+	 * @param stacks
+	 * @return
+	 */
+	public static ListTag listTag(NonNullList<ItemStack> stacks) {
+		ListTag tagList=new ListTag();
+		for(ItemStack stack :stacks) {
+			tagList.add(stack.serializeNBT());
+		}
+		return tagList;
+	}
+	
+	/**
+	 * 通过给定的ListTag创建ItemStack列表
+	 * @param listTag
+	 * @return
+	 */
+	public static NonNullList<ItemStack> stacks(ListTag listTag){
+		NonNullList<ItemStack> stacks=NonNullList.withSize(listTag.size(), ItemStack.EMPTY);
+		for(int i=0;i<listTag.size();i++) {
+			CompoundTag tag=(CompoundTag) listTag.get(i);
+			stacks.set(i, ItemStack.of(tag));
+		}
+		return stacks;
 	}
 }

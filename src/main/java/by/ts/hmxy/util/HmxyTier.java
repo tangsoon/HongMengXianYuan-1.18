@@ -3,6 +3,11 @@ package by.ts.hmxy.util;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
+/**
+ * 武器工具的材料，比原版的更方便
+ * @author tangsoon
+ *
+ */
 public class HmxyTier implements Tier {
 
 	private final int level;

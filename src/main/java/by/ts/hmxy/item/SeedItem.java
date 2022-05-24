@@ -17,6 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
@@ -46,17 +47,19 @@ public class SeedItem extends Item {
 		BlockPlaceContext bContext = new BlockPlaceContext(pContext);
 		if (bContext.canPlace()) {
 			ItemStack stack = pContext.getItemInHand();
-			LingZhiBlock block = this.getLingZhi(stack);
 			Level level = bContext.getLevel();
 			BlockPos pos = bContext.getClickedPos();
-			level.setBlock(pos, block.defaultBlockState(), 11);
-			if (level.getBlockEntity(pos) instanceof LingZhiBE be) {
-				CompoundTag dna = stack.getTagElement("dna");
-				if (dna != null) {
-					be.DNA.deserializeNBT(dna);
-					stack.shrink(1);
-					be.setChanged();
-					interactionresult = InteractionResult.SUCCESS;
+			if (level.getBlockState(pos.below(1)).getBlock() == Blocks.DIRT) {
+				LingZhiBlock block = this.getLingZhi(stack);
+				level.setBlock(pos, block.defaultBlockState(), 11);
+				if (level.getBlockEntity(pos) instanceof LingZhiBE be) {
+					CompoundTag dna = stack.getTagElement("dna");
+					if (dna != null) {
+						be.DNA.deserializeNBT(dna);
+						stack.shrink(1);
+						be.setChanged();
+						interactionresult = InteractionResult.SUCCESS;
+					}
 				}
 			}
 		}

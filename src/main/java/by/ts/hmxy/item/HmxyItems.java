@@ -80,13 +80,13 @@ public class HmxyItems {
 			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get()), HmxyBlockStatesProvider::lingZhi,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> IRON_HERB_HOE = register("iron_herb_hoe", "铁药锄",
-			() -> new HerbHoeItem(Tiers.IRON, 0, 0.0F, (new Item.Properties()).tab(Tabs.TOOL)),
+			() -> new HerbHoeItem(Tiers.IRON, 0, -2.5F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {
 				h.herbHoe(i, f, Items.IRON_INGOT);
 			});
 
 	public static final RegistryObject<Item> GOLDEN_HERB_HOE = register("golden_herb_hoe", "金药锄",
-			() -> new HerbHoeItem(Tiers.GOLD, 0, 0.0F, (new Item.Properties()).tab(Tabs.TOOL)),
+			() -> new HerbHoeItem(Tiers.GOLD, 0, -2.3F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {
 				h.herbHoe(i, f, Items.GOLD_INGOT);
 			});

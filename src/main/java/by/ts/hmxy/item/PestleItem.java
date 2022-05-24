@@ -19,7 +19,7 @@ import net.minecraft.world.level.ItemLike;
 public class PestleItem extends DiggerItem {
 
 	public PestleItem(Tier pTier) {
-		super(0F, 0F, pTier, BlockTags.ANVIL, new Properties().tab(Tabs.TOOL).fireResistant());
+		super(0F, -3F, pTier, BlockTags.ANVIL, new Properties().tab(Tabs.TOOL).fireResistant());
 	}
 
 	public static final ImmutableList<PestleTier> PESTLE_TIERS = new ImmutableList.Builder<PestleTier>()
@@ -41,7 +41,7 @@ public class PestleItem extends DiggerItem {
 		@SuppressWarnings("deprecation")
 		public PestleTier(Tier tier, Supplier<ItemLike> BOTTOM, Supplier<ItemLike> STICK, String prefixName,
 				String prefixNameZh) {
-			super(tier.getLevel(), tier.getUses(), -tier.getSpeed() + tier.getSpeed() / 6, tier.getAttackDamageBonus(),
+			super(tier.getLevel(), tier.getUses(), tier.getSpeed(), tier.getAttackDamageBonus(),
 					tier.getEnchantmentValue(), tier.getRepairIngredient());
 			this.BOTTOM = BOTTOM;
 			this.STICK = STICK;

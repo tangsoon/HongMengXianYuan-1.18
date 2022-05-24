@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+
+import by.ts.hmxy.menu.MortarMenu;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkEvent.Context;
 
@@ -54,6 +57,9 @@ public class ButtonPacket {
 	}
 	
 	public static final Handler MORTAR_GRIND=createMessage(ctx->{
-		
+		ServerPlayer player= ctx.getSender();
+		if(player.containerMenu instanceof MortarMenu menu) {
+			menu.onCraft();
+		}
 	});
 }

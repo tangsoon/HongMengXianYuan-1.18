@@ -34,7 +34,7 @@ public class MortarItem extends Item implements MenuProvider{
 	}
 
 	public static class Data {
-		/**Index 0 is {@link LingZhiItem}, 1 is {@link PestleItem}, 2 is {@link MedicineBottleItem}*/
+		
 		public NonNullList<ItemStack> stacks;
 		public Data(ItemStack mortar) {
 			ListTag listTag=mortar.getOrCreateTag().getList("mortar", ListTag.TAG_COMPOUND);

@@ -22,8 +22,9 @@ public class PacketButton extends ImageButton {
 	public PacketButton(int pX, int pY, int pWidth, int pHeight, int pXTexStart, int pYTexStart, int pYDiffTex,
 			ResourceLocation pResourceLocation, int pTextureWidth, int pTextureHeight, ButtonPacket.Handler handler) {
 		super(pX, pY, pWidth, pHeight, pXTexStart, pYTexStart, pYDiffTex, pResourceLocation, pTextureWidth,
-				pTextureHeight, b -> Messages.sendToServer(new ButtonPacket(handler)), TextComponent.EMPTY);
-		this.setMessage(new TextComponent("你好"));
+				pTextureHeight, b -> {
+					Messages.sendToServer(new ButtonPacket(handler));
+				}, TextComponent.EMPTY);
 	}
 
 	public boolean isClicking = false;
@@ -39,22 +40,21 @@ public class PacketButton extends ImageButton {
 		RenderSystem.enableDepthTest();
 		RenderSystem.enableBlend();
 		if (isClicking) {
-			blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart+this.yDiffTex * 2), this.width, this.height, this.textureWidth,
-					this.textureHeight);	
-		} 
-		else {
-			blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart), this.width, this.height, this.textureWidth,
-					this.textureHeight);
-			if(this.isHovered) {
-				blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart+this.yDiffTex), this.width, this.height, this.textureWidth,
-						this.textureHeight);
+			blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart + this.yDiffTex * 2),
+					this.width, this.height, this.textureWidth, this.textureHeight);
+		} else {
+			blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart), this.width, this.height,
+					this.textureWidth, this.textureHeight);
+			if (this.isHovered) {
+				blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart + this.yDiffTex),
+						this.width, this.height, this.textureWidth, this.textureHeight);
 			}
 		}
 
 		if (this.isHovered) {
 			this.renderToolTip(pPoseStack, pMouseX, pMouseY);
 		}
-		//TODO 渲染按钮字体
+		// TODO 渲染按钮字体
 //		Minecraft mc= Minecraft.getInstance();
 //		int swidth= mc.font.width("你好");
 //		int shight=mc.font.lineHeight;
@@ -62,10 +62,12 @@ public class PacketButton extends ImageButton {
 	}
 
 	public void onClick(double pMouseX, double pMouseY) {
+		super.onClick(pMouseX, pMouseY);
 		this.isClicking = true;
 	}
 
 	public void onRelease(double pMouseX, double pMouseY) {
+		super.onRelease(pMouseX, pMouseY);
 		this.isClicking = false;
 	}
 }

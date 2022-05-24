@@ -15,7 +15,7 @@ public class TransMsg {
 	public static final TransMsg XUN_LING_FU = create("str.xun_ling_fu","区块 (%d,%d) 灵气: %.2f");
 	public static final TransMsg GENES_A = create("str.genes_a","基因序列A");
 	public static final TransMsg GENES_B = create("str.genes_b","基因序列B");
-	public static final TransMsg MEDICINE_BOTTLE_QUALITY = create("str.medicine_bottle_quality","质量: %d");
+	public static final TransMsg MEDICINE_BOTTLE_QUALITY = create("str.medicine_bottle_quality","质量: %d/%d");
 	public static final TransMsg MEDICINE_BOTTLE_EFFECTIVE = create("str.medicine_bottle_effective","有效成分: %.2f");
 	public static final TransMsg CONTAINER_MORTAR=create("container.mortar", "臼");
 	

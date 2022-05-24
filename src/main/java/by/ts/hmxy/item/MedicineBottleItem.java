@@ -24,13 +24,23 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @author tangsoon
  */
 public class MedicineBottleItem extends Item {
+	
+	public static final int CAPACITY = 64;
+	
 	public MedicineBottleItem(Properties pProperties) {
 		super(pProperties);
 	}
+	
+	public Data getData(ItemStack bottle) {
+		return new Data(bottle);
+	}
+	
+	public void saveData(ItemStack bottle,Data data) {
+		data.save(bottle);
+	}
 
 	public static class Data implements INBTSerializable<CompoundTag>, ItemStackData {
-		public static final int CAPACITY = 64;
-
+		
 		private LingZhiBlock lingZhi = (LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get();// 默认
 		private float effective = 0.0F;
 		private int quality=0;
@@ -104,7 +114,7 @@ public class MedicineBottleItem extends Item {
 		super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
 		Data data=new Data(pStack);
 		pTooltipComponents.add(TransMsg.blockLocallizedName(data.getLingZhi()));
-		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_QUALITY.create(data.getQuality()));
+		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_QUALITY.create(data.getQuality(),CAPACITY));
 		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.create(data.getEffective()));
 	}
 }

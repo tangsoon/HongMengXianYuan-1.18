@@ -22,7 +22,8 @@ public class MortarScreen extends BaseSreen<MortarMenu> {
 
 	public class GrindButton extends PacketButton {
 		public GrindButton() {
-			super(MortarScreen.this.x+84,MortarScreen.this.y+68, 24, 14, 193, 0, MortarScreen.this.texture, ButtonPacket.MORTAR_GRIND);
+			super(MortarScreen.this.x + 84, MortarScreen.this.y + 68, 24, 14, 193, 0, MortarScreen.this.texture,
+					ButtonPacket.MORTAR_GRIND);
 		}
 	}
 }

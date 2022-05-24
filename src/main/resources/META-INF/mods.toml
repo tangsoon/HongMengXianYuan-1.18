@@ -26,5 +26,5 @@ description="\n道友，修个仙吗？\n"
     ordering="NONE"
     side="BOTH"
 [modproperties.hmxy]
-    catalogueImageIcon="catalogue.png"
+    catalogueImageIcon="hmxy:textures/item/top_grade_reiki_stone.png"
     configuredBackground="minecraft:textures/block/stone.png"

@@ -14,7 +14,9 @@ import by.ts.hmxy.util.HmxyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,37 +26,34 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
 
-public class LingZhiBlock extends BushBlock implements EntityBlock{
+public class LingZhiBlock extends BushBlock implements EntityBlock {
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
 	public static final GeneHelper<DNA> GENE_HELPER = new GeneHelper<DNA>();
-	private static final GeneType<Integer> MAX_GROW_TIMES = GENE_HELPER.createGeneType("max_grow_times","生长次数", Integer.class,
-			Integer.valueOf(0));
-	private static final GeneType<Float> GROW_SPEED = GENE_HELPER.createGeneType("grow_speed","生长速度", Float.class,
+	private static final GeneType<Integer> MAX_GROW_TIMES = GENE_HELPER.createGeneType("max_grow_times", "生长次数",
+			Integer.class, Integer.valueOf(0));
+	private static final GeneType<Float> GROW_SPEED = GENE_HELPER.createGeneType("grow_speed", "生长速度", Float.class,
 			Float.valueOf(0F));
-	private static final GeneType<Integer> SEED_COUNT = GENE_HELPER.createGeneType("seed_count","产籽数量", Integer.class,
+	private static final GeneType<Integer> SEED_COUNT = GENE_HELPER.createGeneType("seed_count", "产籽数量", Integer.class,
 			Integer.valueOf(0));;
 	static {
 		for (int i = 0; i < 10; i++) {
-			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i),""+i);
-			GROW_SPEED.createGene(Float.valueOf(i / 100F),""+i);
+			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i), "" + i);
+			GROW_SPEED.createGene(Float.valueOf(i / 100F), "" + i);
 		}
-		SEED_COUNT.createGene(Integer.valueOf(1),"1");
+		SEED_COUNT.createGene(Integer.valueOf(1), "1");
 	}
-	
+
 	private LingZhiItem item;
-	
+
 	public LingZhiBlock(Properties pro) {
 		super(pro);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0)));
-		
 	}
 
-	public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
-		if (!pLevel.isClientSide) {
-			this.setAge(pState, this.getAge(pState) + 1);
-		}
+	protected boolean mayPlaceOn(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+		return pState.is(Blocks.FARMLAND);
 	}
 
 	public int getMaxAge() {

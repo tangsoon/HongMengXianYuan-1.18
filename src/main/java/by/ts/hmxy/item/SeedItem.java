@@ -49,7 +49,7 @@ public class SeedItem extends Item {
 			ItemStack stack = pContext.getItemInHand();
 			Level level = bContext.getLevel();
 			BlockPos pos = bContext.getClickedPos();
-			if (level.getBlockState(pos.below(1)).getBlock() == Blocks.DIRT) {
+			if (level.getBlockState(pos.below(1)).getBlock() == Blocks.FARMLAND) {
 				LingZhiBlock block = this.getLingZhi(stack);
 				level.setBlock(pos, block.defaultBlockState(), 11);
 				if (level.getBlockEntity(pos) instanceof LingZhiBE be) {

@@ -115,9 +115,16 @@ public class HmxyItems {
 	public static final RegistryObject<Item> MORTAR = register("mortar", "臼", () -> new MortarItem(),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 
-	public static final RegistryObject<Item> REIKI_FURNANCE_ROOT = register("elixir_furnace_root", "铁炼丹炉基",
+	public static final RegistryObject<Item> ELIXIR_FURNANCE_ROOT = register("elixir_furnace_root", "铁炼丹炉基",
 			() -> new BlockItem(HmxyBlocks.ELIXIR_FURNACE_ROOT.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY)),
 			HmxyBlockStatesProvider::blockWithExistingModels, HmxyRecipeProvider::noRecipe);
+	public static final RegistryObject<Item> ELIXIR_FURNACE_SIDE = register("elixir_furnace_side", "炼丹炉边缘", () -> {
+		return new BlockItem(HmxyBlocks.ELIXIR_FURNACE_SIDE.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY));
+	}, HmxyBlockStatesProvider::blockWithDirection, HmxyRecipeProvider::noRecipe);
+	
+	public static final RegistryObject<Item> ELIXIR_FURNACE_BEVEL = register("elixir_furnace_bevel", "炼丹炉斜角", () -> {
+		return new BlockItem(HmxyBlocks.ELIXIR_FURNACE_BEVEL.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY));
+	}, HmxyBlockStatesProvider::blockWithDirection, HmxyRecipeProvider::noRecipe);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,

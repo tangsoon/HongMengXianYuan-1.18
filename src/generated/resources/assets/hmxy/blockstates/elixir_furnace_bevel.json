@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hmxy:block/elixir_furnace_bevel"
+    },
+    "facing=south": {
+      "model": "hmxy:block/elixir_furnace_bevel",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "hmxy:block/elixir_furnace_bevel",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "hmxy:block/elixir_furnace_bevel",
+      "y": 90
+    }
+  }
+}

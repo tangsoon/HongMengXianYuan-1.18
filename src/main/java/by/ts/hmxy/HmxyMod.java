@@ -68,7 +68,6 @@ public class HmxyMod {
 	private void setup(final FMLCommonSetupEvent event) {
 		Messages.register();
 		ConsoleBanner.banner();
-		RenderTypes.handle();
 		Features.init(event);
 		PlantTypes.init();
 	}
@@ -77,6 +76,7 @@ public class HmxyMod {
 		HmxyHud.init();
 		KeyBindings.init();
 		Screens.init(event);
+		RenderTypes.handle();
 	}
 
 	public static ResourceLocation modLoc(String path) {

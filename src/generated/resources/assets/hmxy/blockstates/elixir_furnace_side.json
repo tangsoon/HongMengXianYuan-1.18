@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hmxy:block/elixir_furnace_side"
+    },
+    "facing=south": {
+      "model": "hmxy:block/elixir_furnace_side",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "hmxy:block/elixir_furnace_side",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "hmxy:block/elixir_furnace_side",
+      "y": 90
+    }
+  }
+}

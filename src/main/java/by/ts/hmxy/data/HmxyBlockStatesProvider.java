@@ -6,15 +6,18 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.LingZhiBlock;
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -50,7 +53,8 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	 * @param pro
 	 * @param texture 方块材质的地址，会自动包裹上"modId:block/"
 	 */
-	public <C extends Comparable<C>> void itemWithProperty(Item item, Property<C> pro,String textureKey,String texture,ResourceLocation parant) {
+	public <C extends Comparable<C>> void blockWithProperty(Item item, Property<C> pro, String textureKey,
+			String texture, ResourceLocation parant) {
 		if (item instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
 			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(block);
@@ -58,8 +62,10 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			C c = null;
 			while (it.hasNext()) {
 				c = it.next();
-				varBuilder.addModels(varBuilder.partialState().with(pro, c), new ConfiguredModel(models()
-						.withExistingParent(block.getRegistryName().toString() + "_"+c, parant).texture(textureKey, modLoc("block/" + texture + "_" + c))));
+				varBuilder.addModels(varBuilder.partialState().with(pro, c),
+						new ConfiguredModel(
+								models().withExistingParent(block.getRegistryName().toString() + "_" + c, parant)
+										.texture(textureKey, modLoc("block/" + texture + "_" + c))));
 			}
 			if (c != null) {
 				itemModels().withExistingParent(block.getRegistryName().toString(),
@@ -68,12 +74,31 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			}
 		}
 	}
-	
-	
-	
+
+	public void blockWithDirection(Item item) {
+		Property<Direction> pro = HorizontalDirectionalBlock.FACING;
+		if (item instanceof BlockItem blockItem) {
+			Block block = blockItem.getBlock();
+			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(block);
+			String path = block.getRegistryName().getPath();
+			ModelFile model=models().getExistingFile(modLoc("block/"+path));
+			varBuilder.addModels(varBuilder.partialState().with(pro, Direction.NORTH),
+					new ConfiguredModel(model, 0, 0, false));
+			varBuilder.addModels(varBuilder.partialState().with(pro, Direction.EAST),
+					new ConfiguredModel(model, 0, 90, false));
+			varBuilder.addModels(varBuilder.partialState().with(pro, Direction.SOUTH),
+					new ConfiguredModel(model, 0, 180, false));
+			varBuilder.addModels(varBuilder.partialState().with(pro, Direction.WEST),
+					new ConfiguredModel(model, 0, 270, false));
+			itemModels().withExistingParent(block.getRegistryName().toString(), modLoc("block/"+path));
+		}
+	}
+
 	public void lingZhi(Item item) {
-		this.itemWithProperty(item, LingZhiBlock.AGE, "cross", item.getRegistryName().getPath(), mcLoc("block/tinted_cross"));
-		itemModels().withExistingParent(item.getRegistryName().toString()+"_drop", item.getRegistryName().getNamespace()+":item/"+item.getRegistryName().getPath());
+		this.blockWithProperty(item, LingZhiBlock.AGE, "cross", item.getRegistryName().getPath(),
+				mcLoc("block/tinted_cross"));
+		itemModels().withExistingParent(item.getRegistryName().toString() + "_drop",
+				item.getRegistryName().getNamespace() + ":item/" + item.getRegistryName().getPath());
 	}
 
 	/**
@@ -108,9 +133,10 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/") + path);
 		}
 	}
-	
+
 	/**
 	 * 创建Item和Block的BlockState，模型是已经存在的文件
+	 * 
 	 * @param item
 	 */
 	public void blockWithExistingModels(Item item) {
@@ -118,7 +144,8 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			Block block = blockItem.getBlock();
 			String path = block.getRegistryName().getPath();
 			VariantBlockStateBuilder varBuilder = this.getVariantBuilder(block);
-			varBuilder.partialState().addModels(new ConfiguredModel(models().getExistingFile(new ResourceLocation(block.getRegistryName().getNamespace(),"block/"+path))));
+			varBuilder.partialState().addModels(new ConfiguredModel(models()
+					.getExistingFile(new ResourceLocation(block.getRegistryName().getNamespace(), "block/" + path))));
 			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/") + path);
 		}
 	}
@@ -142,14 +169,14 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			itemModels().withExistingParent(liquid.getRegistryName().toString(), mcLoc("item/generated"));
 		}
 	}
-	
+
 	/**
 	 * 不会创建任何模型和材质
+	 * 
 	 * @param item
 	 */
 	public void noModel(Item item) {
-		
+
 	}
-	
-	
+
 }

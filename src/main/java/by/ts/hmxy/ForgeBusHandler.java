@@ -1,20 +1,24 @@
 package by.ts.hmxy;
+
 import com.google.common.collect.ImmutableList;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.capability.ChunkInfoProvider;
 import by.ts.hmxy.config.Configs;
+import by.ts.hmxy.feature.LingMaiFeature;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -40,11 +44,10 @@ public class ForgeBusHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onChunkAtcCapa(AttachCapabilitiesEvent<LevelChunk> event) {
-		if (!event.getObject().getCapability(Capabilities.CHUNK_INFO).isPresent()
-				) {
+		if (!event.getObject().getCapability(Capabilities.CHUNK_INFO).isPresent()) {
 			event.addCapability(new ResourceLocation(HmxyMod.MOD_ID, "chunk_info"),
 					new ChunkInfoProvider(event.getObject()));
 		}
@@ -66,5 +69,10 @@ public class ForgeBusHandler {
 				&& Configs.isToolBarOpen.get() && CANCEL_LIST.stream().anyMatch(o -> o == event.getOverlay())) {
 			event.setCanceled(true);
 		}
+	}
+
+	@SubscribeEvent
+	public void onBiomeLoad(BiomeLoadingEvent event) {
+		event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, LingMaiFeature.PLACE);
 	}
 }

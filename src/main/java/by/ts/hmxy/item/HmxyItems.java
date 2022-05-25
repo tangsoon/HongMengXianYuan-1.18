@@ -94,7 +94,7 @@ public class HmxyItems {
 	public static final RegistryObject<Item> SEED = register("seed", "种子",
 			() -> new SeedItem(new Item.Properties().stacksTo(64)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	public static final RegistryObject<Item> MEDICINE_BOTTLE = register("medicine_bottle", "药瓶",
+	public static final RegistryObject<Item> MEDICINE_BOTTLE = register("medicine_bottle", "药罐",
 			() -> new MedicineBottleItem(new Properties().tab(Tabs.SUNDRY).stacksTo(1)),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 

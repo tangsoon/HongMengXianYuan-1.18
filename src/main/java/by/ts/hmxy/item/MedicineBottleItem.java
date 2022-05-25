@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
- * 药瓶，用于盛放灵植粉末
+ * 阳城罐，用于盛放灵植粉末
  * 
  * @author tangsoon
  */

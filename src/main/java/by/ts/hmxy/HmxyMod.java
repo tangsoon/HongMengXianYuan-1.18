@@ -18,6 +18,7 @@ import by.ts.hmxy.client.hud.HmxyHud;
 import by.ts.hmxy.client.key.KeyBindings;
 import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.entity.HmxyEntities;
+import by.ts.hmxy.feature.Features;
 import by.ts.hmxy.fluid.HmxyFluids;
 import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
@@ -67,6 +68,7 @@ public class HmxyMod {
 		Messages.register();
 		ConsoleBanner.banner();
 		RenderTypes.handle();
+		Features.init(event);
 	}
 
 	public void clientSetUp(FMLClientSetupEvent event) {

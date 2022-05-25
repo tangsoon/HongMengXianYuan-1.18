@@ -48,10 +48,10 @@ public class HmxyItems {
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> REIKI_STONE_ORE = register("reiki_stone_ore", "灵石矿",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),
-			HmxyBlockStatesProvider::itemAndBlock, HmxyRecipeProvider::noRecipe);
+			HmxyBlockStatesProvider::block, HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> REIKI_STONE_ORE_FLICKER = register("reiki_stone_ore_flicker", "闪耀灵石",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE_FLICKER.get(), new Properties().tab(Tabs.ORE)),
-			HmxyBlockStatesProvider::itemAndBlock, HmxyRecipeProvider::noRecipe);
+			HmxyBlockStatesProvider::block, HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> PREVIOUS_LIFE_WATER = register("previous_life_water", "往生泉",
 			() -> new BlockItem(HmxyBlocks.PREVIOUS_LIFE_WATER.get(), new Properties().tab(Tabs.SUNDRY)),
 			HmxyBlockStatesProvider::liquid, HmxyRecipeProvider::noRecipe);
@@ -71,7 +71,7 @@ public class HmxyItems {
 			HmxyBlockStatesProvider::item, HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> LING_MAI = register("ling_mai", "灵脉",
 			() -> new BlockItem(HmxyBlocks.LING_MAI.get(), new Properties().tab(Tabs.ORE)),
-			HmxyBlockStatesProvider::itemAndBlock, HmxyRecipeProvider::noRecipe);
+			HmxyBlockStatesProvider::block, HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
@@ -114,6 +114,10 @@ public class HmxyItems {
 
 	public static final RegistryObject<Item> MORTAR = register("mortar", "臼", () -> new MortarItem(),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
+
+	public static final RegistryObject<Item> REIKI_FURNANCE_ROOT = register("elixir_furnace_root", "铁炼丹炉基",
+			() -> new BlockItem(HmxyBlocks.ELIXIR_FURNACE_ROOT.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY)),
+			HmxyBlockStatesProvider::blockWithExistingModels, HmxyRecipeProvider::noRecipe);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,

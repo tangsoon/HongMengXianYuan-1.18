@@ -1,5 +1,6 @@
 {
   "block.hmxy.deng_xin_cao": "灯芯草",
+  "block.hmxy.elixir_furnace_root": "铁炼丹炉基",
   "block.hmxy.ling_mai": "灵脉",
   "block.hmxy.previous_life_water": "往生泉",
   "block.hmxy.previous_life_water_flowing": "流动往生泉",
@@ -42,7 +43,7 @@
   "item.hmxy.max_grow_times_8": "生长次数_8",
   "item.hmxy.max_grow_times_9": "生长次数_9",
   "item.hmxy.max_grow_times_defualt": "生长次数_defualt",
-  "item.hmxy.medicine_bottle": "药瓶",
+  "item.hmxy.medicine_bottle": "药罐",
   "item.hmxy.medium_grade_reiki_stone": "中级灵石",
   "item.hmxy.minbus_bottle": "灵气瓶",
   "item.hmxy.mortar": "臼",
@@ -65,6 +66,6 @@
   "str.genes_a": "基因序列A",
   "str.genes_b": "基因序列B",
   "str.medicine_bottle_effective": "有效成分: %.2f",
-  "str.medicine_bottle_quality": "质量: %d",
+  "str.medicine_bottle_quality": "质量: %d/%d",
   "str.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

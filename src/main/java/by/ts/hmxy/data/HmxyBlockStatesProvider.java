@@ -69,6 +69,8 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 		}
 	}
 	
+	
+	
 	public void lingZhi(Item item) {
 		this.itemWithProperty(item, LingZhiBlock.AGE, "cross", item.getRegistryName().getPath(), mcLoc("block/tinted_cross"));
 		itemModels().withExistingParent(item.getRegistryName().toString()+"_drop", item.getRegistryName().getNamespace()+":item/"+item.getRegistryName().getPath());
@@ -97,12 +99,26 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	/**
 	 * 自动创建Item对应的Block的简单模型，并将其设置为Item的父模型
 	 */
-	public void itemAndBlock(Item item) {
+	public void block(Item item) {
 		if (item instanceof BlockItem blockItem) {
 			Block block = blockItem.getBlock();
 			String path = block.getRegistryName().getPath();
-			VariantBlockStateBuilder varBuilder = HmxyBlockStatesProvider.this.getVariantBuilder(block);
+			VariantBlockStateBuilder varBuilder = this.getVariantBuilder(block);
 			varBuilder.partialState().addModels(new ConfiguredModel(models().cubeAll(path, modLoc("block/" + path))));
+			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/") + path);
+		}
+	}
+	
+	/**
+	 * 创建Item和Block的BlockState，模型是已经存在的文件
+	 * @param item
+	 */
+	public void blockWithExistingModels(Item item) {
+		if (item instanceof BlockItem blockItem) {
+			Block block = blockItem.getBlock();
+			String path = block.getRegistryName().getPath();
+			VariantBlockStateBuilder varBuilder = this.getVariantBuilder(block);
+			varBuilder.partialState().addModels(new ConfiguredModel(models().getExistingFile(new ResourceLocation(block.getRegistryName().getNamespace(),"block/"+path))));
 			itemModels().withExistingParent(item.getRegistryName().toString(), modLoc("block/") + path);
 		}
 	}
@@ -134,4 +150,6 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 	public void noModel(Item item) {
 		
 	}
+	
+	
 }

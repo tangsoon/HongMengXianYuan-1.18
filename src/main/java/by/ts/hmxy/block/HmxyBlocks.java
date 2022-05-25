@@ -33,7 +33,7 @@ public class HmxyBlocks {
 	/** 往生泉 */
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER = register("previous_life_water",
 			() -> new PreviousLifeWaterBlock.Source());
-	/**流动的往生泉*/
+	/** 流动的往生泉 */
 	public static final RegistryObject<Block> PREVIOUS_LIFE_WATER_FLOWING = register("previous_life_water_flowing",
 			() -> new PreviousLifeWaterBlock.Flowing());
 
@@ -46,10 +46,14 @@ public class HmxyBlocks {
 			return p.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
 		};
 	}
-	
-	/**灯心草*/
+
+	/** 灯心草 */
 	public static final RegistryObject<Block> DENG_XIN_CAO = register("deng_xin_cao",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
+
+	/** 铁炼丹炉基 */
+	public static final RegistryObject<Block> ELIXIR_FURNACE_ROOT = register("elixir_furnace_root",
+			() -> new ElixirFurnaceRootBlock(Material.METAL));
 
 	// 注意Supplier和直接new个的区别，Supplier只有调用的时候才创建对象，而new是直接创建对象
 	private static RegistryObject<Block> register(String name, Supplier<Block> s) {

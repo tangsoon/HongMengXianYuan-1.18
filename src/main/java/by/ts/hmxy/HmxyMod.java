@@ -28,6 +28,7 @@ import by.ts.hmxy.registry.HmxyRegistries;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.ConsoleBanner;
 import by.ts.hmxy.util.HmxyHelper;
+import by.ts.hmxy.util.PlantTypes;
 import by.ts.hmxy.util.TransMsg;
 
 //TODO 圆林的亭子没有对称。
@@ -69,6 +70,7 @@ public class HmxyMod {
 		ConsoleBanner.banner();
 		RenderTypes.handle();
 		Features.init(event);
+		PlantTypes.init();
 	}
 
 	public void clientSetUp(FMLClientSetupEvent event) {

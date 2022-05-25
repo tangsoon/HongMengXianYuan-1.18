@@ -11,6 +11,7 @@ import by.ts.hmxy.item.gene.DNA;
 import by.ts.hmxy.item.gene.GeneHelper;
 import by.ts.hmxy.item.gene.GeneType;
 import by.ts.hmxy.util.HmxyHelper;
+import by.ts.hmxy.util.PlantTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -25,18 +26,18 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.common.PlantType;
 
 public class LingZhiBlock extends BushBlock implements EntityBlock {
 
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-
 	public static final GeneHelper<DNA> GENE_HELPER = new GeneHelper<DNA>();
 	private static final GeneType<Integer> MAX_GROW_TIMES = GENE_HELPER.createGeneType("max_grow_times", "生长次数",
 			Integer.class, Integer.valueOf(0));
 	private static final GeneType<Float> GROW_SPEED = GENE_HELPER.createGeneType("grow_speed", "生长速度", Float.class,
 			Float.valueOf(0F));
 	private static final GeneType<Integer> SEED_COUNT = GENE_HELPER.createGeneType("seed_count", "产籽数量", Integer.class,
-			Integer.valueOf(0));;
+			Integer.valueOf(0));
 	static {
 		for (int i = 0; i < 10; i++) {
 			MAX_GROW_TIMES.createGene(Integer.valueOf(10 + i), "" + i);
@@ -141,5 +142,9 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 
 	public void setItem(LingZhiItem item) {
 		this.item = item;
+	}
+
+	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
+		return PlantTypes.LING_ZHI;
 	}
 }

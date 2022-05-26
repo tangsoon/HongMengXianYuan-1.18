@@ -1,5 +1,6 @@
-package by.ts.hmxy.block;
+package by.ts.hmxy.client;
 
+import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.fluid.HmxyFluids;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;

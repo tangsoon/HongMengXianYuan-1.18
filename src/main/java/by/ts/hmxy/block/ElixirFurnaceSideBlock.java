@@ -28,7 +28,7 @@ public class ElixirFurnaceSideBlock extends WaterloggedBlockBase {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	public ElixirFurnaceSideBlock(Material m) {
-		super(Properties.of(m, m.getColor()).strength(2.0F));
+		super(Properties.of(m, m.getColor()).strength(2.0F).noOcclusion());
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 

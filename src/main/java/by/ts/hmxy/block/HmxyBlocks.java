@@ -59,7 +59,7 @@ public class HmxyBlocks {
 			() -> new ElixirFurnaceSideBlock(Material.METAL));
 	
 	public static final RegistryObject<Block> ELIXIR_FURNACE_BEVEL = register("elixir_furnace_bevel",
-			() -> new ElixirFurnaceSideBlock(Material.METAL));
+			() -> new ElixirFurnaceBevelBlock(Material.METAL));
 
 	// 注意Supplier和直接new个的区别，Supplier只有调用的时候才创建对象，而new是直接创建对象
 	private static RegistryObject<Block> register(String name, Supplier<Block> s) {

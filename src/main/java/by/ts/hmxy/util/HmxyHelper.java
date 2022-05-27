@@ -9,15 +9,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import by.ts.hmxy.HmxyMod;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -330,6 +333,14 @@ public class HmxyHelper {
 	
 	public static void openGui(Player pPlayer,MenuProvider menu) {
 		NetworkHooks.openGui((ServerPlayer) pPlayer, menu);
+	}
+	
+	public static void openGui(Player pPlayer,MenuProvider menu,BlockPos pos) {
+		NetworkHooks.openGui((ServerPlayer) pPlayer, menu,pos);
+	}
+	
+	public static void openGui(Player pPlayer,MenuProvider menu,Consumer<FriendlyByteBuf> s) {
+		NetworkHooks.openGui((ServerPlayer) pPlayer, menu,s);
 	}
 	
 	/**

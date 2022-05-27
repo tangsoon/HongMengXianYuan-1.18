@@ -57,7 +57,7 @@ public class HmxyBlocks {
 	/** 炼丹炉边缘 */
 	public static final RegistryObject<Block> ELIXIR_FURNACE_SIDE = register("elixir_furnace_side",
 			() -> new ElixirFurnaceSideBlock(Material.METAL));
-	
+	/**炼丹炉斜角*/
 	public static final RegistryObject<Block> ELIXIR_FURNACE_BEVEL = register("elixir_furnace_bevel",
 			() -> new ElixirFurnaceBevelBlock(Material.METAL));
 

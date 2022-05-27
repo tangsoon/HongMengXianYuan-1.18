@@ -17,7 +17,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * 炼丹炉基，用于放置燃料
  * 
  * @author tangsoon
  *

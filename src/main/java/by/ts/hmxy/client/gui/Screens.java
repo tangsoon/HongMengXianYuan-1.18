@@ -8,6 +8,7 @@ public class Screens {
 	public static void init(FMLClientSetupEvent event) {
 		event.enqueueWork(()->{
 			MenuScreens.register(MenuTypes.MORTAR.get(), MortarScreen::new);
+			MenuScreens.register(MenuTypes.ELIXIR_FURNACE_ROOT.get(),ElixirFurnaceRootScreen::new);
 		});
 	}
 }

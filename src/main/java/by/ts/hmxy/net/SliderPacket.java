@@ -44,6 +44,10 @@ public class SliderPacket {
 		return true;
 	}
 	
+	public static void init() {
+		
+	}
+	
 	public static class Handler {
 		public final int ID;
 		public final BiConsumer<NetworkEvent.Context,SliderPacket> HANDLER;
@@ -65,4 +69,5 @@ public class SliderPacket {
 			menu.getBe().setValve((float) s.sliderValue);
 		}
 	});
+	
 }

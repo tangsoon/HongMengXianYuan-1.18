@@ -22,12 +22,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 
 	protected void init() {
 		super.init();
-		this.addRenderableWidget(new PacketSlider(this.x + 10, this.y + 10, 10, 10, TransMsg.SLIDER_LING_QI_CONSUME,
-				be.getValve() * be.getMaxLingQiConsume(), be.getValve(), SliderPacket.LING_QI_VALVE) {
-			@Override
-			protected void updateMessage() {
-				this.setMessage(TransMsg.SLIDER_LING_QI_CONSUME.create(this.value * be.getMaxLingQiConsume()));
-			}
-		});
+		this.addRenderableWidget(new PacketSlider(this.x + 10, this.y + 20, 100, 20, TransMsg.SLIDER_LING_QI_CONSUME,
+				be.getValve() * be.getMaxLingQiConsume(), be.getValve(), SliderPacket.LING_QI_VALVE));
 	}
 }

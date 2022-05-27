@@ -24,6 +24,7 @@ import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.menu.MenuTypes;
 import by.ts.hmxy.net.Messages;
+import by.ts.hmxy.net.SliderPacket;
 import by.ts.hmxy.registry.HmxyRegistries;
 import by.ts.hmxy.util.Attrs;
 import by.ts.hmxy.util.ConsoleBanner;
@@ -70,6 +71,7 @@ public class HmxyMod {
 		ConsoleBanner.banner();
 		Features.init(event);
 		PlantTypes.init();
+		SliderPacket.init();
 	}
 
 	public void clientSetUp(FMLClientSetupEvent event) {

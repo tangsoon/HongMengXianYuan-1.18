@@ -26,6 +26,8 @@ public class Messages {
 				.simpleChannel();
 		registerPacket(ButtonPacket.class, NetworkDirection.PLAY_TO_SERVER, ButtonPacket::new, ButtonPacket::toBytes,
 				ButtonPacket::handle);
+		registerPacket(SliderPacket.class, NetworkDirection.PLAY_TO_SERVER, SliderPacket::new, SliderPacket::toBytes,
+				SliderPacket::handle);
 	}
 
 	public static <MSG> void sendToServer(MSG message) {

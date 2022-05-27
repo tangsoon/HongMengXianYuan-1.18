@@ -9,6 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 public class ElixirFurnaceRootMenu extends BaseBlockMenu<ElixirFurnaceRootBlock.ElixirFurnaceRootBE> {
 	public ElixirFurnaceRootMenu(int pContainerId, Inventory inv,@Nullable BlockPos pos) {
 		super(MenuTypes.ELIXIR_FURNACE_ROOT.get(), pContainerId, inv,pos);
-		this.addInvToMenu(0, 0, 0, 24);	
+		this.addInvToMenu(0, 100, 0, 100);	
 	}
 }

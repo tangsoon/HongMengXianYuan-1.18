@@ -5,7 +5,7 @@ package by.ts.hmxy.util;
  * @author tangsoon
  *
  */
-public interface IHasLingQi {
+public interface ContainLingQi {
 	float getLingQi();
 	void setLingQi(float lingQi);
 }

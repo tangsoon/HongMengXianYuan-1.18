@@ -15,6 +15,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
+/**
+ * 含水方块的基类
+ * @author tangsoon
+ *
+ */
 public abstract class WaterloggedBlockBase extends Block implements SimpleWaterloggedBlock{
 	
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

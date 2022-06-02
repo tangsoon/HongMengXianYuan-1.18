@@ -1,11 +1,11 @@
 package by.ts.hmxy.item;
 
-import by.ts.hmxy.util.IHasLingQi;
+import by.ts.hmxy.util.ContainLingQi;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
-public class ReikiStoneItem extends Item implements IHasLingQi {
+public class ReikiStoneItem extends Item implements ContainLingQi {
 
 	private final float lingQi;
 	public final int grade;

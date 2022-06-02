@@ -1,14 +1,18 @@
 package by.ts.hmxy.block;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import by.ts.hmxy.block.blockentity.BaseBlockEntity;
 import by.ts.hmxy.block.blockentity.HmxyBEs;
+import by.ts.hmxy.item.FireOringin;
 import by.ts.hmxy.menu.ElixirFurnaceRootMenu;
+import by.ts.hmxy.util.ContainLingQi;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -40,6 +44,8 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements EntityBlock {
 
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D);
+	/**the default lingQi conservation of this*/
+	protected static final float DEFAULT_LING_QI_CONSERVATION=0.1f;
 
 	public ElixirFurnaceRootBlock(Material m) {
 		super(Properties.of(m, m.getColor()).strength(2.0F));
@@ -54,11 +60,34 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		return new ElixirFurnaceRootBE(pPos, pState);
 	}
 
+	/**
+	 * This will be called once at sometime.
+	 */
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState,
 			BlockEntityType<T> pBlockEntityType) {
 		return (level,pos,state,be)->{
-			
+			if(level instanceof ServerLevel sLevel&&sLevel.getGameTime()%20==11&&be instanceof ElixirFurnaceRootBE rbe) {
+				
+				//补充燃料
+				float restCapacity =ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY-rbe.lingQi;
+				ItemStack fuelStack=rbe.getFuel();
+				if( fuelStack.getItem() instanceof ContainLingQi item&&item.getLingQi()<=restCapacity) {
+					rbe.lingQi+=item.getLingQi();
+					fuelStack.shrink(1);
+					rbe.setChanged();
+				}
+				
+				//消耗燃料
+				float consume= rbe.valve;
+				consume=Math.min(rbe.lingQi, consume);
+				if(consume>0) {
+					rbe.lingQi-=consume;
+					rbe.setChanged();
+				}
+				
+				//TODO 上面的方块温度增加
+			}
 		};
 	}
 
@@ -80,6 +109,12 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider,ContainerData {
 		/**每秒钟最多消耗多少灵气*/
 		public static final float MAX_LING_QI_CONSUME=10;
+		/**The max lingQi of this BlockEntity*/
+		public static final float MAX_LING_QI_CAPACITY=20000;
+		
+		public static final int FIRE_SLOT_INDEX=0;
+		public static final int FUEL_SLOT_INDEX=1;
+		
 		ItemStackHandler stacks;
 		/**存储的灵气*/
 		float lingQi;
@@ -90,7 +125,19 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 			super(HmxyBEs.ELIXIR_FURNACE_ROOT.get(), pWorldPosition, pBlockState);
 			lingQi=0F;
 			valve=0F;
-			stacks=new ItemStackHandler(2);
+			stacks=new ItemStackHandler(2) {
+			    @Override
+			    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
+			    {
+			        if(FIRE_SLOT_INDEX==slot&&stack.getItem() instanceof FireOringin fire) {
+			        	return true;
+			        }
+			        else if(FUEL_SLOT_INDEX==slot&&stack.getItem() instanceof ContainLingQi item) {
+			        	return true;
+			        }
+			        return false;
+			    }
+			};
 		}
 
 		@Override
@@ -118,19 +165,19 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		}
 
 		public ItemStack getFuel() {
-			return stacks.getStackInSlot(1);
+			return stacks.getStackInSlot(FUEL_SLOT_INDEX);
 		}
 
 		public void setFuel(ItemStack fuel) {
-			stacks.setStackInSlot(1, fuel);
+			stacks.setStackInSlot(FUEL_SLOT_INDEX, fuel);
 		}
 
 		public ItemStack getFire() {
-			return stacks.getStackInSlot(0);
+			return stacks.getStackInSlot(FIRE_SLOT_INDEX);
 		}
 
 		public void setFire(ItemStack fire) {
-			stacks.setStackInSlot(0, fire);
+			stacks.setStackInSlot(FIRE_SLOT_INDEX, fire);
 		}
 
 		public float getLingQi() {

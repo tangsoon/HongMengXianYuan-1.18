@@ -1,5 +1,7 @@
 package by.ts.hmxy.client.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.ElixirFurnaceRootBlock.ElixirFurnaceRootBE;
 import by.ts.hmxy.menu.ElixirFurnaceRootMenu;
@@ -22,7 +24,12 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 
 	protected void init() {
 		super.init();
-		this.addRenderableWidget(new PacketSlider(this.x + 10, this.y + 20, 100, 20, TransMsg.SLIDER_LING_QI_CONSUME,
-				be.getValve() * be.getMaxLingQiConsume(), be.getValve(), SliderPacket.LING_QI_VALVE));
+		this.addRenderableWidget(new PacketSlider(this.x + 65, this.y + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
+				be.getValve(), be.getMaxLingQiConsume(), SliderPacket.LING_QI_VALVE, this.texture));
+	}
+	
+	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		RenderSystem.setShaderTexture(0, this.texture);
+		this.blit(matrixStack, this.x+66, this.y+34, 0, 246, (int)(96*this.be.getValve()), 10);
 	}
 }

@@ -67,6 +67,7 @@ public class SliderPacket {
 		ServerPlayer player= ctx.getSender();
 		if(player.containerMenu instanceof ElixirFurnaceRootMenu menu) {
 			menu.getBe().setValve((float) s.sliderValue);
+			menu.getBe().setChanged();
 		}
 	});
 	

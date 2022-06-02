@@ -29,7 +29,7 @@ public abstract class BaseBlockMenu<E extends BlockEntity> extends BaseMenu {
 
 	@Override
 	public boolean stillValid(Player pPlayer) {
-		return pPlayer.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())<8;
+		return pPlayer.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())<64;
 	}
 
 	public BlockPos getPos() {

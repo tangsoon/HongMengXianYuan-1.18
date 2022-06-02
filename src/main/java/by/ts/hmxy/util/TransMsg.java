@@ -19,7 +19,7 @@ public class TransMsg {
 	public static final TransMsg MEDICINE_BOTTLE_EFFECTIVE = create("str.medicine_bottle_effective","有效成分: %.2f");
 	public static final TransMsg CONTAINER_MORTAR=create("container.mortar", "臼");
 	public static final TransMsg CONTAINER_ELIXIR_FURNACE_ROOT=create("container.elixir_furnace_root", "炉基");
-	public static final TransMsg SLIDER_LING_QI_CONSUME=create("slider.ling_qi_valve","灵气消耗: %.2f");
+	public static final TransMsg SLIDER_LING_QI_CONSUME=create("slider.ling_qi_valve","灵气消耗: %f");
 	
 	
 	private final String key;

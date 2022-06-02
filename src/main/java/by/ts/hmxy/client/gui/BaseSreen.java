@@ -30,7 +30,12 @@ public abstract class BaseSreen<T extends AbstractContainerMenu> extends Abstrac
 	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		this.customRender(matrixStack, mouseX, mouseY, partialTicks);
 		this.renderTooltip(matrixStack, mouseX, mouseY);
+	}
+	
+	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		
 	}
 
 	@Override

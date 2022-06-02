@@ -15,6 +15,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -76,7 +77,7 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		HmxyHelper.openGui(pPlayer,(MenuProvider) blockentity,pPos);
 	}
 
-	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider {
+	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider,ContainerData {
 		/**每秒钟最多消耗多少灵气*/
 		public static final float MAX_LING_QI_CONSUME=10;
 		ItemStackHandler stacks;
@@ -117,19 +118,19 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		}
 
 		public ItemStack getFuel() {
-			return stacks.getStackInSlot(0);
-		}
-
-		public void setFuel(ItemStack fuel) {
-			stacks.setStackInSlot(0, fuel);
-		}
-
-		public ItemStack getFire() {
 			return stacks.getStackInSlot(1);
 		}
 
+		public void setFuel(ItemStack fuel) {
+			stacks.setStackInSlot(1, fuel);
+		}
+
+		public ItemStack getFire() {
+			return stacks.getStackInSlot(0);
+		}
+
 		public void setFire(ItemStack fire) {
-			stacks.setStackInSlot(1, fire);
+			stacks.setStackInSlot(0, fire);
 		}
 
 		public float getLingQi() {
@@ -150,6 +151,36 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 
 		public float getMaxLingQiConsume() {
 			return MAX_LING_QI_CONSUME;
+		}
+
+		public ItemStackHandler getStacks() {
+			return stacks;
+		}
+
+		@Override
+		public int get(int pIndex) {
+			if(pIndex==0) {
+				return Float.floatToIntBits(this.valve);
+			}
+			else if(1==pIndex) {
+				return Float.floatToIntBits(this.lingQi);
+			}
+			return 0;
+		}
+
+		@Override
+		public void set(int pIndex, int pValue) {
+			if(0==pIndex) {
+				this.valve=Float.intBitsToFloat(pValue);
+			}
+			else if(1==pIndex) {
+				this.lingQi=Float.intBitsToFloat(pValue);
+			}
+		}
+
+		@Override
+		public int getCount() {
+			return 1;
 		}
 	}
 }

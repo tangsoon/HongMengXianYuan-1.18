@@ -25,7 +25,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	protected void init() {
 		super.init();
 		this.addRenderableWidget(new PacketSlider(this.x + 65, this.y + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
-				be.getValve(), be.getMaxLingQiConsume(), SliderPacket.LING_QI_VALVE, this.texture));
+				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE));
 	}
 	
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {

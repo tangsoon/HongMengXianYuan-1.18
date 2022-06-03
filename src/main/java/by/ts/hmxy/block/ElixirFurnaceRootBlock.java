@@ -44,8 +44,8 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements EntityBlock {
 
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D);
-	/**the default lingQi conservation of this*/
-	protected static final float DEFAULT_LING_QI_CONSERVATION=0.1f;
+	/** the default lingQi conservation of this */
+	protected static final float DEFAULT_LING_QI_CONSERVATION = 0.1f;
 
 	public ElixirFurnaceRootBlock(Material m) {
 		super(Properties.of(m, m.getColor()).strength(2.0F));
@@ -66,27 +66,40 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState,
 			BlockEntityType<T> pBlockEntityType) {
-		return (level,pos,state,be)->{
-			if(level instanceof ServerLevel sLevel&&sLevel.getGameTime()%20==11&&be instanceof ElixirFurnaceRootBE rbe) {
-				
-				//补充燃料
-				float restCapacity =ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY-rbe.lingQi;
-				ItemStack fuelStack=rbe.getFuel();
-				if( fuelStack.getItem() instanceof ContainLingQi item&&item.getLingQi()<=restCapacity) {
-					rbe.lingQi+=item.getLingQi();
+		return (level, pos, state, be) -> {
+			if (level instanceof ServerLevel sLevel && sLevel.getGameTime() % 20 == 11
+					&& be instanceof ElixirFurnaceRootBE rbe) {
+
+				// 补充燃料
+				float restCapacity = ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY - rbe.lingQi;
+				ItemStack fuelStack = rbe.getFuel();
+				if (fuelStack.getItem() instanceof ContainLingQi item && item.getLingQi() <= restCapacity) {
+					rbe.lingQi += item.getLingQi();
 					fuelStack.shrink(1);
 					rbe.setChanged();
 				}
-				
-				//消耗燃料
-				float consume= rbe.valve;
-				consume=Math.min(rbe.lingQi, consume);
-				if(consume>0) {
-					rbe.lingQi-=consume;
+
+				// 消耗燃料
+				float consume = rbe.valve * ElixirFurnaceRootBE.MAX_LING_QI_CONSUME;
+				consume = Math.min(rbe.lingQi, consume);
+				if (consume > 0) {
+					rbe.lingQi -= consume;
 					rbe.setChanged();
 				}
-				
-				//TODO 上面的方块温度增加
+
+				// 上面的方块温度增加
+				BlockPos posUp=pos.above();
+				BlockState upState = level.getBlockState(posUp);
+				BlockEntity beUp=level.getBlockEntity(posUp);
+				if (upState.getBlock() instanceof HasTemperature tempBlock&&beUp!=null) {
+					
+					float conversion = DEFAULT_LING_QI_CONSERVATION;
+					if (rbe.getFire().getItem() instanceof FireOringin fire) {
+						conversion = Math.max(1F, fire.conversionRate() + conversion);
+					}
+					float temperature = tempBlock.getTemperature(beUp);
+					tempBlock.setTemperature(beUp, temperature + consume * Math.min(1, conversion));
+				}
 			}
 		};
 	}
@@ -103,40 +116,38 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 
 	protected void openContainer(Level pLevel, BlockPos pPos, Player pPlayer) {
 		BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-		HmxyHelper.openGui(pPlayer,(MenuProvider) blockentity,pPos);
+		HmxyHelper.openGui(pPlayer, (MenuProvider) blockentity, pPos);
 	}
 
-	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider,ContainerData {
-		/**每秒钟最多消耗多少灵气*/
-		public static final float MAX_LING_QI_CONSUME=10;
-		/**The max lingQi of this BlockEntity*/
-		public static final float MAX_LING_QI_CAPACITY=20000;
-		
-		public static final int FIRE_SLOT_INDEX=0;
-		public static final int FUEL_SLOT_INDEX=1;
-		
+	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider, ContainerData {
+		/** 每秒钟最多消耗多少灵气 */
+		public static final float MAX_LING_QI_CONSUME = 10;
+		/** The max lingQi of this BlockEntity */
+		public static final float MAX_LING_QI_CAPACITY = 20000;
+
+		public static final int FIRE_SLOT_INDEX = 0;
+		public static final int FUEL_SLOT_INDEX = 1;
+
 		ItemStackHandler stacks;
-		/**存储的灵气*/
+		/** 存储的灵气 */
 		float lingQi;
-		/**灵气阀门*/
+		/** 灵气阀门 */
 		float valve;
-		
+
 		public ElixirFurnaceRootBE(BlockPos pWorldPosition, BlockState pBlockState) {
 			super(HmxyBEs.ELIXIR_FURNACE_ROOT.get(), pWorldPosition, pBlockState);
-			lingQi=0F;
-			valve=0F;
-			stacks=new ItemStackHandler(2) {
-			    @Override
-			    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
-			    {
-			        if(FIRE_SLOT_INDEX==slot&&stack.getItem() instanceof FireOringin fire) {
-			        	return true;
-			        }
-			        else if(FUEL_SLOT_INDEX==slot&&stack.getItem() instanceof ContainLingQi item) {
-			        	return true;
-			        }
-			        return false;
-			    }
+			lingQi = 0F;
+			valve = 0F;
+			stacks = new ItemStackHandler(2) {
+				@Override
+				public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+					if (FIRE_SLOT_INDEX == slot && stack.getItem() instanceof FireOringin fire) {
+						return true;
+					} else if (FUEL_SLOT_INDEX == slot && stack.getItem() instanceof ContainLingQi item) {
+						return true;
+					}
+					return false;
+				}
 			};
 		}
 
@@ -160,8 +171,8 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		@Override
 		protected void loadCustomData(CompoundTag tag) {
 			this.stacks.deserializeNBT(tag.getCompound("stacks"));
-			this.lingQi=tag.getFloat("lingQi");
-			this.valve=tag.getFloat("valve");
+			this.lingQi = tag.getFloat("lingQi");
+			this.valve = tag.getFloat("valve");
 		}
 
 		public ItemStack getFuel() {
@@ -206,10 +217,9 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 
 		@Override
 		public int get(int pIndex) {
-			if(pIndex==0) {
+			if (pIndex == 0) {
 				return Float.floatToIntBits(this.valve);
-			}
-			else if(1==pIndex) {
+			} else if (1 == pIndex) {
 				return Float.floatToIntBits(this.lingQi);
 			}
 			return 0;
@@ -217,17 +227,16 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 
 		@Override
 		public void set(int pIndex, int pValue) {
-			if(0==pIndex) {
-				this.valve=Float.intBitsToFloat(pValue);
-			}
-			else if(1==pIndex) {
-				this.lingQi=Float.intBitsToFloat(pValue);
+			if (0 == pIndex) {
+				this.valve = Float.intBitsToFloat(pValue);
+			} else if (1 == pIndex) {
+				this.lingQi = Float.intBitsToFloat(pValue);
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return 1;
+			return 2;
 		}
 	}
 }

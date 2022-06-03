@@ -2,7 +2,7 @@ package by.ts.hmxy.menu;
 
 import javax.annotation.Nonnull;
 
-import by.ts.hmxy.block.blockentity.LingZhiBE;
+import by.ts.hmxy.block.LingZhiBlock.LingZhiBE;
 import by.ts.hmxy.item.LingZhiItem;
 import by.ts.hmxy.item.MedicineBottleItem;
 import by.ts.hmxy.item.MortarItem;

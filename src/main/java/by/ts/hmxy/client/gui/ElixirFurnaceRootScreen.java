@@ -30,6 +30,6 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderSystem.setShaderTexture(0, this.texture);
-		this.blit(matrixStack, this.x+66, this.y+34, 0, 246, (int)(96*this.be.getLingQi()), 10);
+		this.blit(matrixStack, this.x+66, this.y+34, 0, 246, (int)(96*this.be.getLingQi()/ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY), 10);
 	}
 }

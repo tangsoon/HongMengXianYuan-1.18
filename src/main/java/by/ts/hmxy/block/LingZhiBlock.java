@@ -1,8 +1,9 @@
 package by.ts.hmxy.block;
 
 import java.util.Random;
+
+import by.ts.hmxy.block.blockentity.BaseBlockEntity;
 import by.ts.hmxy.block.blockentity.HmxyBEs;
-import by.ts.hmxy.block.blockentity.LingZhiBE;
 import by.ts.hmxy.capability.Capabilities;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.item.LingZhiItem;
@@ -13,6 +14,7 @@ import by.ts.hmxy.item.gene.GeneType;
 import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.PlantTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -146,5 +148,59 @@ public class LingZhiBlock extends BushBlock implements EntityBlock {
 
 	public PlantType getPlantType(BlockGetter level, BlockPos pos) {
 		return PlantTypes.LING_ZHI;
+	}
+	
+	public static class LingZhiBE extends BaseBlockEntity{
+
+		public final DNA DNA;
+		/** 当前生长次数，每个随机刻减一 */
+		private int currentGrowTimes = 0;
+
+		/** 药性，每个随机刻药性+=区块灵气*生长速度 */
+		private float medicinal = 0.0F;
+		private LingZhiBlock lingZhi;
+
+		public LingZhiBE(BlockPos pWorldPosition, BlockState pBlockState) {
+			super(HmxyBEs.LING_ZHI.get(), pWorldPosition, pBlockState);
+			this.lingZhi = (LingZhiBlock) pBlockState.getBlock();
+			DNA = new DNA(LingZhiBlock.GENE_HELPER.getGeneTypes());
+		}
+
+		/**
+		 * 同步更新数据
+		 * 
+		 * @param pTag
+		 */
+		protected void saveCustomData(CompoundTag pTag) {
+			pTag.putInt("currentGrowTimes", currentGrowTimes);
+			pTag.putFloat("medicinal", medicinal);
+			pTag.put("genes", this.DNA.serializeNBT());
+		}
+
+		protected void loadCustomData(CompoundTag pTag) {
+			this.currentGrowTimes = pTag.getInt("currentGrowTimes");
+			this.medicinal = pTag.getFloat("medicinal");
+			this.DNA.deserializeNBT(pTag.getCompound("genes"));
+		}
+
+		public int getCurrentGrowTimes() {
+			return currentGrowTimes;
+		}
+
+		public void setCurrentGrowTimes(int currentGrowTimes) {
+			this.currentGrowTimes = currentGrowTimes;
+		}
+
+		public float getMedicinal() {
+			return medicinal;
+		}
+
+		public void setMedicinal(float medicinal) {
+			this.medicinal = medicinal;
+		}
+
+		public LingZhiBlock getLingZhi() {
+			return lingZhi;
+		}
 	}
 }

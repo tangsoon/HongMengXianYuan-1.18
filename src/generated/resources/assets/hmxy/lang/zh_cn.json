@@ -1,6 +1,7 @@
 {
   "block.hmxy.deng_xin_cao": "灯芯草",
   "block.hmxy.elixir_furnace_bevel": "炼丹炉斜角",
+  "block.hmxy.elixir_furnace_block": "炼丹炉",
   "block.hmxy.elixir_furnace_root": "铁炼丹炉基",
   "block.hmxy.elixir_furnace_side": "炼丹炉边缘",
   "block.hmxy.ling_mai": "灵脉",
@@ -66,7 +67,7 @@
   "itemGroup.ore": "鸿蒙仙缘：矿石",
   "itemGroup.sundry": "鸿蒙仙缘：杂项",
   "itemGroup.tool": "鸿蒙仙缘：工具",
-  "slider.ling_qi_valve": "灵气消耗: %.2f",
+  "slider.ling_qi_valve": "灵气消耗: %f",
   "str.genes_a": "基因序列A",
   "str.genes_b": "基因序列B",
   "str.medicine_bottle_effective": "有效成分: %.2f",

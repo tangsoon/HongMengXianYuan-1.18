@@ -121,10 +121,15 @@ public class HmxyItems {
 	public static final RegistryObject<Item> ELIXIR_FURNACE_SIDE = register("elixir_furnace_side", "炼丹炉边缘", () -> {
 		return new BlockItem(HmxyBlocks.ELIXIR_FURNACE_SIDE.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY));
 	}, HmxyBlockStatesProvider::blockWithDirection, HmxyRecipeProvider::noRecipe);
-	
+
 	public static final RegistryObject<Item> ELIXIR_FURNACE_BEVEL = register("elixir_furnace_bevel", "炼丹炉斜角", () -> {
 		return new BlockItem(HmxyBlocks.ELIXIR_FURNACE_BEVEL.get(), new Properties().stacksTo(64).tab(Tabs.SUNDRY));
 	}, HmxyBlockStatesProvider::blockWithDirection, HmxyRecipeProvider::noRecipe);
+
+	public static final RegistryObject<Item> ELIXIR_FURNACE = register("elixir_furnace", "炼丹炉",
+			() -> new BlockItem(HmxyBlocks.ELIXIR_FURNACE.get(),
+					new Properties().fireResistant().stacksTo(1).tab(Tabs.SUNDRY)),
+			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 
 	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,

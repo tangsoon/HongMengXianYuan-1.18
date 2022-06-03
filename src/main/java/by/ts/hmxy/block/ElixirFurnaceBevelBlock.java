@@ -17,7 +17,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * 
+ * 斜角
  * @author tangsoon
  *
  */

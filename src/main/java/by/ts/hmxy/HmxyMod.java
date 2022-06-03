@@ -65,7 +65,7 @@ public class HmxyMod {
 		TransMsg.init();
 	}
 	
-	/**这个在数据生成的时候不会执行*/
+	/**数据生成系统不会执行这个代码*/
 	private void setup(final FMLCommonSetupEvent event) {
 		Messages.register();
 		ConsoleBanner.banner();

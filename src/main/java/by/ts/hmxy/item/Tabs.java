@@ -17,7 +17,10 @@ public class Tabs {
 	public static final CreativeModeTab FU_LU = create("fu_lu", "符箓",() -> HmxyItems.XUN_LING_FU.get());
 	public static final CreativeModeTab LING_ZHI = create("ling_zhi", "灵植",() -> HmxyItems.DENG_XIN_CAO.get());
 	public static final CreativeModeTab TOOL = create("tool", "工具",() -> HmxyItems.GOLDEN_HERB_HOE.get());
+	//TODO 更改图标
 	public static final CreativeModeTab GENE = create("gene", "基因",() -> Items.DIAMOND);
+	//TODO 更改图标
+	public static final CreativeModeTab ELIXIR_RECIPE = create("elixir_recipe", "丹方",() -> Items.DIAMOND);
 
 	private static CreativeModeTab create(String name,String nameZh, Supplier<ItemLike> s) {
 		CreativeModeTab tab=new CreativeModeTab(-1, name) {

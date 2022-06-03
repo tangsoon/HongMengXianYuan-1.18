@@ -369,4 +369,21 @@ public class HmxyHelper {
 		}
 		return stacks;
 	}
+	
+	/**
+	 * create a {@link NonNullList} use T.
+	 * @param <T>
+	 * @param size
+	 * @param defaultElement
+	 * @param t
+	 * @return
+	 */
+	@SafeVarargs
+	public static <T> NonNullList<T> nonullList(int size,T defaultElement,T... t){
+		NonNullList<T> list=NonNullList.withSize(size, defaultElement);
+		for(int i=0;i<size&&i<t.length;i++) {
+			list.set(i, t[i]);
+		}
+		return list;
+	}
 }

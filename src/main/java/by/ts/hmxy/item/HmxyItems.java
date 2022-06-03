@@ -75,29 +75,44 @@ public class HmxyItems {
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	//----------------------------------------灵植开始----------------------------------------
+	// ----------------------------------------灵植开始----------------------------------------
 	public static final RegistryObject<Item> DENG_XIN_CAO = registerLingZhi("deng_xin_cao", "灯芯草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get(),100), HmxyBlockStatesProvider::lingZhi,
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get(), 100), HmxyBlockStatesProvider::lingZhi,
 			HmxyRecipeProvider::noRecipe);
-	
+
 	public static final RegistryObject<Item> NING_XUE_CAO = registerLingZhi("ning_xue_cao", "凝血草",
 			() -> new BlockItem(HmxyBlocks.NING_XUE_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.NING_XUE_CAO.get(),200), HmxyBlockStatesProvider::noModel,
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.NING_XUE_CAO.get(), 200), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	
+
 	public static final RegistryObject<Item> SHENG_GU_HUA = registerLingZhi("sheng_gu_hua", "生骨花",
 			() -> new BlockItem(HmxyBlocks.SHENG_GU_HUA.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.SHENG_GU_HUA.get(),210), HmxyBlockStatesProvider::noModel,
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.SHENG_GU_HUA.get(), 210), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	
+
 	public static final RegistryObject<Item> XUE_JING_CAO = registerLingZhi("xue_jing_cao", "血晶草",
 			() -> new BlockItem(HmxyBlocks.XUE_JING_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.XUE_JING_CAO.get(),50), HmxyBlockStatesProvider::noModel,
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.XUE_JING_CAO.get(), 50), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
-	
-	//----------------------------------------灵植结束----------------------------------------
-	
+
+	// ----------------------------------------灵植结束----------------------------------------
+	// ----------------------------------------丹药开始----------------------------------------
+	public static final RegistryObject<Item> HUI_CHUN_DAN = register("hui_chun_dan", "回春丹",
+			() -> new ElixirItem(new Properties().tab(Tabs.ELIXIR)), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+	// ----------------------------------------丹药结束----------------------------------------
+	// ----------------------------------------丹方开始----------------------------------------
+	public static final RegistryObject<Item> HUI_CHUN_DAN_RECIPE = registerElixirRecipe("hui_chun_dan_recipe", "回春丹丹方",
+			() -> {
+				ElixirRecipeItem recipe = new ElixirRecipeItem((ElixirItem) HUI_CHUN_DAN.get(), 1,
+						new ElixirRecipeItem.RecipeElement(NING_XUE_CAO.get(), 5, 60),
+						new ElixirRecipeItem.RecipeElement(SHENG_GU_HUA.get(), 4, 35),
+						new ElixirRecipeItem.RecipeElement(XUE_JING_CAO.get(), 3, 20));
+				return recipe;
+			});
+	// ----------------------------------------丹方结束----------------------------------------
+
 	public static final RegistryObject<Item> IRON_HERB_HOE = register("iron_herb_hoe", "铁药锄",
 			() -> new HerbHoeItem(Tiers.IRON, 0, -2.5F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {
@@ -182,5 +197,12 @@ public class HmxyItems {
 		register(name + "_drop", nameZh, lingZhiSupplier, HmxyBlockStatesProvider::noModel,
 				HmxyRecipeProvider::noRecipe);// 不用再注册模型，因为上一步已经顺便注册
 		return obj;
+	}
+
+	public static final <T extends Item> RegistryObject<Item> registerElixirRecipe(String name, String nameZh,
+			Supplier<Item> itemSupplier) {
+		RegistryObject<Item> result = register(name, nameZh, itemSupplier, HmxyBlockStatesProvider::noModel,
+				HmxyRecipeProvider::noRecipe);
+		return result;
 	}
 }

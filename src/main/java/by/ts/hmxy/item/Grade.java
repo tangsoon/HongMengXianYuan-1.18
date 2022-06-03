@@ -52,6 +52,8 @@ public final class Grade {
 //		}
 //	}
 	
+	
+	//TODO 把这个移动到灵石的类中
 	public static enum ReikiStoneGrade {
 		LOW_GRADE(Grade.create(ChatFormatting.GRAY, "reiki_stone.low_grade","低级")),
 		MEDIUM_GRADE(Grade.create(ChatFormatting.WHITE, "reiki_stone.medium_grade","中级")),

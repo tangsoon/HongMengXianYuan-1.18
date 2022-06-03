@@ -1,8 +1,8 @@
-package by.ts.hmxy.item.elixir;
+package by.ts.hmxy.item;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import by.ts.hmxy.item.Tabs;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -11,6 +11,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+/**
+ * 丹药
+ * @author tangsoon
+ *
+ */
 public class ElixirItem extends Item {
 
 	public ElixirItem(Properties pProperties) {

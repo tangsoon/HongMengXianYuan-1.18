@@ -75,10 +75,29 @@ public class HmxyItems {
 	public static final RegistryObject<Item> XUN_LING_FU = register("xun_ling_fu", "寻灵符",
 			() -> new XunLingFuItem(new Properties().stacksTo(64).tab(Tabs.FU_LU)), HmxyBlockStatesProvider::noModel,
 			HmxyRecipeProvider::noRecipe);
+	//----------------------------------------灵植开始----------------------------------------
 	public static final RegistryObject<Item> DENG_XIN_CAO = registerLingZhi("deng_xin_cao", "灯芯草",
 			() -> new BlockItem(HmxyBlocks.DENG_XIN_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
-			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get()), HmxyBlockStatesProvider::lingZhi,
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.DENG_XIN_CAO.get(),100), HmxyBlockStatesProvider::lingZhi,
 			HmxyRecipeProvider::noRecipe);
+	
+	public static final RegistryObject<Item> NING_XUE_CAO = registerLingZhi("ning_xue_cao", "凝血草",
+			() -> new BlockItem(HmxyBlocks.NING_XUE_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.NING_XUE_CAO.get(),200), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+	
+	public static final RegistryObject<Item> SHENG_GU_HUA = registerLingZhi("sheng_gu_hua", "生骨花",
+			() -> new BlockItem(HmxyBlocks.SHENG_GU_HUA.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.SHENG_GU_HUA.get(),210), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+	
+	public static final RegistryObject<Item> XUE_JING_CAO = registerLingZhi("xue_jing_cao", "血晶草",
+			() -> new BlockItem(HmxyBlocks.XUE_JING_CAO.get(), new Properties().tab(Tabs.LING_ZHI).stacksTo(64)),
+			() -> new LingZhiItem((LingZhiBlock) HmxyBlocks.XUE_JING_CAO.get(),50), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+	
+	//----------------------------------------灵植结束----------------------------------------
+	
 	public static final RegistryObject<Item> IRON_HERB_HOE = register("iron_herb_hoe", "铁药锄",
 			() -> new HerbHoeItem(Tiers.IRON, 0, -2.5F, (new Item.Properties()).tab(Tabs.TOOL)),
 			HmxyBlockStatesProvider::item, (h, i, f) -> {

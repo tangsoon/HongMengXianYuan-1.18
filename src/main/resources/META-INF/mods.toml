@@ -9,7 +9,7 @@ displayName="鸿蒙仙缘"
 #updateJSONURL="https://github.com/tangsoon/tangsoon.github.io/blob/main/updates.json" #optional#https://github.com/tangsoon/tangsoon.github.io/raw/main/updates.json
 displayURL="https://tangsoon.github.io/" #optional
 logoFile="pack.png" #optional
-credits="by 指间青春(tangsoon)"
+credits="by 指间青春（代码、策划、材质）\n贡献者：龙宇（策划）、忘川有个小半仙（策划）"
 authors="指间青春(tangsoon)"
 description="\n道友，修个仙吗？\n"
 

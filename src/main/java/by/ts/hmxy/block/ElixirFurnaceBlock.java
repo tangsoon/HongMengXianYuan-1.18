@@ -1,5 +1,7 @@
 package by.ts.hmxy.block;
 
+import org.apache.logging.log4j.LogManager;
+
 import by.ts.hmxy.block.blockentity.HmxyBEs;
 import by.ts.hmxy.block.blockentity.TemperatureBE;
 import net.minecraft.core.BlockPos;
@@ -44,6 +46,9 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 		if(be instanceof ElixirFurnaceBE rbe) {
 			return rbe.getTemperature();	
 		}
-		return 0F;
+		else {
+			LogManager.getLogger().error("You can not pass a BlockEntity to a block which dose not have it.");
+			return 0F;	
+		}
 	}
 }

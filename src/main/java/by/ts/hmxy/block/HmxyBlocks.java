@@ -47,10 +47,20 @@ public class HmxyBlocks {
 		};
 	}
 
-	/** 灯心草 */
+	//------------------------------灵植开始------------------------------
+	/** 灯芯草 */
 	public static final RegistryObject<Block> DENG_XIN_CAO = register("deng_xin_cao",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
-
+	/**凝血草*/
+	public static final RegistryObject<Block> NING_XUE_CAO = register("ning_xue_cao",
+			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
+	/**生骨花*/
+	public static final RegistryObject<Block> SHENG_GU_HUA = register("sheng_gu_hua",
+			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
+	/**血晶草*/
+	public static final RegistryObject<Block> XUE_JING_CAO = register("xue_jing_cao",
+			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
+	//------------------------------灵植结束------------------------------
 	/** 铁炼丹炉基 */
 	public static final RegistryObject<Block> ELIXIR_FURNACE_ROOT = register("elixir_furnace_root",
 			() -> new ElixirFurnaceRootBlock(Material.METAL));
@@ -63,6 +73,8 @@ public class HmxyBlocks {
 	/**炼丹炉*/
 	public static final RegistryObject<Block> ELIXIR_FURNACE = register("elixir_furnace_block",
 			() -> new ElixirFurnaceBlock(Material.METAL));
+	
+	
 
 	// 注意Supplier和直接new个的区别，Supplier只有调用的时候才创建对象，而new是直接创建对象
 	private static RegistryObject<Block> register(String name, Supplier<Block> s) {

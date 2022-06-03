@@ -22,16 +22,20 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class LingZhiItem extends Item{
 	
-	public LingZhiBlock block;
+	public final LingZhiBlock BLOCK;
 	
-	public LingZhiItem(LingZhiBlock block) {
+	/**最合适的炼制温度*/
+	public final float REFINE_TEMPERATURE;
+	
+	public LingZhiItem(LingZhiBlock block,float refineTemperature) {
 		super(new Properties().stacksTo(64));
-		this.block=block;
-		this.block.setItem(this);
+		this.BLOCK=block;
+		this.BLOCK.setItem(this);
+		this.REFINE_TEMPERATURE=refineTemperature;
 	}
 	
 	public LingZhiBE getLingZhiBE(ItemStack stack) {
-		LingZhiBE be=new LingZhiBE(BlockPos.ZERO, block.defaultBlockState());
+		LingZhiBE be=new LingZhiBE(BlockPos.ZERO, BLOCK.defaultBlockState());
 		CompoundTag beTag=stack.getTagElement("lingZhi");
 		if(beTag!=null) {
 			be.deserializeNBT(beTag);	

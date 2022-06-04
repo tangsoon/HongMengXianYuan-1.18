@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
@@ -29,15 +30,14 @@ public class ElixirItem extends Item {
 	public static final Grade GRADE_TWO=Grade.create(GRADES, "reiki_stone.two","二品");
 	public static final Grade GRADE_ONE=Grade.create(GRADES, "reiki_stone.one","一品");
 	
-	public ElixirItem(Properties pProperties) {
-		super(pProperties);
-	}
-
 	public ElixirItem() {
 		this(new Properties().fireResistant().tab(Tabs.ELIXIR)
 				.food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(0.1F).build()));
 	}
 	
+	public ElixirItem(Properties pProperties) {
+		super(pProperties);
+	}
 	public static class Data{
 		private Grade grade;
 		public Data(ItemStack stack) {
@@ -70,5 +70,10 @@ public class ElixirItem extends Item {
 	public boolean isFoil(ItemStack pStack) {
 		Data data=new Data(pStack);
 		return data.getGrade().FOIL;
+	}
+	
+	public Rarity getRarity(ItemStack pStack) {
+		Data data=new Data(pStack);
+		return data.getGrade().RARITY;
 	}
 }

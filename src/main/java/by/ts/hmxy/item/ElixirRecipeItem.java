@@ -37,16 +37,8 @@ public class ElixirRecipeItem extends Item{
 		return result;
 	}
 
-	public void setResult(ElixirItem result) {
-		this.result = result;
-	}
-
 	public int getResultCounot() {
 		return resultCounot;
-	}
-
-	public void setResultCounot(int resultCounot) {
-		this.resultCounot = resultCounot;
 	}
 
 

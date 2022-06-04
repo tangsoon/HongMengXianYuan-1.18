@@ -20,7 +20,6 @@ import by.ts.hmxy.config.Configs;
 import by.ts.hmxy.entity.HmxyEntities;
 import by.ts.hmxy.feature.Features;
 import by.ts.hmxy.fluid.HmxyFluids;
-import by.ts.hmxy.item.Grade;
 import by.ts.hmxy.item.HmxyItems;
 import by.ts.hmxy.menu.MenuTypes;
 import by.ts.hmxy.net.Messages;
@@ -61,7 +60,6 @@ public class HmxyMod {
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(new ForgeBusHandler());
 		HmxyHelper.initJingJies();
-		Grade.init();
 		TransMsg.init();
 	}
 	

@@ -1,8 +1,8 @@
 package by.ts.hmxy.item;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -17,14 +17,44 @@ import net.minecraft.world.level.Level;
  *
  */
 public class ElixirItem extends Item {
-
+	
+	public static final List<Grade> GRADES=new ArrayList<>();
+	public static final Grade GRADE_NINE=Grade.create(GRADES, "reiki_stone.nine","九品");
+	public static final Grade GRADE_EIGHT=Grade.create(GRADES, "reiki_stone.eight","八品");
+	public static final Grade GRADE_SEVEN=Grade.create(GRADES, "reiki_stone.seven","七品");
+	public static final Grade GRADE_SIX=Grade.create(GRADES, "reiki_stone.six","六品");
+	public static final Grade GRADE_FIVE=Grade.create(GRADES, "reiki_stone.five","五品");
+	public static final Grade GRADE_FOUR=Grade.create(GRADES, "reiki_stone.four","四品");
+	public static final Grade GRADE_THREE=Grade.create(GRADES, "reiki_stone.three","三品");
+	public static final Grade GRADE_TWO=Grade.create(GRADES, "reiki_stone.two","二品");
+	public static final Grade GRADE_ONE=Grade.create(GRADES, "reiki_stone.one","一品");
+	
 	public ElixirItem(Properties pProperties) {
 		super(pProperties);
 	}
 
 	public ElixirItem() {
-		super(new Properties().fireResistant().tab(Tabs.ELIXIR)
+		this(new Properties().fireResistant().tab(Tabs.ELIXIR)
 				.food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(0.1F).build()));
+	}
+	
+	public static class Data{
+		private Grade grade;
+		public Data(ItemStack stack) {
+			grade= GRADES.get(stack.getOrCreateTag().getInt("grade"));
+		}
+		
+		public void save(ItemStack stack) {
+			stack.getOrCreateTag().putInt("grade", grade.INDEX);
+		}
+
+		public Grade getGrade() {
+			return grade;
+		}
+
+		public void setGrade(Grade grade) {
+			this.grade = grade;
+		}
 	}
 
 	public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
@@ -38,6 +68,7 @@ public class ElixirItem extends Item {
 	}
 
 	public boolean isFoil(ItemStack pStack) {
-		return super.isFoil(pStack);
+		Data data=new Data(pStack);
+		return data.getGrade().FOIL;
 	}
 }

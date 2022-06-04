@@ -1,74 +1,55 @@
 package by.ts.hmxy.item;
 
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
+
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.Rarity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.data.loading.DatagenModLoader;
 
 public final class Grade {
-	public final Rarity rarity;
-	private final String name;
+	
+	/**The default color of grade*/
+	public static final ImmutableList<ChatFormatting> DEFAULT_FORMATTINGS=new ImmutableList.Builder<ChatFormatting>()
+			.add(ChatFormatting.GRAY,ChatFormatting.WHITE,ChatFormatting.GREEN,ChatFormatting.AQUA,ChatFormatting.BLUE,ChatFormatting.LIGHT_PURPLE,ChatFormatting.YELLOW,ChatFormatting.GOLD,ChatFormatting.RED)
+			.build();
+	
+	public final Rarity RARITY;
+	public final String NAME;
+	public final boolean FOIL;
+	public final int INDEX;
 
-	private Grade(Rarity rarity, String name) {
-		super();
-		this.rarity = rarity;
-		this.name = name;
+	private Grade(Rarity rarity, String name,boolean foil,int index) {
+		this.RARITY = rarity;
+		this.NAME = name;
+		this.FOIL=foil;
+		this.INDEX=index;
+	}
+	
+	public static Grade create(List<Grade> grades, String name,String nameZh) {
+		return create(grades, name, false, nameZh);
 	}
 
-	public static Grade create(ChatFormatting formatting, String name,String nameZh) {
-		Grade grade=new Grade(Rarity.create("Rarity", formatting),"grade."+ name);
+	public static Grade create(List<Grade> grades, String name,boolean foil,String nameZh) {
+		int index=grades.size();
+		ChatFormatting formatting=null;
+		formatting=index<DEFAULT_FORMATTINGS.size()?DEFAULT_FORMATTINGS.get(index):ChatFormatting.WHITE;
+		return create(grades, formatting, name, foil, nameZh);
+	}
+	
+	public static Grade create(List<Grade> grades,ChatFormatting formatting, String name,boolean foil,String nameZh) {
+		String newName="grade."+ name;
+		Grade grade=new Grade(Rarity.create(newName, formatting),newName,foil,grades.size());
 		if(DatagenModLoader.isRunningDataGen()) {
 			HmxyLanguageProvider.GRADE_NAMES.put(grade, nameZh);	
 		}
+		grades.add(grade);
 		return grade;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public String getTransferedName() {
-		return ForgeI18n.getPattern(name);
 	}
 	
 	public String getName() {
-		return this.name;
-	}
-	
-//	public static enum GradeEnum {
-//		HUANG(Grade.create(ChatFormatting.GRAY, "elixir.huang", "黄")),
-//		XUAN(Grade.create(ChatFormatting.WHITE, "elixir.xuan", "玄")),
-//		DI(Grade.create(ChatFormatting.GREEN, "elixir.di", "地")),
-//		TIAN(Grade.create(ChatFormatting.AQUA, "elixir.tian", "天")),
-//		FANG(Grade.create(ChatFormatting.AQUA, "elixir.fang", "荒")),
-//		HONG(Grade.create(ChatFormatting.AQUA, "elixir.hong", "洪")),
-//		ZHOU(Grade.create(ChatFormatting.AQUA, "elixir.zhou", "宙")),
-//		YU(Grade.create(ChatFormatting.AQUA, "elixir.yu", "宇"));
-//
-//		public final Grade grade;
-//
-//		GradeEnum(Grade grade) {
-//			this.grade = grade;
-//		}
-//	}
-	
-	
-	//TODO 把这个移动到灵石的类中
-	public static enum ReikiStoneGrade {
-		LOW_GRADE(Grade.create(ChatFormatting.GRAY, "reiki_stone.low_grade","低级")),
-		MEDIUM_GRADE(Grade.create(ChatFormatting.WHITE, "reiki_stone.medium_grade","中级")),
-		HIGHT_GRADE(Grade.create(ChatFormatting.GREEN, "reiki_stone.high_grade","高级")),
-		TOP_GRADE(Grade.create(ChatFormatting.AQUA, "reiki_stone.top_grade","顶级"));
-
-		public final Grade grade;
-
-		ReikiStoneGrade(Grade grade) {
-			this.grade = grade;
-		}
-	}
-	
-	@SuppressWarnings("unused")
-	public static void init() {
-		ReikiStoneGrade r=ReikiStoneGrade.LOW_GRADE;
+		return this.NAME;
 	}
 }

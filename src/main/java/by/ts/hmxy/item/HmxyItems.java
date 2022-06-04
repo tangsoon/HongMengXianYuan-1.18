@@ -13,6 +13,7 @@ import by.ts.hmxy.data.HmxyBlockStatesProvider;
 import by.ts.hmxy.data.HmxyLanguageProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.fluid.HmxyFluids;
+import by.ts.hmxy.item.ElixirRecipeItem.RecipeElement;
 import by.ts.hmxy.item.PestleItem.PestleTier;
 import by.ts.hmxy.item.fulu.XunLingFuItem;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -35,16 +36,16 @@ public class HmxyItems {
 			() -> new Item(new Properties().tab(Tabs.SUNDRY)), HmxyBlockStatesProvider::item,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> LOW_GRADE_REIKI_STONE = register("low_grade_reiki_stone", "低级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1, 0), HmxyBlockStatesProvider::item,
+			() -> new ReikiStoneItem(1, ReikiStoneItem.LOW_GRADE), HmxyBlockStatesProvider::item,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> MEDIUM_GRADE_REIKI_STONE = register("medium_grade_reiki_stone", "中级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10, 1), HmxyBlockStatesProvider::item,
+			() -> new ReikiStoneItem(10, ReikiStoneItem.MEDIUM_GRADE), HmxyBlockStatesProvider::item,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> HIGH_GRADE_REIKI_STONE = register("high_grade_reiki_stone", "高级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 1000, 2), HmxyBlockStatesProvider::item,
+			() -> new ReikiStoneItem(1000, ReikiStoneItem.HIGH_GRADE), HmxyBlockStatesProvider::item,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> TOP_GRADE_REIKI_STONE = register("top_grade_reiki_stone", "顶级灵石",
-			() -> new ReikiStoneItem(new Properties().tab(Tabs.SUNDRY), 10000, 3), HmxyBlockStatesProvider::item,
+			() -> new ReikiStoneItem(10000, ReikiStoneItem.TOP_GRADE), HmxyBlockStatesProvider::item,
 			HmxyRecipeProvider::noRecipe);
 	public static final RegistryObject<Item> REIKI_STONE_ORE = register("reiki_stone_ore", "灵石矿",
 			() -> new BlockItem(HmxyBlocks.REIKI_STONE_ORE.get(), new Properties().tab(Tabs.ORE)),
@@ -106,9 +107,8 @@ public class HmxyItems {
 	public static final RegistryObject<Item> HUI_CHUN_DAN_RECIPE = registerElixirRecipe("hui_chun_dan_recipe", "回春丹丹方",
 			() -> {
 				ElixirRecipeItem recipe = new ElixirRecipeItem((ElixirItem) HUI_CHUN_DAN.get(), 1,
-						new ElixirRecipeItem.RecipeElement(NING_XUE_CAO.get(), 5, 60),
-						new ElixirRecipeItem.RecipeElement(SHENG_GU_HUA.get(), 4, 35),
-						new ElixirRecipeItem.RecipeElement(XUE_JING_CAO.get(), 3, 20));
+						new RecipeElement(NING_XUE_CAO.get(), 5, 60), new RecipeElement(SHENG_GU_HUA.get(), 4, 35),
+						new RecipeElement(XUE_JING_CAO.get(), 3, 20));
 				return recipe;
 			});
 	// ----------------------------------------丹方结束----------------------------------------

@@ -165,6 +165,10 @@ public class HmxyItems {
 					new Properties().fireResistant().stacksTo(1).tab(Tabs.SUNDRY)),
 			HmxyBlockStatesProvider::noModel, HmxyRecipeProvider::noRecipe);
 
+	public static final RegistryObject<Item> GENERATOR = register("generator", "生成器",
+			() -> new BlockItem(HmxyBlocks.GENERATOR.get(), new Properties()), HmxyBlockStatesProvider::noModel,
+			HmxyRecipeProvider::noRecipe);
+
 	// ---------------------------------------------------------------------------------------------------------------------
 	public static final <T extends Item> RegistryObject<Item> register(String name, String nameZh,
 			Supplier<T> itemSupplier, BiConsumer<HmxyBlockStatesProvider, Item> modelGen,

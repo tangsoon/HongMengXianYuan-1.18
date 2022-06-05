@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.block.HmxyBlocks;
 import by.ts.hmxy.block.LingZhiBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
@@ -15,13 +16,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
-
+import static by.ts.hmxy.block.model.GeneratorModelLoader.GENERATOR_LOADER;
 /**
  * 为物品添加模型的同时为对应的方块添加模型
  * 
@@ -43,6 +46,16 @@ public class HmxyBlockStatesProvider extends BlockStateProvider {
 			entry.getValue().accept(this, entry.getKey().get());
 		}
 		MODEL_HANDLERS.clear();
+		
+//		 BlockModelBuilder generatorModel = models().getBuilder(HmxyBlocks.GENERATOR.get().getRegistryName().getPath())
+//	                .parent(models().getExistingFile(mcLoc("cube")))
+//	                .customLoader((blockModelBuilder, helper) -> new CustomLoaderBuilder<BlockModelBuilder>(GENERATOR_LOADER, blockModelBuilder, helper) { })
+//	                .end();
+		BlockModelBuilder generatorModel=models().getBuilder(HmxyBlocks.GENERATOR.get().getRegistryName().getPath())
+				.parent(models().getExistingFile(mcLoc("cube")))
+				.customLoader((b,h)->new CustomLoaderBuilder<BlockModelBuilder>(GENERATOR_LOADER, b, h) {
+				}).end();
+	        directionalBlock(HmxyBlocks.GENERATOR.get(), generatorModel);
 	}
 
 	/**

@@ -33,6 +33,8 @@ public class HmxyBEs {
 			()->BlockEntityType.Builder.of(ElixirFurnaceBlock.ElixirFurnaceBE::new, HmxyBlocks.ELIXIR_FURNACE.get())
 					.build(Util.fetchChoiceType(References.BLOCK_ENTITY, "elixir_furnace")));
 
+	public static final RegistryObject<BlockEntityType<GeneratorBE>> GENERATOR=register("generator", ()->BlockEntityType.Builder.of(GeneratorBE::new, HmxyBlocks.ELIXIR_FURNACE.get())
+			.build(Util.fetchChoiceType(References.BLOCK_ENTITY, "elixir_furnace")));
 	// 在其它泛型基础上定义泛型参数时，应该有满足其要求的约束
 	private static <I extends BlockEntity> RegistryObject<BlockEntityType<I>> register(final String name,
 			Supplier<BlockEntityType<I>> s) {

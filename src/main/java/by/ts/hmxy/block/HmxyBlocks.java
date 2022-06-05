@@ -7,6 +7,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -47,20 +48,20 @@ public class HmxyBlocks {
 		};
 	}
 
-	//------------------------------灵植开始------------------------------
+	// ------------------------------灵植开始------------------------------
 	/** 灯芯草 */
 	public static final RegistryObject<Block> DENG_XIN_CAO = register("deng_xin_cao",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
-	/**凝血草*/
+	/** 凝血草 */
 	public static final RegistryObject<Block> NING_XUE_CAO = register("ning_xue_cao",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
-	/**生骨花*/
+	/** 生骨花 */
 	public static final RegistryObject<Block> SHENG_GU_HUA = register("sheng_gu_hua",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
-	/**血晶草*/
+	/** 血晶草 */
 	public static final RegistryObject<Block> XUE_JING_CAO = register("xue_jing_cao",
 			() -> new LingZhiBlock(Properties.copy(Blocks.WHEAT)));
-	//------------------------------灵植结束------------------------------
+	// ------------------------------灵植结束------------------------------
 	/** 铁炼丹炉基 */
 	public static final RegistryObject<Block> ELIXIR_FURNACE_ROOT = register("elixir_furnace_root",
 			() -> new ElixirFurnaceRootBlock(Material.METAL));
@@ -70,12 +71,12 @@ public class HmxyBlocks {
 	/** 炼丹炉斜角 */
 	public static final RegistryObject<Block> ELIXIR_FURNACE_BEVEL = register("elixir_furnace_bevel",
 			() -> new ElixirFurnaceBevelBlock(Material.METAL));
-	/**炼丹炉*/
+	/** 炼丹炉 */
 	public static final RegistryObject<Block> ELIXIR_FURNACE = register("elixir_furnace_block",
 			() -> new ElixirFurnaceBlock(Material.METAL));
-	
-	
 
+	public static final RegistryObject<Block> GENERATOR=register("generator", ()->new GeneratorBlock());
+	
 	// 注意Supplier和直接new个的区别，Supplier只有调用的时候才创建对象，而new是直接创建对象
 	private static RegistryObject<Block> register(String name, Supplier<Block> s) {
 		return BLOCKS.register(name, s);

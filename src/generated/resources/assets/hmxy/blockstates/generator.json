@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "hmxy:block/generator",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "hmxy:block/generator"
+    },
+    "facing=north": {
+      "model": "hmxy:block/generator",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "hmxy:block/generator",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "hmxy:block/generator",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "hmxy:block/generator",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

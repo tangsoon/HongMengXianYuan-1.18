@@ -1,9 +1,14 @@
 package by.ts.hmxy.client.gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.ElixirFurnaceRootBlock.ElixirFurnaceRootBE;
+import by.ts.hmxy.client.gui.wigdet.PacketSlider;
 import by.ts.hmxy.menu.ElixirFurnaceRootMenu;
 import by.ts.hmxy.net.SliderPacket;
 import by.ts.hmxy.util.TransMsg;
@@ -25,7 +30,12 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	protected void init() {
 		super.init();
 		this.addRenderableWidget(new PacketSlider(this.x + 65, this.y + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
-				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE));
+				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE) {
+			@Override
+			public List<Component> getTips() {
+				return Arrays.asList(TransMsg.ELIXIR_FURNACE_TEMPERATURE.create());
+			}
+		});
 	}
 	
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {

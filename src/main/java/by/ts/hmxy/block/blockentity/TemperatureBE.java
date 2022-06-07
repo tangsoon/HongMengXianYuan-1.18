@@ -12,7 +12,9 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public class TemperatureBE extends BaseBlockEntity {
 
-	protected float temperature=0;
+	public static final float MAX_TEMPERATURE=1000f;
+	
+	protected float temperature=0f;
 	
 	public TemperatureBE(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
 		super(pType, pWorldPosition, pBlockState);

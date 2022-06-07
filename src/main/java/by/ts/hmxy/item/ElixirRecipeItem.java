@@ -10,10 +10,10 @@ import net.minecraft.world.item.Items;
  * @author tangsoon
  *
  */
-public class ElixirRecipeItem extends Item{
+public class ElixirRecipeItem extends Item implements ElixirRecipe{
 
 	private NonNullList<RecipeElement> recipe;
-	
+
 	private ElixirItem result;
 	
 	private int resultCounot;
@@ -29,18 +29,24 @@ public class ElixirRecipeItem extends Item{
 		this.resultCounot=resultCount;
 	}
 	
+	@Override
 	public RecipeElement recipeElement(int index) {
 		return recipe.get(index);
 	}
 	
+	@Override
 	public ElixirItem getResult() {
 		return result;
 	}
 
+	@Override
 	public int getResultCounot() {
 		return resultCounot;
 	}
-
+	@Override
+	public NonNullList<RecipeElement> getRecipe() {
+		return recipe;
+	}
 
 
 	public static class RecipeElement {

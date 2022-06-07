@@ -15,4 +15,7 @@ public class MenuTypes {
 	public static final RegistryObject<MenuType<ElixirFurnaceRootMenu>> ELIXIR_FURNACE_ROOT = MENU_TYPES.register("elixir_furnace_root",
             () -> IForgeMenuType.create((windowId,inv,data)->{return new ElixirFurnaceRootMenu(windowId,inv, data.readBlockPos());}));
 	
+	public static final RegistryObject<MenuType<ElixirFurnaceMenu>> ELIXIR_FURNACE = MENU_TYPES.register("elixir_furnace",
+            () -> IForgeMenuType.create((windowId,inv,data)->{return new ElixirFurnaceMenu(windowId,inv, data.readBlockPos());}));
+	
 }

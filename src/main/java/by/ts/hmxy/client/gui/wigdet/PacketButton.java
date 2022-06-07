@@ -1,4 +1,4 @@
-package by.ts.hmxy.client.gui;
+package by.ts.hmxy.client.gui.wigdet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

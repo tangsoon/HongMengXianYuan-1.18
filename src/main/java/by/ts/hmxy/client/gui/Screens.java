@@ -9,6 +9,7 @@ public class Screens {
 		event.enqueueWork(()->{
 			MenuScreens.register(MenuTypes.MORTAR.get(), MortarScreen::new);
 			MenuScreens.register(MenuTypes.ELIXIR_FURNACE_ROOT.get(),ElixirFurnaceRootScreen::new);
+			MenuScreens.register(MenuTypes.ELIXIR_FURNACE.get(),ElixirFurnaceScreen::new);
 		});
 	}
 }

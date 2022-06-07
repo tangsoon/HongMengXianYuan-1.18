@@ -1,6 +1,5 @@
 package by.ts.hmxy;
 
-
 import by.ts.hmxy.block.model.GeneratorModelLoader;
 import by.ts.hmxy.client.renderer.entity.MinbusOrbRenderer;
 import by.ts.hmxy.data.HmxyBlockStatesProvider;
@@ -10,13 +9,11 @@ import by.ts.hmxy.data.HmxyLootTableProvider;
 import by.ts.hmxy.data.HmxyRecipeProvider;
 import by.ts.hmxy.entity.HmxyEntities;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

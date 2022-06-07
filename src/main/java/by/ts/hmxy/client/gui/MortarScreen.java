@@ -1,6 +1,7 @@
 package by.ts.hmxy.client.gui;
 
 import by.ts.hmxy.HmxyMod;
+import by.ts.hmxy.client.gui.wigdet.PacketButton;
 import by.ts.hmxy.menu.MortarMenu;
 import by.ts.hmxy.net.ButtonPacket;
 import net.minecraft.network.chat.Component;

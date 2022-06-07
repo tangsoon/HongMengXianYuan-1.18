@@ -15,12 +15,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import by.ts.hmxy.HmxyMod;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -326,52 +331,54 @@ public class HmxyHelper {
 			float f = level.random.nextFloat() * 0.5F;
 			float f1 = level.random.nextFloat() * ((float) Math.PI * 2F);
 			itementity.setDeltaMovement((double) (-Mth.sin(f1) * f), (double) 0.2F, (double) (Mth.cos(f1) * f));
-	        level.addFreshEntity(itementity);
+			level.addFreshEntity(itementity);
 		}
 	}
-	
-	
-	public static void openGui(Player pPlayer,MenuProvider menu) {
+
+	public static void openGui(Player pPlayer, MenuProvider menu) {
 		NetworkHooks.openGui((ServerPlayer) pPlayer, menu);
 	}
-	
-	public static void openGui(Player pPlayer,MenuProvider menu,BlockPos pos) {
-		NetworkHooks.openGui((ServerPlayer) pPlayer, menu,pos);
+
+	public static void openGui(Player pPlayer, MenuProvider menu, BlockPos pos) {
+		NetworkHooks.openGui((ServerPlayer) pPlayer, menu, pos);
 	}
-	
-	public static void openGui(Player pPlayer,MenuProvider menu,Consumer<FriendlyByteBuf> s) {
-		NetworkHooks.openGui((ServerPlayer) pPlayer, menu,s);
+
+	public static void openGui(Player pPlayer, MenuProvider menu, Consumer<FriendlyByteBuf> s) {
+		NetworkHooks.openGui((ServerPlayer) pPlayer, menu, s);
 	}
-	
+
 	/**
 	 * 通过给定的ItemStack 列表创建ListTag
+	 * 
 	 * @param stacks
 	 * @return
 	 */
 	public static ListTag listTag(NonNullList<ItemStack> stacks) {
-		ListTag tagList=new ListTag();
-		for(ItemStack stack :stacks) {
+		ListTag tagList = new ListTag();
+		for (ItemStack stack : stacks) {
 			tagList.add(stack.serializeNBT());
 		}
 		return tagList;
 	}
-	
+
 	/**
 	 * 通过给定的ListTag创建ItemStack列表
+	 * 
 	 * @param listTag
 	 * @return
 	 */
-	public static NonNullList<ItemStack> stacks(ListTag listTag){
-		NonNullList<ItemStack> stacks=NonNullList.withSize(listTag.size(), ItemStack.EMPTY);
-		for(int i=0;i<listTag.size();i++) {
-			CompoundTag tag=(CompoundTag) listTag.get(i);
+	public static NonNullList<ItemStack> stacks(ListTag listTag) {
+		NonNullList<ItemStack> stacks = NonNullList.withSize(listTag.size(), ItemStack.EMPTY);
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag tag = (CompoundTag) listTag.get(i);
 			stacks.set(i, ItemStack.of(tag));
 		}
 		return stacks;
 	}
-	
+
 	/**
 	 * create a {@link NonNullList} use T.
+	 * 
 	 * @param <T>
 	 * @param size
 	 * @param defaultElement
@@ -379,11 +386,63 @@ public class HmxyHelper {
 	 * @return
 	 */
 	@SafeVarargs
-	public static <T> NonNullList<T> nonullList(int size,T defaultElement,T... t){
-		NonNullList<T> list=NonNullList.withSize(size, defaultElement);
-		for(int i=0;i<size&&i<t.length;i++) {
+	public static <T> NonNullList<T> nonullList(int size, T defaultElement, T... t) {
+		NonNullList<T> list = NonNullList.withSize(size, defaultElement);
+		for (int i = 0; i < size && i < t.length; i++) {
 			list.set(i, t[i]);
 		}
 		return list;
 	}
+
+	/**
+	 * 绘制String并且支持缩放
+	 * @param matrixStack
+	 * @param mouseX
+	 * @param mouseY
+	 * @param partialTicks
+	 * @param scale
+	 * @param boxAbsX
+	 * @param boxAbsY
+	 * @param boxWidth
+	 * @param boxHeight
+	 * @param font
+	 * @param component
+	 * @param color
+	 * @param shadow
+	 */
+	@OnlyIn(Dist.CLIENT)
+	public static void drawCenterString(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, float scale,
+			int boxAbsX, int boxAbsY, int boxWidth, int boxHeight, Font font, Component component, int color,
+			boolean shadow) {
+		matrixStack.pushPose();
+		int textX = boxAbsX + Math.abs(boxWidth - (int) (font.width(component.getString()) * scale)) / 2;
+		int textY = boxAbsY + Math.abs((boxHeight - (int) (font.lineHeight * scale)) / 2);
+		matrixStack.translate(textX, textY, 0);
+		matrixStack.scale(scale, scale, 0F);
+		matrixStack.translate(-textX, -textY, 0);
+		// font.draw(matrixStack, component, textX, textY, color);
+		// font.drawShadow(matrixStack, component, textX, textY, 0xff0000);
+		drawString(matrixStack, component, textX, textY, color, font, shadow);
+		matrixStack.popPose();
+	}
+	
+	/**
+	 * 绘制String，可以很方便地设置是否显示阴影
+	 * @param pPoseStack
+	 * @param pText
+	 * @param pX
+	 * @param pY
+	 * @param pColor
+	 * @param font
+	 * @param shadow
+	 */
+	@OnlyIn(Dist.CLIENT)
+	public static void drawString(PoseStack pPoseStack, Component pText, float pX, float pY, int pColor,Font font,boolean shadow) {
+		MultiBufferSource.BufferSource multibuffersource$buffersource = MultiBufferSource
+				.immediate(Tesselator.getInstance().getBuilder());
+		font.drawInBatch(pText.getVisualOrderText(), pX, pY, pColor, shadow, pPoseStack.last().pose(),
+				multibuffersource$buffersource, false, 0, 15728880);
+		multibuffersource$buffersource.endBatch();
+	}
+
 }

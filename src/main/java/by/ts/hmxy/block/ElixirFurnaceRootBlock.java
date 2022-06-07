@@ -109,14 +109,10 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 		if (pLevel.isClientSide) {
 			return InteractionResult.SUCCESS;
 		} else {
-			this.openContainer(pLevel, pPos, pPlayer);
+			BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+			HmxyHelper.openGui(pPlayer, (MenuProvider) blockentity, pPos);
 			return InteractionResult.CONSUME;
 		}
-	}
-
-	protected void openContainer(Level pLevel, BlockPos pPos, Player pPlayer) {
-		BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-		HmxyHelper.openGui(pPlayer, (MenuProvider) blockentity, pPos);
 	}
 
 	public static class ElixirFurnaceRootBE extends BaseBlockEntity implements MenuProvider, ContainerData {

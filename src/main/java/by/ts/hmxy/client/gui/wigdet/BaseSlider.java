@@ -1,7 +1,9 @@
-package by.ts.hmxy.client.gui;
+package by.ts.hmxy.client.gui.wigdet;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+
+import by.ts.hmxy.util.HmxyHelper;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -10,19 +12,20 @@ import net.minecraft.resources.ResourceLocation;
 
 /**
  * this will atomaticly send packet to server when player modify the value of
- * slider 
+ * slider
  * 
  * @author tangsoon
  */
 
 //TODO bug:can not drag
-public abstract class BaseSlider extends AbstractSliderButton {
+public abstract class BaseSlider extends AbstractSliderButton implements HoverWidget{
 
 	protected ResourceLocation texture;
 	protected double valueMulti;
 	protected TransMsg msg;
 
-	public BaseSlider(int pX, int pY, int pWidth, int pHeight, TransMsg msg, double pValue, double valueMulti, ResourceLocation texture) {
+	public BaseSlider(int pX, int pY, int pWidth, int pHeight, TransMsg msg, double pValue, double valueMulti,
+			ResourceLocation texture) {
 		super(pX, pY, pWidth, pHeight, msg.create(valueMulti * pValue), pValue);
 		this.texture = texture;
 		this.valueMulti = valueMulti;
@@ -52,15 +55,8 @@ public abstract class BaseSlider extends AbstractSliderButton {
 						6, 14);
 			}
 
-			pPoseStack.pushPose();
-			int textX = this.x + Math.abs(this.width - (int) (font.width(this.getMessage().getString()) * 0.5)) / 2;
-			int textY = this.y + Math.abs((this.height - (int) (font.lineHeight * 0.5)) / 2);
-			pPoseStack.translate(textX, textY, 0);
-			pPoseStack.scale(0.5F, 0.5F, 0F);
-			pPoseStack.translate(-textX, -textY, 0);
-			font.draw(pPoseStack, getMessage(), textX, textY, 0xffffffff);
-			font.drawShadow(pPoseStack, getMessage(), textX, textY, 0xffffffff);
-			pPoseStack.popPose();
+			HmxyHelper.drawCenterString(pPoseStack, pMouseX, pMouseY, pPartialTick, 0.5F, this.x, this.y,
+					this.getWidth(), this.getHeight(), font, getMessage(), 0xffffffff, true);
 		}
 	}
 }

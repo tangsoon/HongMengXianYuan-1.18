@@ -3,7 +3,10 @@ package by.ts.hmxy.client.gui.wigdet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+
+import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.client.gui.BaseSreen;
+import by.ts.hmxy.util.TransMsg;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
@@ -16,12 +19,13 @@ import net.minecraft.world.item.ItemStack;
  */
 public class SlotWidget extends HoverWidgetImp{
 
+	private static final ResourceLocation TEXTURE=new ResourceLocation(HmxyMod.MOD_ID, "textures/gui/general.png");
+	
 	private  BaseSreen<?> screen;
 	private Supplier<List<Component>> componentSupplier;
 	
-	public SlotWidget(int absX, int absY, int pWidth, int pHeight, Component pMessage, ResourceLocation texture,
-			int texBgU, int texBgV,BaseSreen<?> screen,Supplier<List<Component>> componentSupplier) {
-		super(absX, absY, pWidth, pHeight, pMessage, texture, texBgU, texBgV);
+	public SlotWidget(int absX, int absY, BaseSreen<?> screen,Supplier<List<Component>> componentSupplier) {
+		super(absX, absY, 18, 18, TransMsg.EMPTY, TEXTURE, 0, 0);
 		this.screen=screen;
 		this.componentSupplier=componentSupplier;
 	}

@@ -1,9 +1,7 @@
 package by.ts.hmxy.client.gui;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.HmxyMod;
@@ -33,7 +31,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE) {
 			@Override
 			public List<Component> getTips() {
-				return Arrays.asList(TransMsg.ELIXIR_FURNACE_TEMPERATURE.create());
+				return Arrays.asList(TransMsg.DEFAULT.create());
 			}
 		});
 	}

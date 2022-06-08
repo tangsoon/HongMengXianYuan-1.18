@@ -3,8 +3,6 @@ package by.ts.hmxy.client.gui.wigdet;
 import by.ts.hmxy.net.Messages;
 import by.ts.hmxy.net.SliderPacket;
 import by.ts.hmxy.util.TransMsg;
-import net.minecraft.client.gui.narration.NarratedElementType;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -26,11 +24,5 @@ public abstract class PacketSlider extends BaseSlider {
 	@Override
 	protected void applyValue() {
 		Messages.sendToServer(new SliderPacket(handler, value));	
-	}
-	
-	@Override
-	public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
-		pNarrationElementOutput.add(NarratedElementType.HINT, TransMsg.ELIXIR_FURNACE_TEMPERATURE.create());
-		
 	}
 }

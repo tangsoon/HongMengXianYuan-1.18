@@ -56,7 +56,16 @@ public class ButtonPacket {
 		return handler;
 	}
 	
+	/**研磨*/
 	public static final Handler MORTAR_GRIND=createMessage(ctx->{
+		ServerPlayer player= ctx.getSender();
+		if(player.containerMenu instanceof MortarMenu menu) {
+			menu.onCraft();
+		}
+	});
+	
+	/**凝丹*/
+	public static final Handler NING_DAN=createMessage(ctx->{
 		ServerPlayer player= ctx.getSender();
 		if(player.containerMenu instanceof MortarMenu menu) {
 			menu.onCraft();

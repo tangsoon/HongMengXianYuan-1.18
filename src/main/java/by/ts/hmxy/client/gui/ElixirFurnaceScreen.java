@@ -7,10 +7,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.ElixirFurnaceBlock;
 import by.ts.hmxy.block.blockentity.TemperatureBE;
+import by.ts.hmxy.client.gui.wigdet.PacketButton;
 import by.ts.hmxy.client.gui.wigdet.ProgressBar;
 import by.ts.hmxy.client.gui.wigdet.ProgressBar.Direction;
 import by.ts.hmxy.client.gui.wigdet.SlotWidget;
 import by.ts.hmxy.menu.ElixirFurnaceMenu;
+import by.ts.hmxy.net.ButtonPacket;
 import by.ts.hmxy.util.TransMsg;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -31,30 +33,43 @@ public class ElixirFurnaceScreen extends BaseSreen<ElixirFurnaceMenu> {
 
 	protected void init() {
 		super.init();
+		int tempX = this.x;
 		// 温度条
-		this.addRenderableOnly(new FurnaceProgressBar(this.x + 20, this.y + 79, 252, 9,
+		this.addRenderableOnly(new FurnaceProgressBar(tempX = tempX + 18, this.y + 79, 252, 9,
 				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_PROGRESS_TEMPERATURE
 						.create(ElixirFurnaceScreen.this.be.getTemperature())),
 				() -> Math.min(ElixirFurnaceScreen.this.be.getTemperature() / TemperatureBE.MAX_TEMPERATURE, 1F)));
 
 		// 耐久条
-		
-		this.addRenderableOnly(new FurnaceProgressBar(this.x + 38, this.y + 79, 248, 9,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_PROGRESS_DURATION
-						.create(ElixirFurnaceScreen.this.be.getTemperature())),
-				() ->Math.min(furnanceData.getRestDuration() / furnanceData.getMaxDuration(), 1.0F)));
+
+		this.addRenderableOnly(new FurnaceProgressBar(tempX += 8, this.y + 79, 248, 9,
+				() -> Arrays.asList(
+						TransMsg.ELIXIR_FURNACE_PROGRESS_DURATION.create(ElixirFurnaceScreen.this.be.getTemperature())),
+				() -> Math.min(furnanceData.getRestDuration() / furnanceData.getMaxDuration(), 1.0F)));
 
 		// 硬度
-		
-		this.addRenderableOnly(new FurnaceProgressBar(this.x + 56, this.y + 73, 244, 9,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_PROGRESS_HARDNESS
-						.create(ElixirFurnaceScreen.this.be.getTemperature())),
-				() ->Math.min(furnanceData.getWallStrength() / ElixirFurnaceBlock.MAX_HARDNESS, 1.0F)));
+
+		this.addRenderableOnly(new FurnaceProgressBar(tempX += 8, this.y + 79, 244, 9,
+				() -> Arrays.asList(
+						TransMsg.ELIXIR_FURNACE_PROGRESS_HARDNESS.create(ElixirFurnaceScreen.this.be.getTemperature())),
+				() -> Math.min(furnanceData.getWallStrength() / ElixirFurnaceBlock.MAX_HARDNESS, 1.0F)));
+
+		// 炉盖
+		this.addRenderableOnly(new SlotWidget(tempX += 6 + 4, this.y + 79, this,
+				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_COVER.create())));
+		// 配方
+		this.addRenderableOnly(new SlotWidget(tempX += 18 + 4, this.y + 79, this,
+				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.create())));
+		// 按钮
+		// this.addRenderableWidget(new PacketButton(tempX, tempX, tempX, tempX, tempX,
+		// tempX, tempX, BACKGROUND_LOCATION, tempX, tempX, null));
+		this.addRenderableWidget(new PacketButton(tempX += 18 + 4, this.y + 79, 35, 18, 221, 45, this.texture,
+				ButtonPacket.NING_DAN, null, title));
 
 		int offSetX = (9 - this.furnanceData.getElixirInvCount()) / 2;
 		for (int i = 0; i < this.furnanceData.getElixirInvCount(); i++) {
 			// 灵植
-			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 24,  this,
+			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 24, this,
 					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_LING_ZHI_TIP.create())));
 
 			// 提炼进度
@@ -74,12 +89,10 @@ public class ElixirFurnaceScreen extends BaseSreen<ElixirFurnaceMenu> {
 			});
 
 			// 药罐
-			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 54,  this,
+			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 54, this,
 					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_BOTTLE_TIP.create())));
 		}
 
-		//炉盖
-		this.addRenderableOnly(new SlotWidget(this.x+73, this.y+79, this, ()->Arrays.asList(TransMsg.ELIXIR_FURNACE_PROGRESS_TEMPERATURE.create(20F))));
 	}
 
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {

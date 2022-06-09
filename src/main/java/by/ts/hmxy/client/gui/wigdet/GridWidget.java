@@ -1,5 +1,7 @@
 package by.ts.hmxy.client.gui.wigdet;
 
+import java.util.function.Supplier;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiComponent;
@@ -29,16 +31,16 @@ public class GridWidget implements Widget{
 	
 	protected ResourceLocation texture; 
 	
-	protected int leftPos;
-	protected int topPos;
+	protected Supplier<Integer> leftPos;
+	protected Supplier<Integer> topPos;
 	
 	protected int imageWidth;
 	protected int imageHeight;
 	
 	private GuiComponent gui;
-	public GridWidget(ResourceLocation texture,int x,int y,GuiComponent gui) {
-		this.leftPos=x;
-		this.topPos=y;
+	public GridWidget(ResourceLocation texture,Supplier<Integer> leftPos,Supplier<Integer> topPos,GuiComponent gui) {
+		this.leftPos=leftPos;
+		this.topPos=topPos;
 		this.gui=gui;
 		this.refreshImageSize();
 	}
@@ -47,18 +49,20 @@ public class GridWidget implements Widget{
 		RenderSystem.setShaderTexture(0, this.texture);
 		RenderSystem.enableBlend();
 		RenderSystem.setShaderColor(r, g, b, 1.0F);
+		int x=this.leftPos.get();
+		int y=this.topPos.get();
 		
-		gui.blit(pPoseStack, this.leftPos, this.topPos, 0, 0, this.width1, this.height1);
-		gui.blit(pPoseStack, this.leftPos+this.width1, this.topPos, this.width1, 0, this.width2, height1);
-		gui.blit(pPoseStack, this.leftPos+this.width1+this.width2, this.topPos, this.width1+this.maxWidth2,0, this.width3, height1);
+		gui.blit(pPoseStack, x, y, 0, 0, this.width1, this.height1);
+		gui.blit(pPoseStack, x+this.width1, y, this.width1, 0, this.width2, height1);
+		gui.blit(pPoseStack, x+this.width1+this.width2, y, this.width1+this.maxWidth2,0, this.width3, height1);
 
-		gui.blit(pPoseStack, this.leftPos, this.topPos+this.height1, 0, this.height1, this.width1, this.height2);
-		gui.blit(pPoseStack, this.leftPos+this.width1, this.topPos+this.height1, this.width1, this.height1, this.width2, height2);
-		gui.blit(pPoseStack, this.leftPos+this.width1+this.width2, this.topPos+this.height1, this.width1+this.maxWidth2,this.height1, this.width3, height2);
+		gui.blit(pPoseStack, x, y+this.height1, 0, this.height1, this.width1, this.height2);
+		gui.blit(pPoseStack, x+this.width1, y+this.height1, this.width1, this.height1, this.width2, height2);
+		gui.blit(pPoseStack, x+this.width1+this.width2, y+this.height1, this.width1+this.maxWidth2,this.height1, this.width3, height2);
 		
-		gui.blit(pPoseStack, this.leftPos, this.topPos+this.height1+this.height2, 0, this.height1+this.maxHeight2, this.width1, this.height3);
-		gui.blit(pPoseStack, this.leftPos+this.width1, this.topPos+this.height1+this.height2, this.width1, this.height1+this.maxHeight2, this.width2, height3);
-		gui.blit(pPoseStack, this.leftPos+this.width1+this.width2, this.topPos+this.height1+this.height2, this.width1+this.maxWidth2,this.height1+this.maxHeight2, this.width3, height3);
+		gui.blit(pPoseStack, x, y+this.height1+this.height2, 0, this.height1+this.maxHeight2, this.width1, this.height3);
+		gui.blit(pPoseStack, x+this.width1, y+this.height1+this.height2, this.width1, this.height1+this.maxHeight2, this.width2, height3);
+		gui.blit(pPoseStack, x+this.width1+this.width2, y+this.height1+this.height2, this.width1+this.maxWidth2,this.height1+this.maxHeight2, this.width3, height3);
 	}
 	
 	public GridWidget refreshImageSize(){

@@ -14,8 +14,6 @@ import net.minecraft.world.inventory.Slot;
 public abstract class BaseSreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
 	public ResourceLocation texture;
-//	public int x;
-//	public int y;
 	public int titleOffSetY = 5;
 
 	public BaseSreen(T pMenu, Inventory pPlayerInventory, Component pTitle, ResourceLocation texture) {

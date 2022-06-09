@@ -1,6 +1,5 @@
 package by.ts.hmxy.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.client.gui.wigdet.HoverWidget;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -15,19 +14,13 @@ import net.minecraft.world.inventory.Slot;
 public abstract class BaseSreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
 	public ResourceLocation texture;
-	public int x;
-	public int y;
+//	public int x;
+//	public int y;
 	public int titleOffSetY = 5;
 
 	public BaseSreen(T pMenu, Inventory pPlayerInventory, Component pTitle, ResourceLocation texture) {
 		super(pMenu, pPlayerInventory, pTitle);
 		this.texture = texture;
-	}
-
-	protected void init() {
-		super.init();
-		x = (this.width - this.imageWidth) / 2;
-		y = (this.height - this.imageHeight) / 2;
 	}
 
 	@Override
@@ -61,12 +54,11 @@ public abstract class BaseSreen<T extends AbstractContainerMenu> extends Abstrac
 
 	@Override
 	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		RenderSystem.setShaderTexture(0, texture);
-		this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageWidth);
+//		RenderSystem.setShaderTexture(0, texture);
+//		this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageWidth);
 	}
 
 	public Slot getHoverdSlot() {
 		return this.hoveredSlot;
 	}
 }
-//写一个布局管理器不太现实，开发成本和调用成本很高。

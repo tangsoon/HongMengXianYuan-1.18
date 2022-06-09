@@ -39,9 +39,8 @@ public class HmxyHud {
 
 	public static final Optional<IIngameOverlay> HOTBAR_AND_PROPERTIES_ELEMENT = Optional
 			.of(OverlayRegistry.registerOverlayTop("horbar and properties", (gui, mStack, partialTicks, gw, gh) -> {
-				//mStack.pushPose();
+				// mStack.pushPose();
 				Minecraft mc = Minecraft.getInstance();
-				
 				if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL
 						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && Configs.isToolBarOpen.get()
 						&& !mc.options.hideGui) {
@@ -56,21 +55,21 @@ public class HmxyHud {
 					RenderSystem.disableDepthTest();
 					RenderSystem.enableDepthTest();
 					RenderSystem.defaultBlendFunc();
-					RenderSystem.depthMask(true);//立体模型正确渲染
-					RenderSystem.enableBlend();//透明材质
+					RenderSystem.depthMask(true);// 立体模型正确渲染
+					RenderSystem.enableBlend();// 透明材质
 					RenderSystem.setShader(GameRenderer::getPositionTexShader);
 					RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
 							GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
 							GlStateManager.DestFactor.ZERO);
-					RenderSystem.setShaderColor(1, 1, 1	, 1);//不为白色时，硬编码颜色
-					RenderSystem.setShaderTexture(0, hudLocation);//设置图片
+					RenderSystem.setShaderColor(1, 1, 1, 1);// 不为白色时，硬编码颜色
+					RenderSystem.setShaderTexture(0, hudLocation);// 设置图片
 
 					// 物品栏
 					Gui.blit(mStack, px, gh - ph, 0, 0, pw, ph, tw, th);
 					// 经验条
 					Gui.blit(mStack, px + 3, py + 35, 0, 41, 200, 3, tw, th);
 					// 灵力条
-					float lingLi =HmxyHelper.getLingLi(player);
+					float lingLi = HmxyHelper.getLingLi(player);
 					int count = 1;
 					while (lingLi > count * 20) {
 						lingLi -= count * 20;
@@ -104,46 +103,44 @@ public class HmxyHud {
 					int airOffset = (int) (35.0F * (1.0F - air / 300.0F));
 					Gui.blit(mStack, px + 210, py + 3 + airOffset, 219, airOffset, 3, 35, tw, th);
 					// 真元
-					//TODO 重新画个真元的UI
-					int zhenYuan=HmxyHelper.getZhenYuan(player);
-					int xiaoJingJie=HmxyHelper.getXiaoJingJie(player);
-					int necessaryZhenYuan=HmxyHelper.getNecessaryZhenYuan(xiaoJingJie+1);
-					if(necessaryZhenYuan!=0) {
-						int zhenYuanOffSet= (int) ((1.0F-(float)zhenYuan/necessaryZhenYuan)*18);
-						Gui.blit(mStack, px + 3, py + 3, 200, 41, 18-zhenYuanOffSet, 8, tw, th);	
+					// TODO 重新画个真元的UI
+					int zhenYuan = HmxyHelper.getZhenYuan(player);
+					int xiaoJingJie = HmxyHelper.getXiaoJingJie(player);
+					int necessaryZhenYuan = HmxyHelper.getNecessaryZhenYuan(xiaoJingJie + 1);
+					if (necessaryZhenYuan != 0) {
+						int zhenYuanOffSet = (int) ((1.0F - (float) zhenYuan / necessaryZhenYuan) * 18);
+						Gui.blit(mStack, px + 3, py + 3, 200, 41, 18 - zhenYuanOffSet, 8, tw, th);
 					}
 					// 选择框
 					int selected = player.getInventory().selected;
 					Gui.blit(mStack, px + 21 + 20 * selected, py + 11, 222, 0, 24, 24, tw, th);
 
 					// 境界
-					int daJingJie=HmxyHelper.getDaJingJieByXiao(xiaoJingJie);
-					String jingjie =HmxyHelper.JingJies.get(daJingJie).getZhName(); 
+					int daJingJie = HmxyHelper.getDaJingJieByXiao(xiaoJingJie);
+					String jingjie = HmxyHelper.JingJies.get(daJingJie).getZhName();
 					mc.font.draw(mStack, jingjie, px + 3, py + 3, 0xc69636);
 					// 物品栏
 					List<ItemStack> itemStacks = player.getInventory().items;
 					ItemRenderer render = mc.getItemRenderer();
 					ItemStack itemStack;
-					int i1 = 1;
 					for (int i = 0; i < 9; i++) {
 						itemStack = itemStacks.get(i);
 						render.renderGuiItem(itemStack, px + 25 + 20 * i, py + 15);
 						render.renderGuiItemDecorations(mc.font, itemStack, px + 25 + 20 * i, py + 15);
-						
+
 					}
 					// 副手物品
 					NonNullList<ItemStack> offhandList = player.getInventory().offhand;
 					ItemStack offHand = offhandList.get(0);
 					render.renderGuiItem(offHand, px + 5, py + 15);
 					render.renderGuiItemDecorations(mc.font, offHand, px + 5, py + 15);
-
 				}
 			}));
 
 	public static final IIngameOverlay ITEM_NAME_ELEMENT = OverlayRegistry.registerOverlayTop("Item Name",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui&&Configs.isToolBarOpen.get()) {
+				if (!mc.options.hideGui && Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					if (mc.options.heldItemTooltips && mc.gameMode.getPlayerMode() != GameType.SPECTATOR) {
 						renderSelectedItemName(gui, mStack);
@@ -156,7 +153,7 @@ public class HmxyHud {
 	public static final IIngameOverlay MOUNT_HEALTH_ELEMENT = OverlayRegistry.registerOverlayTop("Mount Health",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements()&&Configs.isToolBarOpen.get()) {
+				if (!mc.options.hideGui && gui.shouldDrawSurvivalElements() && Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					renderHealthMount(gui, screenWidth, screenHeight, mStack);
 				}
@@ -165,7 +162,7 @@ public class HmxyHud {
 	public static final IIngameOverlay JUMP_BAR_ELEMENT = OverlayRegistry.registerOverlayTop("Jump Bar",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (mc.player.isRidingJumpable() && !mc.options.hideGui&&Configs.isToolBarOpen.get()) {
+				if (mc.player.isRidingJumpable() && !mc.options.hideGui && Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					int pX = screenWidth / 2 - 91;
 					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);
@@ -174,12 +171,12 @@ public class HmxyHud {
 					mc.getProfiler().push("jumpBar");
 					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
 					float f = mc.player.getJumpRidingScale();
-					int yOffset=-20;
+					int yOffset = -20;
 					int j = (int) (f * 183.0F);
 					int k = gui.screenHeight - 32 + 3;
-					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);
+					gui.blit(mStack, pX, k + yOffset, 0, 84, 182, 5);
 					if (j > 0) {
-						gui.blit(mStack, pX, k+yOffset, 0, 89, j, 5);
+						gui.blit(mStack, pX, k + yOffset, 0, 89, j, 5);
 					}
 					mc.getProfiler().pop();
 					RenderSystem.enableBlend();
@@ -187,11 +184,12 @@ public class HmxyHud {
 					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 			});
-	
+
 	public static final IIngameOverlay STAMINA_ELEMENT = OverlayRegistry.registerOverlayTop("Stamina",
 			(gui, mStack, partialTicks, screenWidth, screenHeight) -> {
 				Minecraft mc = Minecraft.getInstance();
-				if (HmxyHelper.getStamina(mc.player)<HmxyHelper.getMaxStamina(mc.player) && !mc.options.hideGui&&Configs.isToolBarOpen.get()) {
+				if (HmxyHelper.getStamina(mc.player) < HmxyHelper.getMaxStamina(mc.player) && !mc.options.hideGui
+						&& Configs.isToolBarOpen.get()) {
 					gui.setupOverlayRenderState(true, false);
 					int pX = screenWidth / 2 - 91;
 					RenderSystem.setShaderTexture(0, ForgeIngameGui.GUI_ICONS_LOCATION);
@@ -199,13 +197,13 @@ public class HmxyHud {
 					RenderSystem.disableBlend();
 					mc.getProfiler().push("stamina");
 					RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
-					float f=(float) (HmxyHelper.getStamina(mc.player)/HmxyHelper.getMaxStamina(mc.player));
-					int yOffset=-20;
+					float f = (float) (HmxyHelper.getStamina(mc.player) / HmxyHelper.getMaxStamina(mc.player));
+					int yOffset = -20;
 					int j = (int) (f * 183.0F);
 					int k = gui.screenHeight - 32 + 3;
-					gui.blit(mStack, pX, k+yOffset, 0, 84, 182, 5);
+					gui.blit(mStack, pX, k + yOffset, 0, 84, 182, 5);
 					if (j > 0) {
-						gui.blit(mStack, pX, k+yOffset, 0, 89, j, 5);
+						gui.blit(mStack, pX, k + yOffset, 0, 89, j, 5);
 					}
 					mc.getProfiler().pop();
 					RenderSystem.enableBlend();
@@ -213,13 +211,13 @@ public class HmxyHud {
 					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 			});
-	
+
 	public static void init() {
 
 	}
-	
+
 	private final static int SELECTED_ITEM_NAME_OFFSET = 10;
-	
+
 	// Copy from the villain and do some change.
 	private static void renderSelectedItemName(Gui gui, PoseStack pPoseStack) {
 		Minecraft mc = Minecraft.getInstance();
@@ -258,7 +256,7 @@ public class HmxyHud {
 		mc.getProfiler().pop();
 	}
 
-	//Copy from forge and do some change.
+	// Copy from forge and do some change.
 	private static void renderHealthMount(ForgeIngameGui forgeGui, int width, int height, PoseStack mStack) {
 		Minecraft mc = Minecraft.getInstance();
 		Player player = (Player) mc.getCameraEntity();
@@ -285,7 +283,7 @@ public class HmxyHud {
 		final int BACKGROUND = MARGIN + (unused ? 1 : 0);
 		final int HALF = MARGIN + 45;
 		final int FULL = MARGIN + 36;
-		int yOffset=-20;
+		int yOffset = -20;
 		for (int heart = 0; hearts > 0; heart += 20) {
 			int top = height - forgeGui.right_height;
 
@@ -294,12 +292,12 @@ public class HmxyHud {
 
 			for (int i = 0; i < rowCount; ++i) {
 				int x = left_align - i * 8 - 9;
-				forgeGui.blit(mStack, x, top+yOffset, BACKGROUND, 9, 9, 9);
+				forgeGui.blit(mStack, x, top + yOffset, BACKGROUND, 9, 9, 9);
 
 				if (i * 2 + 1 + heart < health)
-					forgeGui.blit(mStack, x, top+yOffset, FULL, 9, 9, 9);
+					forgeGui.blit(mStack, x, top + yOffset, FULL, 9, 9, 9);
 				else if (i * 2 + 1 + heart == health)
-					forgeGui.blit(mStack, x, top+yOffset, HALF, 9, 9, 9);
+					forgeGui.blit(mStack, x, top + yOffset, HALF, 9, 9, 9);
 			}
 			forgeGui.right_height += 10;
 		}

@@ -27,7 +27,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 
 	protected void init() {
 		super.init();
-		this.addRenderableWidget(new PacketSlider(this.x + 65, this.y + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
+		this.addRenderableWidget(new PacketSlider(this.leftPos + 65, this.topPos + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
 				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE) {
 			@Override
 			public List<Component> getTips() {
@@ -38,6 +38,6 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderSystem.setShaderTexture(0, this.texture);
-		this.blit(matrixStack, this.x+66, this.y+34, 0, 246, (int)(96*this.be.getLingQi()/ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY), 10);
+		this.blit(matrixStack, this.leftPos+66, this.topPos+34, 0, 246, (int)(96*this.be.getLingQi()/ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY), 10);
 	}
 }

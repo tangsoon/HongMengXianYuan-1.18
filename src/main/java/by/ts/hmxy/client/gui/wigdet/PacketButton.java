@@ -58,6 +58,7 @@ public class PacketButton extends ImageButton implements HoverWidget {
 		RenderSystem.setShaderTexture(0, this.resourceLocation);
 		RenderSystem.enableDepthTest();
 		RenderSystem.enableBlend();
+				
 		if (isClicking) {
 			blit(pPoseStack, this.x, this.y, (float) this.xTexStart, (float) (this.yTexStart + this.yDiffTex * 2),
 					this.width, this.height, this.textureWidth, this.textureHeight);
@@ -69,14 +70,11 @@ public class PacketButton extends ImageButton implements HoverWidget {
 						this.width, this.height, this.textureWidth, this.textureHeight);
 			}
 		}
-
-		if (this.isHovered) {
-			this.renderToolTip(pPoseStack, pMouseX, pMouseY);
-		}
-		//渲染按钮字体
+		
 		Minecraft mc = Minecraft.getInstance();
-		HmxyHelper.drawCenterString(pPoseStack, pMouseX, pMouseY, pPartialTick, 0.5F, this.x, this.y, this.width,
-				this.height, mc.font, getMessage(), 0xffffffff, true);
+		int offsetY=this.isClicking?1:0;
+		HmxyHelper.drawCenterString(pPoseStack, pMouseX, pMouseY, pPartialTick, 0.7F, this.x, this.y+offsetY, this.width,
+				this.height, mc.font, getMessage(), 0xa88467, false);
 	}
 
 	public void onClick(double pMouseX, double pMouseY) {

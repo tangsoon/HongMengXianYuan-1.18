@@ -39,7 +39,9 @@ public class HmxyHud {
 
 	public static final Optional<IIngameOverlay> HOTBAR_AND_PROPERTIES_ELEMENT = Optional
 			.of(OverlayRegistry.registerOverlayTop("horbar and properties", (gui, mStack, partialTicks, gw, gh) -> {
+				//mStack.pushPose();
 				Minecraft mc = Minecraft.getInstance();
+				
 				if ((mc.gameMode.getPlayerMode() == GameType.SURVIVAL
 						|| mc.gameMode.getPlayerMode() == GameType.CREATIVE) && Configs.isToolBarOpen.get()
 						&& !mc.options.hideGui) {
@@ -52,14 +54,16 @@ public class HmxyHud {
 					int px = (gw - pw) / 2;// 渲染位置X
 					int py = gh - ph;// 渲染位置Y
 					RenderSystem.disableDepthTest();
-					RenderSystem.depthMask(false);
-					RenderSystem.enableBlend();
+					RenderSystem.enableDepthTest();
+					RenderSystem.defaultBlendFunc();
+					RenderSystem.depthMask(true);//立体模型正确渲染
+					RenderSystem.enableBlend();//透明材质
 					RenderSystem.setShader(GameRenderer::getPositionTexShader);
 					RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
 							GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
 							GlStateManager.DestFactor.ZERO);
-					RenderSystem.setShaderColor(1, 1, 1, 1);
-					RenderSystem.setShaderTexture(0, hudLocation);
+					RenderSystem.setShaderColor(1, 1, 1	, 1);//不为白色时，硬编码颜色
+					RenderSystem.setShaderTexture(0, hudLocation);//设置图片
 
 					// 物品栏
 					Gui.blit(mStack, px, gh - ph, 0, 0, pw, ph, tw, th);
@@ -120,22 +124,19 @@ public class HmxyHud {
 					List<ItemStack> itemStacks = player.getInventory().items;
 					ItemRenderer render = mc.getItemRenderer();
 					ItemStack itemStack;
+					int i1 = 1;
 					for (int i = 0; i < 9; i++) {
 						itemStack = itemStacks.get(i);
 						render.renderGuiItem(itemStack, px + 25 + 20 * i, py + 15);
 						render.renderGuiItemDecorations(mc.font, itemStack, px + 25 + 20 * i, py + 15);
+						
 					}
+					// 副手物品
 					NonNullList<ItemStack> offhandList = player.getInventory().offhand;
 					ItemStack offHand = offhandList.get(0);
-					// 副手物品
 					render.renderGuiItem(offHand, px + 5, py + 15);
 					render.renderGuiItemDecorations(mc.font, offHand, px + 5, py + 15);
 
-					RenderSystem.depthMask(true);
-					RenderSystem.defaultBlendFunc();
-					RenderSystem.enableDepthTest();
-					RenderSystem.disableBlend();
-					RenderSystem.setShaderColor(1, 1, 1, 1);
 				}
 			}));
 
@@ -300,7 +301,6 @@ public class HmxyHud {
 				else if (i * 2 + 1 + heart == health)
 					forgeGui.blit(mStack, x, top+yOffset, HALF, 9, 9, 9);
 			}
-
 			forgeGui.right_height += 10;
 		}
 		RenderSystem.disableBlend();

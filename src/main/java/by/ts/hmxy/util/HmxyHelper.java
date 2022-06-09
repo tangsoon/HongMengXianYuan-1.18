@@ -415,14 +415,14 @@ public class HmxyHelper {
 			int boxAbsX, int boxAbsY, int boxWidth, int boxHeight, Font font, Component component, int color,
 			boolean shadow) {
 		matrixStack.pushPose();
-		int textX = boxAbsX + Math.abs(boxWidth - (int) (font.width(component.getString()) * scale)) / 2;
-		int textY = boxAbsY + Math.abs((boxHeight - (int) (font.lineHeight * scale)) / 2);
+		int textXPre = boxAbsX + (int)(boxWidth - (font.width(component))) / 2;
+		int textYPre = boxAbsY + (int)((boxHeight - (font.lineHeight)) / 2);
+		int textX = boxAbsX + (int)(boxWidth -  (font.width(component) * scale)) / 2;
+		int textY = boxAbsY + (int)((boxHeight -  (font.lineHeight * scale)) / 2);
 		matrixStack.translate(textX, textY, 0);
 		matrixStack.scale(scale, scale, 0F);
-		matrixStack.translate(-textX, -textY, 0);
-		// font.draw(matrixStack, component, textX, textY, color);
-		// font.drawShadow(matrixStack, component, textX, textY, 0xff0000);
-		drawString(matrixStack, component, textX, textY, color, font, shadow);
+		matrixStack.translate(-textXPre, -textYPre, 0);
+		drawString(matrixStack, component, textXPre, textYPre, color, font, shadow);
 		matrixStack.popPose();
 	}
 	

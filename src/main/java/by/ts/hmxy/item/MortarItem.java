@@ -65,6 +65,6 @@ public class MortarItem extends Item implements MenuProvider{
 
 	@Override
 	public Component getDisplayName() {
-		return TransMsg.CONTAINER_MORTAR.create();
+		return TransMsg.CONTAINER_MORTAR.get();
 	}
 }

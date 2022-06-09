@@ -114,7 +114,7 @@ public class MedicineBottleItem extends Item {
 		super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
 		Data data=new Data(pStack);
 		pTooltipComponents.add(TransMsg.blockLocallizedName(data.getLingZhi()));
-		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_QUALITY.create(data.getQuality(),CAPACITY));
-		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.create(data.getEffective()));
+		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_QUALITY.get(data.getQuality(),CAPACITY));
+		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.get(data.getEffective()));
 	}
 }

@@ -33,44 +33,50 @@ public class ElixirFurnaceScreen extends BaseSreen<ElixirFurnaceMenu> {
 
 	protected void init() {
 		super.init();
+		
+		
 		int tempX = this.x;
 		// 温度条
 		this.addRenderableOnly(new FurnaceProgressBar(tempX = tempX + 18, this.y + 79, 252, 9,
 				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_PROGRESS_TEMPERATURE
-						.create(ElixirFurnaceScreen.this.be.getTemperature())),
+						.get(ElixirFurnaceScreen.this.be.getTemperature())),
 				() -> Math.min(ElixirFurnaceScreen.this.be.getTemperature() / TemperatureBE.MAX_TEMPERATURE, 1F)));
 
 		// 耐久条
 
 		this.addRenderableOnly(new FurnaceProgressBar(tempX += 8, this.y + 79, 248, 9,
 				() -> Arrays.asList(
-						TransMsg.ELIXIR_FURNACE_PROGRESS_DURATION.create(ElixirFurnaceScreen.this.be.getTemperature())),
+						TransMsg.ELIXIR_FURNACE_PROGRESS_DURATION.get(ElixirFurnaceScreen.this.be.getTemperature())),
 				() -> Math.min(furnanceData.getRestDuration() / furnanceData.getMaxDuration(), 1.0F)));
 
 		// 硬度
 
 		this.addRenderableOnly(new FurnaceProgressBar(tempX += 8, this.y + 79, 244, 9,
 				() -> Arrays.asList(
-						TransMsg.ELIXIR_FURNACE_PROGRESS_HARDNESS.create(ElixirFurnaceScreen.this.be.getTemperature())),
+						TransMsg.ELIXIR_FURNACE_PROGRESS_HARDNESS.get(ElixirFurnaceScreen.this.be.getTemperature())),
 				() -> Math.min(furnanceData.getWallStrength() / ElixirFurnaceBlock.MAX_HARDNESS, 1.0F)));
 
 		// 炉盖
 		this.addRenderableOnly(new SlotWidget(tempX += 6 + 4, this.y + 79, this,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_COVER.create())));
+				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_COVER.get())));
+		
 		// 配方
 		this.addRenderableOnly(new SlotWidget(tempX += 18 + 4, this.y + 79, this,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.create())));
-		// 按钮
-		// this.addRenderableWidget(new PacketButton(tempX, tempX, tempX, tempX, tempX,
-		// tempX, tempX, BACKGROUND_LOCATION, tempX, tempX, null));
+				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
 		this.addRenderableWidget(new PacketButton(tempX += 18 + 4, this.y + 79, 35, 18, 221, 45, this.texture,
-				ButtonPacket.NING_DAN, null, title));
-
+				ButtonPacket.NING_DAN, ()->null, TransMsg.ELIXIR_FURNACE_NING_DAN.get()));
+		//丹药
+		this.addRenderableOnly(new SlotWidget(tempX += 35 + 4, this.y + 79, this,
+				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
+		
+		
+		
+		
 		int offSetX = (9 - this.furnanceData.getElixirInvCount()) / 2;
 		for (int i = 0; i < this.furnanceData.getElixirInvCount(); i++) {
 			// 灵植
 			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 24, this,
-					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_LING_ZHI_TIP.create())));
+					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_LING_ZHI_TIP.get())));
 
 			// 提炼进度
 			this.addRenderableOnly(new ProgressBar(this.x + 19 + 18 * (i + offSetX), this.y + 43, 8, 10, TransMsg.EMPTY,
@@ -78,7 +84,7 @@ public class ElixirFurnaceScreen extends BaseSreen<ElixirFurnaceMenu> {
 
 				@Override
 				public List<Component> getTips() {
-					return Arrays.asList(TransMsg.ELIXIR_FURNACE_EXTRACT_PROGRESS.create(1.0F));
+					return Arrays.asList(TransMsg.ELIXIR_FURNACE_EXTRACT_PROGRESS.get(1.0F));
 				}
 
 				@Override
@@ -90,9 +96,13 @@ public class ElixirFurnaceScreen extends BaseSreen<ElixirFurnaceMenu> {
 
 			// 药罐
 			this.addRenderableOnly(new SlotWidget(this.x + 15 + 18 * (i + offSetX), this.y + 54, this,
-					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_BOTTLE_TIP.create())));
+					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_BOTTLE_TIP.get())));
 		}
 
+		
+		
+
+		
 	}
 
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {

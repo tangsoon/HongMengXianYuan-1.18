@@ -31,7 +31,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE) {
 			@Override
 			public List<Component> getTips() {
-				return Arrays.asList(TransMsg.DEFAULT.create());
+				return Arrays.asList(TransMsg.DEFAULT.get());
 			}
 		});
 	}

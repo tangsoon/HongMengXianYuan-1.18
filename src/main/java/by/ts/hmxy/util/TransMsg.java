@@ -21,9 +21,6 @@ public class TransMsg {
 	public static final TransMsg CONTAINER_ELIXIR_FURNACE_ROOT=create("screen.elixir_furnace_root", "炉基");
 	public static final TransMsg CONTAINER_ELIXIR_FURNACE=create("screen.elixir_furnace", "炼丹炉");
 	public static final TransMsg SLIDER_LING_QI_CONSUME=create("str.ling_qi_valve","灵气消耗: %f");
-//	public static final TransMsg ELIXIR_FURNACE_TEMPERATURE=create("str.elixir_furnace_temperature","温度");
-//	public static final TransMsg ELIXIR_FURNACE_DURATION=create("str.elixir_furnace_duration","耐久");
-//	public static final TransMsg ELIXIR_FURNACE_HARDNESS=create("str.elixir_furnace_hardness","硬度");
 	public static final TransMsg PROGRESS_BAR=create("progress_bar", "进度条");
 	public static final TransMsg ELIXIR_FURNACE_PROGRESS_TEMPERATURE=create("str.elixir_furnace_progress_temperature","温度: %.2f");
 	public static final TransMsg ELIXIR_FURNACE_PROGRESS_DURATION=create("str.elixir_furnace_progress_duration","耐久: %.2f");
@@ -34,6 +31,7 @@ public class TransMsg {
 	public static final TransMsg ELIXIR_FURNACE_COVER=create("str.elixir_furnace_cover","炉盖");
 	public static final TransMsg ELIXIR_FURNACE_RECIPE=create("str.elixir_furnace_recipe","丹方");
 	public static final TransMsg ELIXIR_FURNACE_ELIXIR=create("str.elixir_furnace_elixir","丹药");
+	public static final TransMsg ELIXIR_FURNACE_NING_DAN=create("str.elixir_ning_dan","凝丹");
 	
 	public static final TextComponent EMPTY=new TextComponent("");
 	public static final TransMsg DEFAULT=create("defualt", "默认文字");
@@ -43,7 +41,7 @@ public class TransMsg {
 		this.key=key;
 	}
 	
- 	public TranslatableComponent create(Object... args) {
+ 	public TranslatableComponent get(Object... args) {
  		return new TranslatableComponent(key,args);
  	}
 

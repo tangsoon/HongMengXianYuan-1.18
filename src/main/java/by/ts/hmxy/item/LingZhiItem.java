@@ -48,7 +48,7 @@ public class LingZhiItem extends Item{
 			TooltipFlag pIsAdvanced) {
 		LingZhiBE be=this.getLingZhiBE(pStack);
 		LingZhiBlock.GENE_HELPER.appendHoverText(be.DNA, pLevel, pTooltipComponents, pIsAdvanced);
-		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.create(be.getMedicinal()));
+		pTooltipComponents.add(TransMsg.MEDICINE_BOTTLE_EFFECTIVE.get(be.getMedicinal()));
 	}
 	
 	public ItemStack createItemStack(BlockGetter blockGetter, BlockPos pPos, BlockState pState) {

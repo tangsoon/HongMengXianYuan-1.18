@@ -154,7 +154,7 @@ public class ElixirFurnaceRootBlock extends WaterloggedBlockBase implements Enti
 
 		@Override
 		public Component getDisplayName() {
-			return TransMsg.CONTAINER_ELIXIR_FURNACE_ROOT.create();
+			return TransMsg.CONTAINER_ELIXIR_FURNACE_ROOT.get();
 		}
 
 		@Override

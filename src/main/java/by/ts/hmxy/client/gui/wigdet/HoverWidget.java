@@ -2,6 +2,8 @@ package by.ts.hmxy.client.gui.wigdet;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.network.chat.Component;
 
 /**
@@ -10,5 +12,6 @@ import net.minecraft.network.chat.Component;
  *
  */
 public interface HoverWidget {
+	@Nullable
 	List<Component> getTips();
 }

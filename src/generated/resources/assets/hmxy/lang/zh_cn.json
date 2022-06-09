@@ -98,6 +98,7 @@
   "str.elixir_furnace_progress_hardness": "硬度: %.2f",
   "str.elixir_furnace_progress_temperature": "温度: %.2f",
   "str.elixir_furnace_recipe": "丹方",
+  "str.elixir_ning_dan": "凝丹",
   "str.genes_a": "基因序列A",
   "str.genes_b": "基因序列B",
   "str.ling_qi_valve": "灵气消耗: %f",

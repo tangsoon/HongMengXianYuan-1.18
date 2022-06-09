@@ -33,7 +33,7 @@ public class SlotWidget extends HoverWidgetImp{
 	@Override
 	public List<Component> getTips() {
 		Slot hoveredSlot=screen.getHoverdSlot();
-		if(hoveredSlot!=null&&hoveredSlot.getItem()==ItemStack.EMPTY) {
+		if(hoveredSlot!=null&&hoveredSlot.getItem()!=ItemStack.EMPTY) {
 			return new ArrayList<>();
 		}
 		return componentSupplier.get();

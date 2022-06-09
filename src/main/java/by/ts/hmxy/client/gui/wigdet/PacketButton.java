@@ -91,6 +91,6 @@ public class PacketButton extends ImageButton implements HoverWidget {
 
 	@Override
 	public List<Component> getTips() {
-		return componentSup.get();
+			return componentSup.get();	
 	}
 }

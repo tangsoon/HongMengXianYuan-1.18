@@ -12,10 +12,11 @@ public class ElixirFurnaceMenu extends BaseBlockMenu<ElixirFurnaceBlock.ElixirFu
 		super(MenuTypes.ELIXIR_FURNACE.get(), pContainerId, inv, pos);
 		this.addInvToMenu(16, 167, 16, 109);
 		this.blockEntityData = this.getBe().getData();
-		this.addSlots(blockEntityData.getBottles(), this.blockEntityData.getElixirInvCount(), 16, 55);
-		this.addSlots(blockEntityData.getLingZhiHandler(), this.blockEntityData.getElixirInvCount(), 16, 25);
-		this.addSlots(blockEntityData.getFurnaceCover(), 1, 74, 80);
-		this.addSlots(blockEntityData.getElixirRecipe(), 1, 96, 80);		
+		this.addSlots(blockEntityData.getBottles(), this.blockEntityData.getElixirInvCount(), 16, 55,true);
+		this.addSlots(blockEntityData.getLingZhiHandler(), this.blockEntityData.getElixirInvCount(), 16, 25,true);
+		this.addSlots(blockEntityData.getFurnaceCover(), 1, 45, 80,false);
+		this.addSlots(blockEntityData.getElixirRecipe(), 1, 67, 80,false);
+		this.addSlots(blockEntityData.getElixir(), 1, 128, 80, false);
 		this.addDataSlots(this.blockEntityData);
 	}
 }

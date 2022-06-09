@@ -103,9 +103,9 @@ public class GeneHelper<T extends IDNA> {
 
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(DNA dna, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-		pTooltip.add(TransMsg.GENES_A.create());
+		pTooltip.add(TransMsg.GENES_A.get());
 		this.appendHoverText(dna.getGenesA(), pLevel, pTooltip, pFlag);
-		pTooltip.add(TransMsg.GENES_B.create());
+		pTooltip.add(TransMsg.GENES_B.get());
 		this.appendHoverText(dna.getGenesB(), pLevel, pTooltip, pFlag);
 	}
 	@OnlyIn(Dist.CLIENT)

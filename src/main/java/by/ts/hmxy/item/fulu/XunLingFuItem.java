@@ -34,7 +34,7 @@ public class XunLingFuItem extends FuLuItem {
 			chunk.getCapability(Capabilities.CHUNK_INFO).ifPresent(info -> {
 				if (pPlayer instanceof ServerPlayer sPlayer
 						&& sPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE) {
-					pPlayer.sendMessage(TransMsg.XUN_LING_FU.create(chunkX, chunkZ,info.getLingQi()), Util.NIL_UUID);
+					pPlayer.sendMessage(TransMsg.XUN_LING_FU.get(chunkX, chunkZ,info.getLingQi()), Util.NIL_UUID);
 				}
 			});
 		}

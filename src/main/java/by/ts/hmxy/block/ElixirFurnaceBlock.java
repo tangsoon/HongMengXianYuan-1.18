@@ -134,6 +134,8 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 		private ItemStackHandler furnaceCover;
 		/** 丹方 */
 		private ItemStackHandler elixirRecipe;
+		/**丹药*/
+		private ItemStackHandler elixir;
 
 		@Override
 		public int get(int pIndex) {
@@ -199,6 +201,13 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 					return stack.getItem() instanceof ElixirRecipe;
 				}
 			};
+			
+			this.elixir=new ItemStackHandler(1) {
+				@Override
+				public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+					return false;
+				}
+			};
 		}
 		
 
@@ -219,17 +228,23 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 			tag.putInt("maxDuration", maxDuration);
 			tag.putInt("restDuration", restDuration);
 			tag.putFloat("wallStrength", wallStrength);
+			tag.put("furnaceCover", this.furnaceCover.serializeNBT());
+			tag.put("elixirRecipe", this.elixirRecipe.serializeNBT());
+			tag.put("elixir", this.elixir.serializeNBT());
 			return tag;
 		}
 
 		@Override
 		public void deserializeNBT(CompoundTag nbt) {
 			this.elixirInvCount = nbt.getInt("elixirInvCount");
-			bottles.deserializeNBT(nbt.getCompound("bottles"));
+			this.bottles.deserializeNBT(nbt.getCompound("bottles"));
 			this.lingZhiHandler.deserializeNBT(nbt.getCompound("lingZhiHandler"));
 			this.maxDuration = nbt.getInt("maxDuration");
 			this.restDuration = nbt.getInt("restDuration");
 			this.wallStrength = nbt.getFloat("wallStrength");
+			this.furnaceCover.deserializeNBT(nbt.getCompound("furnaceCover"));
+			this.elixirRecipe.deserializeNBT(nbt.getCompound("elixirRecipe"));
+			this.elixir.deserializeNBT(nbt.getCompound("elixir"));
 		}
 
 		public int getElixirInvCount() {
@@ -295,6 +310,14 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 		public void setElixirRecipe(ItemStackHandler elixirRecipe) {
 			this.elixirRecipe = elixirRecipe;
 		}
+
+		public ItemStackHandler getElixir() {
+			return elixir;
+		}
+
+		public void setElixir(ItemStackHandler elixir) {
+			this.elixir = elixir;
+		}
 	}
 
 	public static class ElixirFurnaceBE extends TemperatureBE implements MenuProvider {
@@ -332,7 +355,7 @@ public class ElixirFurnaceBlock extends WaterloggedBlockBase implements EntityBl
 
 		@Override
 		public Component getDisplayName() {
-			return TransMsg.CONTAINER_ELIXIR_FURNACE.create();
+			return TransMsg.CONTAINER_ELIXIR_FURNACE.get();
 		}
 	}
 }

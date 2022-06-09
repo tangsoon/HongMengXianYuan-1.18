@@ -2,7 +2,6 @@ package by.ts.hmxy.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import by.ts.hmxy.client.gui.wigdet.HoverWidget;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
@@ -36,18 +35,21 @@ public abstract class BaseSreen<T extends AbstractContainerMenu> extends Abstrac
 		this.renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		this.customRender(matrixStack, mouseX, mouseY, partialTicks);
-		this.renderWidgetTip(matrixStack, mouseX, mouseY,partialTicks);
+		this.renderWidgetTip(matrixStack, mouseX, mouseY, partialTicks);
 		this.renderTooltip(matrixStack, mouseX, mouseY);
 	}
 
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 
 	}
-	
+
 	public void renderWidgetTip(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		for(Widget w:this.renderables) {
-			if(w instanceof AbstractWidget aw&&aw.isHoveredOrFocused()&&w instanceof HoverWidget hw) {
-				this.renderComponentTooltip(matrixStack, hw.getTips(), mouseX, mouseY);
+		for (Widget w : this.renderables) {
+			if (w instanceof AbstractWidget aw&&aw.isHoveredOrFocused()&&w instanceof HoverWidget hw) {
+				var components = hw.getTips();
+				if (components!=null&&components.size() > 0) {
+					this.renderComponentTooltip(matrixStack, components, mouseX, mouseY);
+				}
 			}
 		}
 	}
@@ -62,8 +64,9 @@ public abstract class BaseSreen<T extends AbstractContainerMenu> extends Abstrac
 		RenderSystem.setShaderTexture(0, texture);
 		this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageWidth);
 	}
-	
+
 	public Slot getHoverdSlot() {
 		return this.hoveredSlot;
 	}
 }
+//写一个布局管理器不太现实，开发成本和调用成本很高。

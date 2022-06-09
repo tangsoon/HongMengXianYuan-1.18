@@ -26,7 +26,7 @@ public abstract class BaseSlider extends AbstractSliderButton implements HoverWi
 
 	public BaseSlider(int pX, int pY, int pWidth, int pHeight, TransMsg msg, double pValue, double valueMulti,
 			ResourceLocation texture) {
-		super(pX, pY, pWidth, pHeight, msg.create(valueMulti * pValue), pValue);
+		super(pX, pY, pWidth, pHeight, msg.get(valueMulti * pValue), pValue);
 		this.texture = texture;
 		this.valueMulti = valueMulti;
 		this.msg = msg;
@@ -36,7 +36,7 @@ public abstract class BaseSlider extends AbstractSliderButton implements HoverWi
 	@Override
 	protected void updateMessage() {
 		float a = ((int) (this.value * valueMulti * 10)) / 10F;
-		this.setMessage(msg.create(a));
+		this.setMessage(msg.get(a));
 	}
 
 	public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {

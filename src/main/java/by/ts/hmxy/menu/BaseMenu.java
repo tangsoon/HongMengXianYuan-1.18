@@ -34,20 +34,44 @@ public abstract class BaseMenu extends AbstractContainerMenu {
 	 * constructor
 	 */
 	public void addInvToMenu(int shortcutsX, int shortcutsY, int invX, int invY) {
-		this.addSlots(playerInventory, 0, 9, shortcutsX, shortcutsY);
-		this.addSlots(playerInventory, 9, 27, invX, invY);
+		this.addSlots(playerInventory, 0, 9, shortcutsX, shortcutsY,false);
+		this.addSlots(playerInventory, 9, 27, invX, invY,false);
 	}
 
-	public void addSlots(IItemHandler handler, int count, int startPosX, int startPosY) {
-		this.addSlots(handler, 0, count, startPosX, startPosY);
+	/**
+	 * 默认从index 0开始。
+	 * @param handler
+	 * @param count
+	 * @param startPosX
+	 * @param startPosY
+	 */
+	public void addSlots(IItemHandler handler, int count, int startPosX, int startPosY,boolean center) {
+		this.addSlots(handler, 0, count, startPosX, startPosY,center);
 	}
 
-	public void addSlots(IItemHandler handler, int startIndex, int count, int startPosX, int startPosY) {
-		this.addSlots(handler, startIndex, count, 9, startPosX, startPosY);
+	/**
+	 * 默认一行个数为9。
+	 * @param handler
+	 * @param startIndex
+	 * @param count
+	 * @param startPosX
+	 * @param startPosY
+	 */
+	public void addSlots(IItemHandler handler, int startIndex, int count, int startPosX, int startPosY,boolean center) {
+		this.addSlots(handler, startIndex, count, 9, startPosX, startPosY,center);
 	}
 
-	public void addSlots(IItemHandler handler, int startIndex, int count, int colCount, int startPosX, int startPosY) {
-		this.addSlots(handler, startIndex, count, colCount, startPosX, startPosY, 0, 0);
+	/**
+	 * 默认间距未0.
+	 * @param handler
+	 * @param startIndex
+	 * @param count
+	 * @param colCount
+	 * @param startPosX
+	 * @param startPosY
+	 */
+	public void addSlots(IItemHandler handler, int startIndex, int count, int colCount, int startPosX, int startPosY,boolean center) {
+		this.addSlots(handler, startIndex, count, colCount, startPosX, startPosY, 0, 0,center);
 	}
 
 	/**
@@ -61,15 +85,16 @@ public abstract class BaseMenu extends AbstractContainerMenu {
 	 * @param startPosY  slot开始位置y
 	 * @param colSpace   两个slot的列距
 	 * @param rowSpace   两个slot的行距
+	 * @param center     自动居中
 	 */
 	public void addSlots(IItemHandler handler, int startIndex, int count, int colCount, int startPosX, int startPosY,
-			int colSpace, int rowSpace) {
+			int colSpace, int rowSpace, boolean center) {
+		int offsetX=center?(colCount - count) / 2:0;
 		for (int i = 0; i < count; i++) {
 			int stackIndex = i + startIndex;
-			int colPosition = startPosX + i % colCount * (18 + colSpace);
+			int colPosition = startPosX + (i % colCount+offsetX) * (18 + colSpace);
 			int rowPosition = startPosY + i / colCount * (18 + rowSpace);
 			this.addSlot(new SlotItemHandler(handler, stackIndex, colPosition, rowPosition));
 		}
 	}
-
 }

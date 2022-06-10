@@ -28,6 +28,7 @@ public class GridWidget implements Widget{
 	protected float r=1.0F;
 	protected float g=1.0F;
 	protected float b=1.0F;
+	protected float a=1.0F;
 	
 	protected ResourceLocation texture; 
 	
@@ -39,6 +40,7 @@ public class GridWidget implements Widget{
 	
 	private GuiComponent gui;
 	public GridWidget(ResourceLocation texture,Supplier<Integer> leftPos,Supplier<Integer> topPos,GuiComponent gui) {
+		this.texture=texture;
 		this.leftPos=leftPos;
 		this.topPos=topPos;
 		this.gui=gui;
@@ -48,7 +50,7 @@ public class GridWidget implements Widget{
 	public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
 		RenderSystem.setShaderTexture(0, this.texture);
 		RenderSystem.enableBlend();
-		RenderSystem.setShaderColor(r, g, b, 1.0F);
+		RenderSystem.setShaderColor(r, g, b, a);
 		int x=this.leftPos.get();
 		int y=this.topPos.get();
 		
@@ -73,36 +75,36 @@ public class GridWidget implements Widget{
 	
 	public GridWidget setWidth1(int width1) {
 		this.width1 = width1;
-		refreshImageSize();
+		
 		return this;
 	}
 
 	public GridWidget setWidth2(int width2) {
 		this.width2 = width2;
-		refreshImageSize();
+		
 		return this;
 	}
 
 	public GridWidget setWidth3(int width3) {
 		this.width3 = width3;
-		refreshImageSize();
+		
 		return this;
 	}
 
 	public GridWidget setHeight1(int height1) {
 		this.height1 = height1;
-		refreshImageSize();
+		
 		return this;
 	}
 	public GridWidget setHeight2(int height2) {
 		this.height2 = height2;
-		refreshImageSize();
+		
 		return this;
 	}
 
 	public GridWidget setHeight3(int height3) {
 		this.height3 = height3;
-		refreshImageSize();
+		
 		return this;
 	}
 	
@@ -115,10 +117,12 @@ public class GridWidget implements Widget{
 		this.maxHeight2 = maxHeight2;
 		return this;
 	}
-
-	public GridWidget setTexture(ResourceLocation texture){
-		this.texture=texture;
-		refreshImageSize();
+	
+	public GridWidget setColor(float r,float g,float b,float a){
+		this.r=r;
+		this.g=g;
+		this.b=b;
+		this.a=a;
 		return this;
 	}
 }

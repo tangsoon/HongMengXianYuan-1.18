@@ -45,10 +45,10 @@ public abstract class BaseSreen<T extends AbstractContainerMenu> extends Abstrac
 		}
 	}
 
-	@Override
-	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-		drawCenteredString(matrixStack, font, title, this.imageWidth / 2, titleOffSetY, 0xffffff);
-	}
+//	@Override
+//	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
+//		//drawCenteredString(matrixStack, font, title, this.imageWidth / 2, titleOffSetY, 0xffffff);
+//	}
 
 	@Override
 	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {

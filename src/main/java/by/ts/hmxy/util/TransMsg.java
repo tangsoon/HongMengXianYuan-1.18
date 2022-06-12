@@ -23,7 +23,7 @@ public class TransMsg {
 	public static final TransMsg SLIDER_LING_QI_CONSUME=create("str.ling_qi_valve","灵气消耗: %f");
 	public static final TransMsg PROGRESS_BAR=create("progress_bar", "进度条");
 	public static final TransMsg ELIXIR_FURNACE_PROGRESS_TEMPERATURE=create("str.elixir_furnace_progress_temperature","温度: %.2f");
-	public static final TransMsg ELIXIR_FURNACE_PROGRESS_DURATION=create("str.elixir_furnace_progress_duration","耐久: %.2f");
+	public static final TransMsg PROGRESS_BAR_TIP=create("str.progress_bar_tip","进度条: %.2f");
 	public static final TransMsg ELIXIR_FURNACE_PROGRESS_HARDNESS=create("str.elixir_furnace_progress_hardness","硬度: %.2f");
 	public static final TransMsg ELIXIR_FURNACE_LING_ZHI_TIP=create("str.elixir_furnace_ling_zhi_tip","灵植");
 	public static final TransMsg ELIXIR_FURNACE_BOTTLE_TIP=create("str.elixir_furnace_bottle_tip","药罐");

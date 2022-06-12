@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
  * @author tangsoon
  *
  */
-public abstract class ProgressBar extends AbstractWidget implements HoverWidget {
+public abstract class ProgressBar extends AbstractWidget implements HoveredWidget {
 
 	private ResourceLocation texture;
 	private int texBgU;

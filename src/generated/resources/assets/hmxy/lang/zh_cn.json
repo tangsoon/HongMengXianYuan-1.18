@@ -94,7 +94,6 @@
   "str.elixir_furnace_elixir": "丹药",
   "str.elixir_furnace_extract_progress": "提炼进度: %.2f",
   "str.elixir_furnace_ling_zhi_tip": "灵植",
-  "str.elixir_furnace_progress_duration": "耐久: %.2f",
   "str.elixir_furnace_progress_hardness": "硬度: %.2f",
   "str.elixir_furnace_progress_temperature": "温度: %.2f",
   "str.elixir_furnace_recipe": "丹方",
@@ -104,5 +103,6 @@
   "str.ling_qi_valve": "灵气消耗: %f",
   "str.medicine_bottle_effective": "有效成分: %.2f",
   "str.medicine_bottle_quality": "质量: %d/%d",
+  "str.progress_bar_tip": "进度条: %.2f",
   "str.xun_ling_fu": "区块 (%d,%d) 灵气: %.2f"
 }

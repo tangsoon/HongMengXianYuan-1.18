@@ -17,9 +17,11 @@ import net.minecraft.world.entity.player.Inventory;
 public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 
 	ElixirFurnaceRootBE be;
-
+	public static final ResourceLocation TEXTURER = HmxyMod.modLoc(
+			"textures/gui/elixir_furnace_root.png");
+	
 	public ElixirFurnaceRootScreen(ElixirFurnaceRootMenu menu, Inventory inv, Component name) {
-		super(menu, inv, name, new ResourceLocation(HmxyMod.MOD_ID, "textures/gui/elixir_furnace_root.png"));
+		super(menu, inv, name);
 		this.imageWidth = 193;
 		this.imageHeight = 180;
 		be = this.getMenu().getBe();
@@ -28,7 +30,7 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	protected void init() {
 		super.init();
 		this.addRenderableWidget(new PacketSlider(this.leftPos + 65, this.topPos + 61, 100, 8, TransMsg.SLIDER_LING_QI_CONSUME,
-				be.getValve(), be.getMaxLingQiConsume(), this.texture,SliderPacket.LING_QI_VALVE) {
+				be.getValve(), be.getMaxLingQiConsume(), TEXTURER,SliderPacket.LING_QI_VALVE) {
 			@Override
 			public List<Component> getTips() {
 				return Arrays.asList(TransMsg.DEFAULT.get());
@@ -37,7 +39,12 @@ public class ElixirFurnaceRootScreen extends BaseSreen<ElixirFurnaceRootMenu> {
 	}
 	
 	public void customRender(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShaderTexture(0, this.texture);
+		RenderSystem.setShaderTexture(0, TEXTURER);
 		this.blit(matrixStack, this.leftPos+66, this.topPos+34, 0, 246, (int)(96*this.be.getLingQi()/ElixirFurnaceRootBE.MAX_LING_QI_CAPACITY), 10);
+	}
+
+	@Override
+	protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+		this.defaultBackground(pPoseStack, pPartialTick, pMouseX, pMouseY, TEXTURER);
 	}
 }

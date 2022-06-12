@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
  * @author tangsoon
  *
  */
-public interface HoverWidget {
+public interface HoveredWidget {
 	@Nullable
 	List<Component> getTips();
 }

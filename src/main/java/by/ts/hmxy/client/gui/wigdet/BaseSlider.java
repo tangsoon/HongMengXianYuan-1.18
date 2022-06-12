@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
  */
 
 //TODO bug:can not drag
-public abstract class BaseSlider extends AbstractSliderButton implements HoverWidget{
+public abstract class BaseSlider extends AbstractSliderButton implements HoveredWidget{
 
 	protected ResourceLocation texture;
 	protected double valueMulti;

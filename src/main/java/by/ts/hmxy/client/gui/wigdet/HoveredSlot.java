@@ -15,14 +15,14 @@ import net.minecraft.world.item.ItemStack;
  * @author tangsoon
  *
  */
-public class HoverdSlot extends HoveredWidgetImp {
+public class HoveredSlot extends HoveredWidgetImp {
 	
 	private  AbstractContainerScreen<?> screen;
 	private Supplier<List<Component>> componentSupplier;
 	
-	public HoverdSlot(int absX, int absY, AbstractContainerScreen<?> screen,Supplier<List<Component>> componentSupplier) {
+	public HoveredSlot(int absX, int absY, AbstractContainerScreen<?> screen,Supplier<List<Component>> componentSupplier) {
 		super(absX, absY, 18, 18, TransMsg.EMPTY, Textures.GENERAL_UI, 0, 0);
-		this.setColor(0xe6cfb3);
+		this.setColor(0xffe7cc);
 		this.screen=screen;
 		this.componentSupplier=componentSupplier;
 	}

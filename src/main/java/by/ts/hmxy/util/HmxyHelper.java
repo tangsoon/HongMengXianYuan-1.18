@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.TriConsumer;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -443,6 +444,27 @@ public class HmxyHelper {
 		font.drawInBatch(pText.getVisualOrderText(), pX, pY, pColor, shadow, pPoseStack.last().pose(),
 				multibuffersource$buffersource, false, 0, 15728880);
 		multibuffersource$buffersource.endBatch();
+	}
+	
+	/**
+	 * 添加slot到menu或者gui
+	 * @param count
+	 * @param colCount
+	 * @param startPosX
+	 * @param startPosY
+	 * @param colSpace
+	 * @param rowSpace
+	 * @param center
+	 * @param bi
+	 */
+	public static void addSlots(int count, int colCount, int startPosX, int startPosY,
+			int colSpace, int rowSpace, boolean center,TriConsumer<Integer,Integer, Integer> bi) {
+		int offsetX=center?(colCount - count) / 2:0;
+		for (int i = 0; i < count; i++) {
+			int colPosition = startPosX + (i % colCount+offsetX) * (18 + colSpace);
+			int rowPosition = startPosY + i / colCount * (18 + rowSpace);
+			bi.accept(i,colPosition,rowPosition);
+		}
 	}
 
 }

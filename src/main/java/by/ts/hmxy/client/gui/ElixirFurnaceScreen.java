@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import by.ts.hmxy.HmxyMod;
 import by.ts.hmxy.block.ElixirFurnaceBlock;
 import by.ts.hmxy.client.gui.wigdet.GridProgressBar;
-import by.ts.hmxy.client.gui.wigdet.HoverdSlot;
+import by.ts.hmxy.client.gui.wigdet.HoveredSlot;
 import by.ts.hmxy.client.gui.wigdet.GridWidget;
 import by.ts.hmxy.client.gui.wigdet.PacketButton;
 import by.ts.hmxy.client.gui.wigdet.ProgressBar;
@@ -35,7 +35,7 @@ public class ElixirFurnaceScreen extends GridScreen<ElixirFurnaceMenu> {
 	}
 
 	protected GridWidget createGridWidget() {
-		return super.createGridWidget().setWidth1(11).setWidth2(170).setWidth3(11).setHeight1(10).setHeight2(174)
+		return super.createGridWidget().setWidth1(11).setWidth2(170).setWidth3(11).setHeight1(10).setHeight2(178)
 				.setHeight3(2).setMaxWidth2(233).setMaxHeight2(244).setColor(0xffffff).refreshImageSize();
 	}
 
@@ -53,23 +53,25 @@ public class ElixirFurnaceScreen extends GridScreen<ElixirFurnaceMenu> {
 		// 硬度
 		this.addRenderableOnly(new FurnaceProgressBar(tempX = tempX + 8, this.topPos + 79,
 				TransMsg.PROGRESS_BAR_TIP, () -> Float.valueOf(0.5F),0xccd4ff));
-		// 炉盖
-		this.addRenderableOnly(new HoverdSlot(tempX += 6 + 4, this.topPos + 79, this,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_COVER.get())));
-
-		// 配方
-		this.addRenderableOnly(new HoverdSlot(tempX += 18 + 4, this.topPos + 79, this,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
+//		// 炉盖
+//		this.addRenderableOnly(new HoveredSlot(tempX += 6 + 4, this.topPos + 79, this,
+//				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_COVER.get())));
+//
+//		// 配方
+//		this.addRenderableOnly(new HoveredSlot(tempX += 18 + 4, this.topPos + 79, this,
+//				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
+		
+//		// 丹药
+//		this.addRenderableOnly(new HoveredSlot(tempX += 35 + 4, this.topPos + 79, this,
+//				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
+//		
 		this.addRenderableWidget(new PacketButton(tempX += 18 + 4, this.topPos + 79, 35, 18, 221, 45, FURNACE_TEXTURE,
 				ButtonPacket.NING_DAN, () -> null, TransMsg.ELIXIR_FURNACE_NING_DAN.get()));
-		// 丹药
-		this.addRenderableOnly(new HoverdSlot(tempX += 35 + 4, this.topPos + 79, this,
-				() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_RECIPE.get())));
 
 		int offSetX = (9 - this.furnanceData.getElixirInvCount()) / 2;
 		for (int i = 0; i < this.furnanceData.getElixirInvCount(); i++) {
 			// 灵植
-			this.addRenderableOnly(new HoverdSlot(this.leftPos + 15 + 18 * (i + offSetX), this.topPos + 24, this,
+			this.addRenderableOnly(new HoveredSlot(this.leftPos + 15 + 18 * (i + offSetX), this.topPos + 24, this,
 					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_LING_ZHI_TIP.get())));
 
 			// 提炼进度
@@ -90,7 +92,7 @@ public class ElixirFurnaceScreen extends GridScreen<ElixirFurnaceMenu> {
 			});
 
 			// 药罐
-			this.addRenderableOnly(new HoverdSlot(this.leftPos + 15 + 18 * (i + offSetX), this.topPos + 54, this,
+			this.addRenderableOnly(new HoveredSlot(this.leftPos + 15 + 18 * (i + offSetX), this.topPos + 54, this,
 					() -> Arrays.asList(TransMsg.ELIXIR_FURNACE_BOTTLE_TIP.get())));
 		}
 	}
@@ -103,7 +105,7 @@ public class ElixirFurnaceScreen extends GridScreen<ElixirFurnaceMenu> {
 		public FurnaceProgressBar(int pX, int pY, TransMsg msg,
 				Supplier<Float> value,int barColor) {
 			super(pX, pY, 6, 18, msg, value, Direction.UP);
-			this.background.setColor(0xf4eade);
+			this.background.setColor(0xffe7cc);
 			this.bar.setColor(barColor);
 		}
 	}

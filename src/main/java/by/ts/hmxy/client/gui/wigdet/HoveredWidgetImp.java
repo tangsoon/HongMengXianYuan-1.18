@@ -46,12 +46,9 @@ public abstract class HoveredWidgetImp extends AbstractWidget implements Hovered
 	}
 
 	public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-//		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, this.texture);
 		RenderSystem.setShaderColor(color.getR(), color.getG(), color.getB(), color.getA());
 		RenderSystem.enableBlend();
-//		RenderSystem.defaultBlendFunc();
-//		RenderSystem.enableDepthTest();
 		this.blit(pPoseStack, this.x, this.y, this.texBgU, this.texBgV, this.width, this.height);
 	}
 

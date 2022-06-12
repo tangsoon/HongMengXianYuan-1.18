@@ -26,15 +26,15 @@ public class GridProgressBar extends AbstractWidget implements HoveredWidget {
 	private Direction dir;
 	protected GridWidget background;
 	protected GridWidget bar;
-	
-	/**传入一个TransMsg 而不是一个Supplier<List<Component>>*/
-	public GridProgressBar(int pX, int pY, int pWidth, int pHeight,TransMsg msg,
-			Supplier<Float> value, Direction dir) {
-		this(pX, pY, pWidth, pHeight, ()->{
+
+	/** 传入一个TransMsg 而不是一个Supplier<List<Component>> */
+	public GridProgressBar(int pX, int pY, int pWidth, int pHeight, TransMsg msg, Supplier<Float> value,
+			Direction dir) {
+		this(pX, pY, pWidth, pHeight, () -> {
 			return Arrays.asList(msg.get(value.get()));
 		}, value, dir);
 	}
-	
+
 	public GridProgressBar(int pX, int pY, int pWidth, int pHeight, Supplier<List<Component>> tips,
 			Supplier<Float> value, Direction dir) {
 		super(pX, pY, pWidth, pHeight, TransMsg.EMPTY);
@@ -104,11 +104,10 @@ public class GridProgressBar extends AbstractWidget implements HoveredWidget {
 	 * 在这里设置{@link GridWidget}
 	 */
 	protected void createGridWidget() {
-		
+
 		this.background = new GridWidget(GRID_PROGRESS_BAR_BACKGROUND, () -> this.x, () -> this.y, this).setWidth1(2)
 				.setWidth3(2).setWidth2(this.width - 4).setHeight1(2).setHeight3(2).setHeight2(this.height - 4)
-				.setMaxHeight2(252).setMaxWidth2(252)
-				.refreshImageSize();
+				.setMaxHeight2(252).setMaxWidth2(252).refreshImageSize();
 		this.bar = new GridWidget(GRID_PROGRESS_BAR, () -> {
 			if (this.dir == Direction.LEFT) {
 				return this.x + 1 + this.width - 2 - this.getBarWidth();
@@ -118,11 +117,10 @@ public class GridProgressBar extends AbstractWidget implements HoveredWidget {
 			if (this.dir == Direction.UP) {
 				return this.y + 1 + this.height - 2 - this.getBarHeight();
 			}
-				return this.y + 1;
+			return this.y + 1;
 
 		}, this).setWidth1(1).setWidth3(1).setWidth2(this.width - 4).setHeight1(1).setHeight3(1)
-				.setHeight2(this.height - 4).setMaxWidth2(254).setMaxHeight2(254)
-				.refreshImageSize();
+				.setHeight2(this.height - 4).setMaxWidth2(254).setMaxHeight2(254).refreshImageSize();
 	};
 
 	public static enum Direction {
